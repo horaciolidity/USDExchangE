@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Bienvenido a USDExchangE</title>
+    <script src="https://cdn.jsdelivr.net/npm/web3@1.5.2/dist/web3.min.js"></script>
     <style>
         body {
             display: flex;
@@ -44,8 +45,40 @@
 <body>
     <div class="container">
         <div class="titulo">Bienvenido a USDExchangE</div>
-        <button class="boton">Login Web3</button>
+        <button class="boton" onclick="conectarMetaMask()">Login Web3</button>
+        <div id="saldoUSDT"></div>
+        <div id="saldoUSD"></div>
+        <div id="red"></div>
+        <select id="selectRed" style="margin-top: 10px;">
+            <option value="mainnet">Mainnet</option>
+            <option value="rinkeby">Rinkeby Testnet</option>
+            <option value="ropsten">Ropsten Testnet</option>
+            <!-- Agrega más opciones de red según tus necesidades -->
+        </select>
     </div>
+
+    <script>
+        async function conectarMetaMask() {
+            if (typeof window.ethereum !== 'undefined') {
+                const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
+                const networkId = await window.ethereum.request({ method: 'net_version' });
+                const selectedNetwork = document.getElementById('selectRed').value;
+
+                if (networkId !== selectedNetwork) {
+                    alert('Por favor, selecciona la red correcta en MetaMask.');
+                    return;
+                }
+
+                // Ahora puedes usar 'accounts' para interactuar con la cuenta del usuario
+                const userAddress = accounts[0];
+                document.getElementById('saldoUSDT').innerText = `Saldo USDT: ...`; // Debes obtener el saldo real usando una API o contrato inteligente
+                document.getElementById('saldoUSD').innerText = `Saldo USD: ...`; // Debes obtener el saldo real usando una API o contrato inteligente
+                document.getElementById('red').innerText = `Conectado a la red: ${selectedNetwork}`;
+            } else {
+                alert('MetaMask no está instalado. Por favor, instálalo para continuar.');
+            }
+        }
+    </script>
 </body>
 
 </html>
