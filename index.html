@@ -46,6 +46,7 @@
     <div class="container">
         <div class="titulo">Bienvenido a USDExchangE</div>
         <button class="boton" onclick="conectarMetaMask()">Login Web3</button>
+        <div id="direccion"></div>
         <div id="saldoUSDT"></div>
         <div id="saldoUSD"></div>
         <div id="red"></div>
@@ -69,10 +70,24 @@
                     return;
                 }
 
-                // Ahora puedes usar 'accounts' para interactuar con la cuenta del usuario
                 const userAddress = accounts[0];
-                document.getElementById('saldoUSDT').innerText = `Saldo USDT: ...`; // Debes obtener el saldo real usando una API o contrato inteligente
-                document.getElementById('saldoUSD').innerText = `Saldo USD: ...`; // Debes obtener el saldo real usando una API o contrato inteligente
+                document.getElementById('direccion').innerText = `Dirección: ${userAddress}`;
+
+                // Usa el nodo público de Alchemy según la red seleccionada
+                const alchemyUrl = `https://eth-${selectedNetwork}.alchemyapi.io/v2/TU_CLAVE_DE_API`;
+                const web3 = new Web3(new Web3.providers.HttpProvider(alchemyUrl));
+
+                // Obtén el saldo en USDT (Este es solo un ejemplo, necesitarás un contrato real de USDT)
+                const usdtContractAddress = '0xdac17f958d2ee523a2206206994597c13d831ec7'; // Dirección del contrato USDT en la red Ethereum
+                const usdtContract = new web3.eth.Contract([{ "constant": true, "inputs": [{ "name": "_owner", "type": "address" }], "name": "balanceOf", "outputs": [{ "name": "balance", "type": "uint256" }], "type": "function" }], usdtContractAddress);
+
+                const usdtBalance = await usdtContract.methods.balanceOf(userAddress).call();
+
+                // Obtén el saldo en USD (Necesitarás un mecanismo similar para obtener este valor)
+                const usdBalance = 1000; // Esto es solo un ejemplo, necesitarás un mecanismo real para obtener el saldo en USD
+
+                document.getElementById('saldoUSDT').innerText = `Saldo USDT: ${usdtBalance} USDT`;
+                document.getElementById('saldoUSD').innerText = `Saldo USD: ${usdBalance} USD`;
                 document.getElementById('red').innerText = `Conectado a la red: ${selectedNetwork}`;
             } else {
                 alert('MetaMask no está instalado. Por favor, instálalo para continuar.');
