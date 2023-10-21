@@ -26,8 +26,6 @@
         }
 
         .boton {
-            background-color: #4CAF50;
-            color: white;
             padding: 14px 20px;
             margin: 8px 0;
             border: none;
@@ -39,32 +37,41 @@
         .oculto {
             display: none;
         }
+
+        .activo {
+            background-color: green;
+            color: white;
+        }
+
+        .inactivo {
+            background-color: red;
+            color: white;
+        }
     </style>
 </head>
 
 <body>
-     <div class="container">
+    <div class="container">
         <div class="titulo">Bienvenido a USDExchangE</div>
-        <button class="boton" onclick="conectarMetaMask()">Login Web3</button>
+        <button class="boton" id="web3Button" onclick="conectarMetaMask()">Web3 Inactivo</button>
         <div id="direccion" class="oculto"></div>
         <div id="saldoETH" class="oculto"></div>
-       
-<div class="saldo-container oculto" id="saldoContainerUSD">
-    <div class="saldo">Saldo USD: <span id="saldoUSDValor">0</span> USD</div>
-    <button class="boton" id="depositarUSD">Depositar USD</button>
-</div>
 
-<div class="saldo-container oculto" id="saldoContainerUSDT">
-    <div class="saldo">Saldo USDT: <span id="saldoUSDTValor">0</span> USDT</div>
-    <button class="boton" id="comprarUSDT">Comprar USDT</button>
-</div>
+        <div class="saldo-container oculto" id="saldoContainerUSD">
+            <div class="saldo">Saldo USD: <span id="saldoUSDValor">0</span> USD</div>
+            <button class="boton" id="depositarUSD">Depositar USD</button>
+        </div>
 
-
+        <div class="saldo-container oculto" id="saldoContainerUSDT">
+            <div class="saldo">Saldo USDT: <span id="saldoUSDTValor">0</span> USDT</div>
+            <button class="boton" id="comprarUSDT">Comprar USDT</button>
+        </div>
     </div>
-
 
     <script>
         async function conectarMetaMask() {
+            const web3Button = document.getElementById('web3Button');
+
             if (typeof window.ethereum !== 'undefined') {
                 const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
                 const userAddress = accounts[0];
@@ -83,21 +90,27 @@
                 const usdtBalance = 0;
                 const usdBalance = 0;
 
-              // Actualizar los valores de los saldos en el HTML
-        document.getElementById('saldoUSDTValor').innerText = usdtBalance;
-        document.getElementById('saldoUSDValor').innerText = usdBalance;
+                // Actualizar los valores de los saldos en el HTML
+                document.getElementById('saldoUSDTValor').innerText = usdtBalance;
+                document.getElementById('saldoUSDValor').innerText = usdBalance;
 
-        // Mostrar contenedores de saldos y botones después de la conexión
-        document.getElementById('saldoContainerUSD').classList.remove('oculto');
-        document.getElementById('saldoContainerUSDT').classList.remove('oculto');
+                // Mostrar contenedores de saldos y botones después de la conexión
+                document.getElementById('saldoContainerUSD').classList.remove('oculto');
+                document.getElementById('saldoContainerUSDT').classList.remove('oculto');
+
+                // Cambiar el texto y color del botón
+                web3Button.innerText = 'Web3 Activo';
+                web3Button.classList.add('activo');
+                web3Button.classList.remove('inactivo');
             } else {
+                // Cambiar el texto y color del botón
+                web3Button.innerText = 'Web3 Inactivo';
+                web3Button.classList.add('inactivo');
+                web3Button.classList.remove('activo');
+
                 alert('MetaMask no está instalado. Por favor, instálalo para continuar.');
             }
         }
-
-
-        
-       
     </script>
 </body>
 
