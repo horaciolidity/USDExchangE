@@ -49,46 +49,29 @@
         <div id="direccion"></div>
         <div id="saldoUSDT"></div>
         <div id="saldoUSD"></div>
-        <div id="red"></div>
-        <select id="selectRed" style="margin-top: 10px;">
-            <option value="mainnet">Mainnet</option>
-            <option value="rinkeby">Rinkeby Testnet</option>
-            <option value="ropsten">Ropsten Testnet</option>
-            <!-- Agrega más opciones de red según tus necesidades -->
-        </select>
     </div>
 
     <script>
         async function conectarMetaMask() {
             if (typeof window.ethereum !== 'undefined') {
                 const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
-                const networkId = await window.ethereum.request({ method: 'net_version' });
-                const selectedNetwork = document.getElementById('selectRed').value;
-
-                if (networkId !== selectedNetwork) {
-                    alert('Por favor, selecciona la red correcta en MetaMask.');
-                    return;
-                }
-
                 const userAddress = accounts[0];
+
                 document.getElementById('direccion').innerText = `Dirección: ${userAddress}`;
 
-                // Usa el nodo público de Alchemy según la red seleccionada
-                const alchemyUrl = `https://eth-${selectedNetwork}.alchemyapi.io/v2/TU_CLAVE_DE_API`;
-                const web3 = new Web3(new Web3.providers.HttpProvider(alchemyUrl));
+                const web3 = new Web3(window.ethereum);
 
-                // Obtén el saldo en USDT (Este es solo un ejemplo, necesitarás un contrato real de USDT)
-                const usdtContractAddress = '0xdac17f958d2ee523a2206206994597c13d831ec7'; // Dirección del contrato USDT en la red Ethereum
+                // Dirección del contrato USDT en la red Ethereum (Mainnet)
+                const usdtContractAddress = '0xdac17f958d2ee523a2206206994597c13d831ec7';
                 const usdtContract = new web3.eth.Contract([{ "constant": true, "inputs": [{ "name": "_owner", "type": "address" }], "name": "balanceOf", "outputs": [{ "name": "balance", "type": "uint256" }], "type": "function" }], usdtContractAddress);
 
                 const usdtBalance = await usdtContract.methods.balanceOf(userAddress).call();
 
-                // Obtén el saldo en USD (Necesitarás un mecanismo similar para obtener este valor)
-                const usdBalance = 1000; // Esto es solo un ejemplo, necesitarás un mecanismo real para obtener el saldo en USD
+                // Calcula el saldo en USD (Este es solo un ejemplo, necesitarás un mecanismo real para obtener este valor)
+                const usdBalance = usdtBalance / 10 ** 6; // Tether tiene 6 decimales
 
                 document.getElementById('saldoUSDT').innerText = `Saldo USDT: ${usdtBalance} USDT`;
                 document.getElementById('saldoUSD').innerText = `Saldo USD: ${usdBalance} USD`;
-                document.getElementById('red').innerText = `Conectado a la red: ${selectedNetwork}`;
             } else {
                 alert('MetaMask no está instalado. Por favor, instálalo para continuar.');
             }
