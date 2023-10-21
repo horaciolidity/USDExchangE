@@ -48,14 +48,16 @@
         <button class="boton" onclick="conectarMetaMask()">Login Web3</button>
         <div id="direccion" class="oculto"></div>
         <div id="saldoETH" class="oculto"></div>
-        <div id="saldoUSDT" class="oculto"></div>
-        <div id="saldoUSD" class="oculto"></div>
+       <div class="saldo-container oculto" id="saldoContainerUSD">
+            <div class="saldo" id="saldoUSD"></div>
+            <button class="boton" id="depositarUSD" onclick="depositar('USD')">Depositar USD</button>
+        </div>
 
-          <!-- Botón de Depositar USD -->
-        <button class="boton oculto" id="depositarUSD" onclick="depositar('USD')">Depositar USD</button>
-
-        <!-- Botón de Comprar USDT -->
-        <button class="boton oculto" id="comprarUSDT" onclick="comprar('USDT')">Comprar USDT</button>
+        <!-- Contenedor de Saldo y Botón de Comprar USDT -->
+        <div class="saldo-container oculto" id="saldoContainerUSDT">
+            <div class="saldo" id="saldoUSDT"></div>
+            <button class="boton" id="comprarUSDT" onclick="comprar('USDT')">Comprar USDT</button>
+        </div>
     </div>
 
     <script>
@@ -75,8 +77,8 @@
                 document.getElementById('saldoETH').classList.remove('oculto');
 
                 // Saldo ficticio de USDT y USD
-                const usdtBalance = 1000;
-                const usdBalance = 1000;
+                const usdtBalance = 0,0;
+                const usdBalance = 0,0;
 
                 document.getElementById('saldoUSDT').innerText = `Saldo USDT: ${usdtBalance} USDT`;
                 document.getElementById('saldoUSD').innerText = `Saldo USD: ${usdBalance} USD`;
