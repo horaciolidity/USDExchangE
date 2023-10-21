@@ -115,15 +115,18 @@ span {
         <div id="direccion" class="oculto"></div>
         <div id="saldoETH" class="oculto"></div>
 
-        <div class="saldo-container oculto" id="saldoContainerUSD">
-            <div class="saldo">Saldo USD: <span id="saldoUSDValor">0</span> USD</div>
-            <button class="boton" id="depositarUSD">Depositar USD</button>
-        </div>
+       <div class="saldo-container oculto" id="saldoContainerUSD">
+    <div class="saldo">Saldo USD: <span id="saldoUSDValor">0</span> USD</div>
+    <input type="number" id="depositarUSDMonto" placeholder="Ingrese cantidad USD">
+    <button class="boton" id="depositarUSD" onclick="depositar('USD')">Depositar USD</button>
+</div>
 
-        <div class="saldo-container oculto" id="saldoContainerUSDT">
-            <div class="saldo">Saldo USDT: <span id="saldoUSDTValor">0</span> USDT</div>
-            <button class="boton" id="comprarUSDT">Comprar USDT</button>
-        </div>
+<div class="saldo-container oculto" id="saldoContainerUSDT">
+    <div class="saldo">Saldo USDT: <span id="saldoUSDTValor">0</span> USDT</div>
+    <input type="number" id="comprarUSDTMonto" placeholder="Ingrese cantidad USDT">
+    <button class="boton" id="comprarUSDT" onclick="comprar('USDT')">Comprar USDT</button>
+</div>
+
     </div>
 
     <script>
@@ -156,10 +159,15 @@ span {
                 document.getElementById('saldoContainerUSD').classList.remove('oculto');
                 document.getElementById('saldoContainerUSDT').classList.remove('oculto');
 
+                const depositarUSDMonto = document.getElementById('depositarUSDMonto').value;
+                const comprarUSDTMonto = document.getElementById('comprarUSDTMonto').value;
+
+
                 // Cambiar el texto y color del botón
                 web3Button.innerText = 'Web3 Activo';
                 web3Button.classList.add('activo');
                 web3Button.classList.remove('inactivo');
+                
             } else {
                 // Cambiar el texto y color del botón
                 web3Button.innerText = 'Web3 Inactivo';
