@@ -48,17 +48,17 @@
         <button class="boton" onclick="conectarMetaMask()">Login Web3</button>
         <div id="direccion" class="oculto"></div>
         <div id="saldoETH" class="oculto"></div>
-        <!-- Contenedor de Saldo y Botón de Depositar USD -->
+       
 <div class="saldo-container oculto" id="saldoContainerUSD">
-    <div class="saldo" id="saldoUSD"></div>
+    <div class="saldo">Saldo USD: <span id="saldoUSDValor">0</span> USD</div>
     <button class="boton" id="depositarUSD">Depositar USD</button>
 </div>
 
-<!-- Contenedor de Saldo y Botón de Comprar USDT -->
 <div class="saldo-container oculto" id="saldoContainerUSDT">
-    <div class="saldo" id="saldoUSDT"></div>
+    <div class="saldo">Saldo USDT: <span id="saldoUSDTValor">0</span> USDT</div>
     <button class="boton" id="comprarUSDT">Comprar USDT</button>
 </div>
+
 
     </div>
 
@@ -83,7 +83,11 @@
                 const usdtBalance = 0;
                 const usdBalance = 0;
 
-                // Mostrar contenedores de saldos y botones después de la conexión
+              // Actualizar los valores de los saldos en el HTML
+        document.getElementById('saldoUSDTValor').innerText = usdtBalance;
+        document.getElementById('saldoUSDValor').innerText = usdBalance;
+
+        // Mostrar contenedores de saldos y botones después de la conexión
         document.getElementById('saldoContainerUSD').classList.remove('oculto');
         document.getElementById('saldoContainerUSDT').classList.remove('oculto');
             } else {
