@@ -36,10 +36,6 @@
             font-size: 18px;
         }
 
-        .boton:hover {
-            background-color: #45a049;
-        }
-
         .oculto {
             display: none;
         }
@@ -54,7 +50,6 @@
         <div id="saldoETH" class="oculto"></div>
         <div id="saldoUSDT" class="oculto"></div>
         <div id="saldoUSD" class="oculto"></div>
-        <button id="botonDepositar" class="boton oculto" onclick="depositar()">Depositar</button>
     </div>
 
     <script>
@@ -86,22 +81,10 @@
                 document.getElementById('saldoUSD').innerText = `Saldo USD: ${usdBalance} USD`;
                 document.getElementById('saldoUSDT').classList.remove('oculto');
                 document.getElementById('saldoUSD').classList.remove('oculto');
-
-                document.getElementById('botonDepositar').classList.remove('oculto');
             } else {
                 alert('MetaMask no está instalado. Por favor, instálalo para continuar.');
             }
         }
-
-        function depositar() {
-            // Lógica para manejar el depósito aquí
-            alert('Funcionalidad de depósito aún no implementada. Esta es solo una demostración.');
-        }
-
-        // Conectar automáticamente cuando se carga la página (opcional)
-        window.onload = function () {
-            conectarMetaMask();
-        };
     </script>
 </body>
 
