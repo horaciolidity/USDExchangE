@@ -43,22 +43,15 @@
 </head>
 
 <body>
-    <div class="container">
+     <div class="container">
         <div class="titulo">Bienvenido a USDExchangE</div>
         <button class="boton" onclick="conectarMetaMask()">Login Web3</button>
         <div id="direccion" class="oculto"></div>
         <div id="saldoETH" class="oculto"></div>
-       <div class="saldo-container oculto" id="saldoContainerUSD">
-            <div class="saldo" id="saldoUSD"></div>
-            <button class="boton" id="depositarUSD">Depositar USD</button>
-        </div>
-
-        <!-- Contenedor de Saldo y Botón de Comprar USDT -->
-        <div class="saldo-container oculto" id="saldoContainerUSDT">
-            <div class="saldo" id="saldoUSDT"></div>
-            <button class="boton" id="comprarUSDT">Comprar USDT</button>
-        </div>
+        <div id="saldoUSDT" class="oculto"></div>
+        <div id="saldoUSD" class="oculto"></div>
     </div>
+
 
     <script>
         async function conectarMetaMask() {
