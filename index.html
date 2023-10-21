@@ -81,10 +81,9 @@
                 const usdtBalance = 0;
                 const usdBalance = 0;
 
-                document.getElementById('saldoUSDT').innerText = `Saldo USDT: ${usdtBalance} USDT`;
-                document.getElementById('saldoUSD').innerText = `Saldo USD: ${usdBalance} USD`;
-                document.getElementById('saldoUSDT').classList.remove('oculto');
-                document.getElementById('saldoUSD').classList.remove('oculto');
+                // Mostrar contenedores de saldos y botones después de la conexión
+        document.getElementById('saldoContainerUSD').classList.remove('oculto');
+        document.getElementById('saldoContainerUSDT').classList.remove('oculto');
             } else {
                 alert('MetaMask no está instalado. Por favor, instálalo para continuar.');
             }
@@ -92,13 +91,7 @@
 
 
         
-        document.getElementById("depositarUSD").addEventListener("click", function() {
-            depositar('USD');
-        });
-
-        document.getElementById("comprarUSDT").addEventListener("click", function() {
-            comprar('USDT');
-        });
+       
     </script>
 </body>
 
