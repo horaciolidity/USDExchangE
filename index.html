@@ -39,6 +39,10 @@
         .boton:hover {
             background-color: #45a049;
         }
+
+        .oculto {
+            display: none;
+        }
     </style>
 </head>
 
@@ -46,15 +50,11 @@
     <div class="container">
         <div class="titulo">Bienvenido a USDExchangE</div>
         <button class="boton" onclick="conectarMetaMask()">Login Web3</button>
-        <div id="direccion"></div>
-        <div id="saldoETH"></div>
-            </div>
-
-        <div id="saldoUSDT"></div>
-            </div>
-
-        <div id="saldoUSD"></div>
-        <button class="boton" onclick="depositar()">Depositar</button>
+        <div id="direccion" class="oculto"></div>
+        <div id="saldoETH" class="oculto"></div>
+        <div id="saldoUSDT" class="oculto"></div>
+        <div id="saldoUSD" class="oculto"></div>
+        <button class="boton oculto" onclick="depositar()">Depositar</button>
     </div>
 
     <script>
@@ -64,12 +64,14 @@
                 const userAddress = accounts[0];
 
                 document.getElementById('direccion').innerText = `Dirección: ${userAddress}`;
+                document.getElementById('direccion').classList.remove('oculto');
 
                 const web3 = new Web3(window.ethereum);
 
                 const ethBalance = await web3.eth.getBalance(userAddress);
                 const formattedEthBalance = web3.utils.fromWei(ethBalance, 'ether');
                 document.getElementById('saldoETH').innerText = `Saldo ETH: ${formattedEthBalance} ETH`;
+                document.getElementById('saldoETH').classList.remove('oculto');
 
                 // Dirección del contrato USDT en la red Ethereum (Mainnet)
                 const usdtContractAddress = '0xdac17f958d2ee523a2206206994597c13d831ec7';
@@ -78,15 +80,22 @@
                     usdtContractAddress
                 );
                 const usdtBalance = await usdtContract.methods.balanceOf(userAddress).call();
-
-                // Calcula el saldo en USD (Este es solo un ejemplo, necesitarás un mecanismo real para obtener este valor)
                 const usdBalance = usdtBalance / 10 ** 6; // Tether tiene 6 decimales
 
                 document.getElementById('saldoUSDT').innerText = `Saldo USDT: ${usdtBalance} USDT`;
                 document.getElementById('saldoUSD').innerText = `Saldo USD: ${usdBalance} USD`;
+                document.getElementById('saldoUSDT').classList.remove('oculto');
+                document.getElementById('saldoUSD').classList.remove('oculto');
+
+                document.getElementById('botonDepositar').classList.remove('oculto');
             } else {
                 alert('MetaMask no está instalado. Por favor, instálalo para continuar.');
             }
+        }
+
+        function depositar() {
+            // Lógica para manejar el depósito aquí
+            alert('Funcionalidad de depósito aún no implementada. Esta es solo una demostración.');
         }
 
         // Conectar automáticamente cuando se carga la página (opcional)
