@@ -177,6 +177,22 @@ span {
                 alert('MetaMask no está instalado. Por favor, instálalo para continuar.');
             }
         }
+        async function comprar(tipo) {
+    const saldoUSD = parseFloat(document.getElementById('saldoUSDValor').textContent);
+    const comprarUSDTMonto = parseFloat(document.getElementById('comprarUSDTMonto').value);
+
+    if (saldoUSD >= comprarUSDTMonto) {
+        // Aquí colocas la lógica para realizar la compra de USDT
+        // Por ejemplo, podrías deducir el monto de USDT del saldo USDT y actualizar el saldo USD.
+
+        // Mostrar mensaje de éxito
+        alert('Compra de USDT realizada con éxito.');
+    } else {
+        // Mostrar mensaje de error si no hay suficiente saldo USD
+        alert('SALDO USD INSUFICIENTE. Deposita USD para comprar USDT.');
+    }
+}
+
     </script>
 </body>
 
