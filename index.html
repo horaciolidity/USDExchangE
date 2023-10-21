@@ -92,19 +92,13 @@
 
 
         
-        // Nueva función para manejar el depósito
-        function depositar(moneda) {
-            // Aquí puedes implementar la lógica para manejar el depósito de la moneda especificada (USD en este caso)
-            // Puedes mostrar un formulario para ingresar la cantidad a depositar y realizar las operaciones necesarias.
-            alert(`Depositar ${moneda}`);
-        }
+        document.getElementById("depositarUSD").addEventListener("click", function() {
+            depositar('USD');
+        });
 
-        // Nueva función para manejar la compra
-        function comprar(moneda) {
-            // Aquí puedes implementar la lógica para manejar la compra de la moneda especificada (USDT en este caso)
-            // Puedes mostrar un formulario para ingresar la cantidad a comprar y realizar las operaciones necesarias.
-            alert(`Comprar ${moneda}`);
-        }
+        document.getElementById("comprarUSDT").addEventListener("click", function() {
+            comprar('USDT');
+        });
     </script>
 </body>
 
