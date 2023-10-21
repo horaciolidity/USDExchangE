@@ -68,14 +68,9 @@
                 document.getElementById('saldoETH').innerText = `Saldo ETH: ${formattedEthBalance} ETH`;
                 document.getElementById('saldoETH').classList.remove('oculto');
 
-                // Dirección del contrato USDT en la red Ethereum (Mainnet)
-                const usdtContractAddress = '0xdac17f958d2ee523a2206206994597c13d831ec7';
-                const usdtContract = new web3.eth.Contract(
-                    [{ "constant": true, "inputs": [{ "name": "_owner", "type": "address" }], "name": "balanceOf", "outputs": [{ "name": "balance", "type": "uint256" }], "type": "function" }],
-                    usdtContractAddress
-                );
-                const usdtBalance = await usdtContract.methods.balanceOf(userAddress).call();
-                const usdBalance = usdtBalance / 10 ** 6; // Tether tiene 6 decimales
+                // Saldo ficticio de USDT y USD
+                const usdtBalance = 1000;
+                const usdBalance = 1000;
 
                 document.getElementById('saldoUSDT').innerText = `Saldo USDT: ${usdtBalance} USDT`;
                 document.getElementById('saldoUSD').innerText = `Saldo USD: ${usdBalance} USD`;
