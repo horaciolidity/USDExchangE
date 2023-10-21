@@ -41,12 +41,41 @@
     text-transform: uppercase;
     transition: all 0.3s ease;
     box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.3);
+    position: relative;
+
 }
 
 .boton:hover {
     background-color: #ff9900;
 }
+.estado-indicador {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    opacity: 0; /* Comienza como invisible */
+    animation: titilar 1s infinite alternate; /* Aplica la animación */
+}
 
+.activo .estado-indicador {
+    background-color: #00cc00; /* Color verde cuando está activo */
+}
+
+.inactivo .estado-indicador {
+    background-color: #ff3333; /* Color rojo cuando está inactivo */
+}
+
+@keyframes titilar {
+    0% {
+        opacity: 0; /* Invisible al inicio de la animación */
+    }
+    100% {
+        opacity: 1; /* Visible al final de la animación */
+    }
+}
 .oculto {
     display: none;
 }
@@ -82,7 +111,7 @@ span {
 <body>
     <div class="container">
         <div class="titulo">Bienvenido a USDExchangE</div>
-        <button class="boton" id="web3Button" onclick="conectarMetaMask()">Web3 Inactivo</button>
+        <button class="boton" id="web3Button" onclick="conectarMetaMask()">Web3 Inactivo  <span class="estado-indicador" id="activoIndicador"></span></button>
         <div id="direccion" class="oculto"></div>
         <div id="saldoETH" class="oculto"></div>
 
