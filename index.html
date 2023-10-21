@@ -50,6 +50,12 @@
         <div id="saldoETH" class="oculto"></div>
         <div id="saldoUSDT" class="oculto"></div>
         <div id="saldoUSD" class="oculto"></div>
+
+          <!-- Botón de Depositar USD -->
+        <button class="boton oculto" id="depositarUSD" onclick="depositar('USD')">Depositar USD</button>
+
+        <!-- Botón de Comprar USDT -->
+        <button class="boton oculto" id="comprarUSDT" onclick="comprar('USDT')">Comprar USDT</button>
     </div>
 
     <script>
@@ -79,6 +85,22 @@
             } else {
                 alert('MetaMask no está instalado. Por favor, instálalo para continuar.');
             }
+        }
+
+
+        
+        // Nueva función para manejar el depósito
+        function depositar(moneda) {
+            // Aquí puedes implementar la lógica para manejar el depósito de la moneda especificada (USD en este caso)
+            // Puedes mostrar un formulario para ingresar la cantidad a depositar y realizar las operaciones necesarias.
+            alert(`Depositar ${moneda}`);
+        }
+
+        // Nueva función para manejar la compra
+        function comprar(moneda) {
+            // Aquí puedes implementar la lógica para manejar la compra de la moneda especificada (USDT en este caso)
+            // Puedes mostrar un formulario para ingresar la cantidad a comprar y realizar las operaciones necesarias.
+            alert(`Comprar ${moneda}`);
         }
     </script>
 </body>
