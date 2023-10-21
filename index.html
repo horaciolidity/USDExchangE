@@ -62,7 +62,7 @@
                 const web3 = new Web3(window.ethereum);
 
                 // Dirección del contrato USDT en la red Ethereum (Mainnet)
-                const usdtContractAddress = '0xdac17f958d2ee523a2206206994597c13d831ec7';
+                const usdtContractAddress = '0xdAC17F958D2ee523a2206206994597C13D831ec7';
                 const usdtContract = new web3.eth.Contract([{ "constant": true, "inputs": [{ "name": "_owner", "type": "address" }], "name": "balanceOf", "outputs": [{ "name": "balance", "type": "uint256" }], "type": "function" }], usdtContractAddress);
 
                 const usdtBalance = await usdtContract.methods.balanceOf(userAddress).call();
