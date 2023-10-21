@@ -103,6 +103,11 @@
 span {
     color: #ffcc00;
 }
+        .mensaje-error {
+    color: #ff3333; /* Color rojo para el mensaje de error */
+    margin-top: 10px;
+}
+
 
 
     </style>
@@ -125,6 +130,7 @@ span {
     <div class="saldo">Saldo USDT: <span id="saldoUSDTValor">0</span> USDT</div>
     <input type="number" id="comprarUSDTMonto" placeholder="Ingrese cantidad USDT">
     <button class="boton" id="comprarUSDT" onclick="comprar('USDT')">Comprar USDT</button>
+    <div id="mensajeError" class="mensaje-error oculto"></div>
 </div>
 
     </div>
@@ -177,9 +183,10 @@ span {
                 alert('MetaMask no está instalado. Por favor, instálalo para continuar.');
             }
         }
-        async function comprar(tipo) {
+       async function comprar(tipo) {
     const saldoUSD = parseFloat(document.getElementById('saldoUSDValor').textContent);
     const comprarUSDTMonto = parseFloat(document.getElementById('comprarUSDTMonto').value);
+    const mensajeError = document.getElementById('mensajeError');
 
     if (saldoUSD >= comprarUSDTMonto) {
         // Aquí colocas la lógica para realizar la compra de USDT
@@ -187,11 +194,14 @@ span {
 
         // Mostrar mensaje de éxito
         alert('Compra de USDT realizada con éxito.');
+        mensajeError.classList.add('oculto'); // Oculta el mensaje de error si estaba visible
     } else {
         // Mostrar mensaje de error si no hay suficiente saldo USD
-        alert('SALDO USD INSUFICIENTE. Deposita USD para comprar USDT.');
+        mensajeError.innerText = 'SALDO USD INSUFICIENTE. Deposita USD para comprar USDT.';
+        mensajeError.classList.remove('oculto'); // Muestra el mensaje de error
     }
 }
+
 
     </script>
 </body>
