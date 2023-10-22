@@ -123,6 +123,8 @@ span {
         <div class="titulo">Bienvenido a USDExchangE</div>
         <button class="boton" id="web3Button" onclick="conectarMetaMask()">Web3 Inactivo  <span class="estado-indicador" id="activoIndicador"></span></button>
         <div id="direccion" class="oculto"></div>
+       <div id="mensajeRed" class="oculto"></div>
+
         <div id="saldoETH" class="oculto"></div>
 
        <div class="saldo-container oculto" id="saldoContainerUSD">
@@ -142,48 +144,73 @@ span {
     </div>
 
     <script>
-        async function conectarMetaMask() {
-            const web3Button = document.getElementById('web3Button');
+       async function conectarMetaMask() {
+    const web3Button = document.getElementById('web3Button');
+    const mensajeRed = document.getElementById('mensajeRed');
 
-            if (typeof window.ethereum !== 'undefined') {
-                const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
-                const userAddress = accounts[0];
+    if (typeof window.ethereum !== 'undefined') {
+        try {
+            const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
+            const userAddress = accounts[0];
+            const ethereum = window.ethereum;
+            const networkId = await ethereum.request({ method: 'net_version' });
+            const networkName = obtenerNombreRed(networkId);
 
-                document.getElementById('direccion').innerText = `Dirección: ${userAddress}`;
-                document.getElementById('direccion').classList.remove('oculto');
+            document.getElementById('direccion').innerText = `Dirección: ${userAddress}`;
+            document.getElementById('direccion').classList.remove('oculto');
 
-                const web3 = new Web3(window.ethereum);
+            mensajeRed.innerText = `Conectado a la red: ${networkName}`;
+            mensajeRed.classList.remove('oculto');
 
-                const ethBalance = await web3.eth.getBalance(userAddress);
-                const formattedEthBalance = web3.utils.fromWei(ethBalance, 'ether');
-                document.getElementById('saldoETH').innerText = ` ${formattedEthBalance} ETH`;
-                document.getElementById('saldoETH').classList.remove('oculto');
+            const web3 = new Web3(ethereum);
 
-                const usdtBalance = 0;
-                const usdBalance = 0;
+            const ethBalance = await web3.eth.getBalance(userAddress);
+            const formattedEthBalance = web3.utils.fromWei(ethBalance, 'ether');
+            document.getElementById('saldoETH').innerText = ` ${formattedEthBalance} ETH`;
+            document.getElementById('saldoETH').classList.remove('oculto');
 
-                document.getElementById('saldoUSDTValor').innerText = usdtBalance;
-                document.getElementById('saldoUSDValor').innerText = usdBalance;
+            const usdtBalance = 0;
+            const usdBalance = 0;
 
-                document.getElementById('saldoContainerUSD').classList.remove('oculto');
-                document.getElementById('saldoContainerUSDT').classList.remove('oculto');
+            document.getElementById('saldoUSDTValor').innerText = usdtBalance;
+            document.getElementById('saldoUSDValor').innerText = usdBalance;
 
-                const depositarUSDMonto = document.getElementById('depositarUSDMonto').value;
-                const comprarUSDTMonto = document.getElementById('comprarUSDTMonto').value;
+            document.getElementById('saldoContainerUSD').classList.remove('oculto');
+            document.getElementById('saldoContainerUSDT').classList.remove('oculto');
 
+            const depositarUSDMonto = document.getElementById('depositarUSDMonto').value;
+            const comprarUSDTMonto = document.getElementById('comprarUSDTMonto').value;
 
-                web3Button.innerText = 'Web3 Activo';
-                web3Button.classList.add('activo');
-                web3Button.classList.remove('inactivo');
-                
-            } else {
-                web3Button.innerText = 'Web3 Inactivo';
-                web3Button.classList.add('inactivo');
-                web3Button.classList.remove('activo');
-
-                alert('MetaMask no está instalado. Por favor, instálalo para continuar.');
-            }
+            web3Button.innerText = 'Web3 Activo';
+            web3Button.classList.add('activo');
+            web3Button.classList.remove('inactivo');
+        } catch (error) {
+            console.error(error);
         }
+    } else {
+        web3Button.innerText = 'Web3 Inactivo';
+        web3Button.classList.add('inactivo');
+        web3Button.classList.remove('activo');
+
+        alert('MetaMask no está instalado. Por favor, instálalo para continuar.');
+    }
+}
+
+function obtenerNombreRed(networkId) {
+    switch (networkId) {
+        case '1':
+            return 'Mainnet';
+        case '3':
+            return 'Ropsten Testnet';
+        case '4':
+            return 'Rinkeby Testnet';
+        case '42':
+            return 'Kovan Testnet';
+        default:
+            return 'Red Desconocida';
+    }
+}
+
      async function comprar(tipo) {
     const saldoUSD = parseFloat(document.getElementById('saldoUSDValor').textContent);
     const comprarUSDTMonto = parseFloat(document.getElementById('comprarUSDTMonto').value);
