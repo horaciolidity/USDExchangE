@@ -108,9 +108,9 @@ span {
     margin-top: 10px;
 }
         #saldoETH {
-        font-size: 24px; /* Puedes ajustar este valor según tus preferencias */
+        font-size: 54px; /* Puedes ajustar este valor según tus preferencias */
         font-weight: bold; /* Esto hará que el texto sea más grueso, si lo deseas */
-        color: #FF0000; /* Puedes cambiar el color del texto si lo deseas */
+        color: #black; /* Puedes cambiar el color del texto si lo deseas */
     }
 
 
@@ -155,18 +155,15 @@ span {
 
                 const ethBalance = await web3.eth.getBalance(userAddress);
                 const formattedEthBalance = web3.utils.fromWei(ethBalance, 'ether');
-                document.getElementById('saldoETH').innerText = `Saldo ETH: ${formattedEthBalance} ETH`;
+                document.getElementById('saldoETH').innerText = `Balance: ${formattedEthBalance} ETH`;
                 document.getElementById('saldoETH').classList.remove('oculto');
 
-                // Saldo ficticio de USDT y USD
                 const usdtBalance = 0;
                 const usdBalance = 0;
 
-                // Actualizar los valores de los saldos en el HTML
                 document.getElementById('saldoUSDTValor').innerText = usdtBalance;
                 document.getElementById('saldoUSDValor').innerText = usdBalance;
 
-                // Mostrar contenedores de saldos y botones después de la conexión
                 document.getElementById('saldoContainerUSD').classList.remove('oculto');
                 document.getElementById('saldoContainerUSDT').classList.remove('oculto');
 
@@ -174,13 +171,11 @@ span {
                 const comprarUSDTMonto = document.getElementById('comprarUSDTMonto').value;
 
 
-                // Cambiar el texto y color del botón
                 web3Button.innerText = 'Web3 Activo';
                 web3Button.classList.add('activo');
                 web3Button.classList.remove('inactivo');
                 
             } else {
-                // Cambiar el texto y color del botón
                 web3Button.innerText = 'Web3 Inactivo';
                 web3Button.classList.add('inactivo');
                 web3Button.classList.remove('activo');
