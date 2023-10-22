@@ -180,8 +180,6 @@ span {
             document.getElementById('saldoContainerUSD').classList.remove('oculto');
             document.getElementById('saldoContainerUSDT').classList.remove('oculto');
 
-            const depositarUSDMonto = document.getElementById('depositarUSDMonto').value;
-            const comprarUSDTMonto = document.getElementById('comprarUSDTMonto').value;
 
             web3Button.innerText = 'Web3 Activo';
             web3Button.classList.add('activo');
@@ -213,27 +211,7 @@ function obtenerNombreRed(networkId) {
     }
 }
 
-     async function comprar(tipo) {
-    const saldoUSD = parseFloat(document.getElementById('saldoUSDValor').textContent);
-    const comprarUSDTMonto = parseFloat(document.getElementById('comprarUSDTMonto').value);
-    const mensajeError = document.getElementById('mensajeError');
-
-    if (saldoUSD >= comprarUSDTMonto) {
-        alert('Compra de USDT realizada con éxito.');
-
-        setTimeout(function() {
-            mensajeError.classList.add('oculto');
-        }, 3000);
-    } else {
-        mensajeError.innerText = 'SALDO USD INSUFICIENTE. Deposita USD para comprar USDT.';
-        mensajeError.classList.remove('oculto'); 
-
-        setTimeout(function() {
-            mensajeError.classList.add('oculto');
-        }, 3000);
-    }
-}
-
+   
 
 
     </script>
