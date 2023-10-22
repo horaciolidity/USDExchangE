@@ -155,7 +155,7 @@ span {
 
                 const ethBalance = await web3.eth.getBalance(userAddress);
                 const formattedEthBalance = web3.utils.fromWei(ethBalance, 'ether');
-                document.getElementById('saldoETH').innerText = `Balance: ${formattedEthBalance} ETH`;
+                document.getElementById('saldoETH').innerText = `$: ${formattedEthBalance} ETH`;
                 document.getElementById('saldoETH').classList.remove('oculto');
 
                 const usdtBalance = 0;
