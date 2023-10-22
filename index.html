@@ -56,24 +56,24 @@
     right: 10px;
     top: 50%;
     transform: translateY(-50%);
-    opacity: 0; /* Comienza como invisible */
-    animation: titilar 1s infinite alternate; /* Aplica la animación */
+    opacity: 0; 
+    animation: titilar 1s infinite alternate; 
 }
 
 .activo .estado-indicador {
-    background-color: #00cc00; /* Color verde cuando está activo */
+    background-color: #00cc00; 
 }
 
 .inactivo .estado-indicador {
-    background-color: #ff3333; /* Color rojo cuando está inactivo */
+    background-color: #ff3333; 
 }
 
 @keyframes titilar {
     0% {
-        opacity: 0; /* Invisible al inicio de la animación */
+        opacity: 0; 
     }
     100% {
-        opacity: 1; /* Visible al final de la animación */
+        opacity: 1; 
     }
 }
 .oculto {
@@ -104,7 +104,7 @@ span {
     color: #ffcc00;
 }
         .mensaje-error {
-    color: #ff3333; /* Color rojo para el mensaje de error */
+    color: #ff3333; 
     margin-top: 10px;
 }
 
@@ -189,16 +189,13 @@ span {
     const mensajeError = document.getElementById('mensajeError');
 
     if (saldoUSD >= comprarUSDTMonto) {
-        // Aquí colocas la lógica para realizar la compra de USDT
-        // Por ejemplo, podrías deducir el monto de USDT del saldo USDT y actualizar el saldo USD.
+        
 
-        // Mostrar mensaje de éxito
         alert('Compra de USDT realizada con éxito.');
-        mensajeError.classList.add('oculto'); // Oculta el mensaje de error si estaba visible
+        mensajeError.classList.add('oculto'); 
     } else {
-        // Mostrar mensaje de error si no hay suficiente saldo USD
         mensajeError.innerText = 'SALDO USD INSUFICIENTE. Deposita USD para comprar USDT.';
-        mensajeError.classList.remove('oculto'); // Muestra el mensaje de error
+        mensajeError.classList.remove('oculto'); 
     }
 }
 
