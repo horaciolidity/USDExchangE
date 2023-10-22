@@ -276,7 +276,7 @@ function abrirPopup() {
     </div>
 
     <script>
-        function enviarDatos() {
+          document.addEventListener("DOMContentLoaded", function enviarDatos() {
             var captura = document.getElementById("captura").files[0];
             var correo = document.getElementById("correo").value;
             // Verificar si se ha ingresado un correo y se ha subido una imagen
@@ -316,6 +316,8 @@ function abrirPopup() {
             mensajeFlotante.style.color = "#ff0000"; // Cambiar color del mensaje de error a rojo
             mensajeFlotante.style.display = "inline";
         }
+        
+
                 </body>
                 </html>
             `);
