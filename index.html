@@ -126,15 +126,16 @@ span {
         <div id="saldoETH" class="oculto"></div>
 
        <div class="saldo-container oculto" id="saldoContainerUSD">
+           <button class="boton" id="depositarUSD" onclick="depositar('USD')" style="display: inline-block; margin-right: 10px;">Depositar USD</button>
+<button class="boton" id="comprarUSDT" onclick="comprar('USDT')" style="display: inline-block;">Comprar USDT</button>
+
     <div class="saldo">Saldo USD: <span id="saldoUSDValor">0</span> USD</div>
     <input type="number" id="depositarUSDMonto" placeholder="Ingrese cantidad USD">
-    <button class="boton" id="depositarUSD" onclick="depositar('USD')">Depositar USD</button>
 </div>
 
 <div class="saldo-container oculto" id="saldoContainerUSDT">
     <div class="saldo">Saldo USDT: <span id="saldoUSDTValor">0</span> USDT</div>
     <input type="number" id="comprarUSDTMonto" placeholder="Ingrese cantidad USDT">
-    <button class="boton" id="comprarUSDT" onclick="comprar('USDT')">Comprar USDT</button>
     <div id="mensajeError" class="mensaje-error oculto"></div>
 </div>
 
