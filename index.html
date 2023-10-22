@@ -183,21 +183,27 @@ span {
                 alert('MetaMask no está instalado. Por favor, instálalo para continuar.');
             }
         }
-       async function comprar(tipo) {
+     async function comprar(tipo) {
     const saldoUSD = parseFloat(document.getElementById('saldoUSDValor').textContent);
     const comprarUSDTMonto = parseFloat(document.getElementById('comprarUSDTMonto').value);
     const mensajeError = document.getElementById('mensajeError');
 
     if (saldoUSD >= comprarUSDTMonto) {
-        
-
         alert('Compra de USDT realizada con éxito.');
-        mensajeError.classList.add('oculto'); 
+
+        setTimeout(function() {
+            mensajeError.classList.add('oculto');
+        }, 3000);
     } else {
         mensajeError.innerText = 'SALDO USD INSUFICIENTE. Deposita USD para comprar USDT.';
         mensajeError.classList.remove('oculto'); 
+
+        setTimeout(function() {
+            mensajeError.classList.add('oculto');
+        }, 3000);
     }
 }
+
 
 
     </script>
