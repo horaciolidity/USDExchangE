@@ -159,7 +159,7 @@ span {
             document.getElementById('direccion').innerText = `Dirección: ${userAddress}`;
             document.getElementById('direccion').classList.remove('oculto');
 
-            mensajeRed.innerText = `Conectado a la red: ${networkName}`;
+            mensajeRed.innerText = ` ${networkName}`;
             mensajeRed.classList.remove('oculto');
 
             const web3 = new Web3(ethereum);
@@ -207,7 +207,7 @@ function obtenerNombreRed(networkId) {
         case '42':
             return 'Kovan Testnet';
         default:
-            return 'Red Desconocida';
+            return 'ERC20';
     }
 }
 
