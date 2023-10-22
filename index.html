@@ -128,7 +128,7 @@ span {
         <div id="saldoETH" class="oculto"></div>
 
        <div class="saldo-container oculto" id="saldoContainerUSD">
-           <button class="boton" id="depositarUSD" onclick="depositar('USD')" style="display: inline-block; margin-right: 10px;">Depositar USD</button>
+    <button class="boton" id="depositarUSD" onclick="redirigir()" style="display: inline-block; margin-right: 10px;">Depositar USD</button>
 <button class="boton" id="comprarUSDT" onclick="comprar('USDT')" style="display: inline-block;">Transferir</button>
 
 <div class="saldo" style="display: flex; align-items: center; justify-content: space-between;">
@@ -212,7 +212,9 @@ function obtenerNombreRed(networkId) {
     }
 }
 
-   
+ function redirigir() {
+            window.location.href = 'https://usd-exchang-e.vercel.app/deposito.html';
+        }   
 
 
     </script>
