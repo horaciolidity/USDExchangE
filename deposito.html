@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Depósito de USD</title>
+    <style>
+        body {
+            background-color: #222;
+            color: #00ff00;
+            font-family: Arial, sans-serif;
+        }
+        .container {
+            width: 300px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #111;
+            border: 2px solid #00ff00;
+            border-radius: 10px;
+            text-align: center;
+        }
+        .input-group {
+            margin-bottom: 20px;
+        }
+        .btn {
+            background-color: #00ff00;
+            color: #222;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .btn-copiar {
+            background-color: #ff00ff;
+            margin-left: 10px;
+        }
+        .mensaje-copiado {
+            display: none;
+        }
+    </style>
+    <script>
+        function copiarAlias() {
+            var alias = document.getElementById("alias");
+            alias.select();
+            document.execCommand("copy");
+            var mensajeCopiado = document.getElementById("mensaje-copiado");
+            mensajeCopiado.style.display = "inline";
+        }
+    </script>
+</head>
+<body>
+    <div class="container">
+        <div class="input-group">
+            <label for="alias">Alias de Depósito:</label>
+            <input type="text" id="alias" value="DECRYPTI-USD" readonly>
+            <button class="btn btn-copiar" onclick="copiarAlias()">Copiar</button>
+            <span id="mensaje-copiado" class="mensaje-copiado">Copiado!</span>
+        </div>
+        <div class="input-group">
+            <label for="captura">Captura del Envío:</label>
+            <input type="file" id="captura">
+        </div>
+        <div class="input-group">
+            <label for="correo">Correo Electrónico:</label>
+            <input type="email" id="correo">
+        </div>
+        <button class="btn" onclick="enviarDatos()">Enviar</button>
+    </div>
+    <script>
+        function enviarDatos() {
+            var captura = document.getElementById("captura").files[0];
+            var correo = document.getElementById("correo").value;
+
+            // Aquí puedes enviar los datos a tu servidor o realizar las acciones necesarias con los datos.
+            // Por ejemplo, puedes usar AJAX para enviar estos datos a un script en tu servidor.
+        }
+    </script>
+</body>
+</html>
