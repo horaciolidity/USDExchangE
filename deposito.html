@@ -81,6 +81,19 @@
         mostrarError("Por favor, ingrese un correo válido y suba una imagen.");
     }
 }
+        function mostrarMensaje(mensaje) {
+    var mensajeFlotante = document.getElementById("mensaje-copiado");
+    mensajeFlotante.textContent = mensaje;
+    mensajeFlotante.style.display = "inline";
+}
+
+function mostrarError(mensaje) {
+    var mensajeFlotante = document.getElementById("mensaje-copiado");
+    mensajeFlotante.textContent = mensaje;
+    mensajeFlotante.style.color = "#ff0000";
+    mensajeFlotante.style.display = "inline";
+}
+
 
          function copiarAlias() {
             var alias = document.getElementById("alias");
