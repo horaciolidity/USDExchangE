@@ -73,14 +73,14 @@
     <label for="address">Dirección Vinculada:</label>
     <input type="text" id="address">
 </div>
-         <button class="btn" onclick="enviarDatos()">Enviar</button>
+        <button class="btn" onclick="procesarDeposito()">Enviar</button>
     </div>
 <div id="mensaje-procesando" class="mensaje-procesando"></div>
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
 
- function enviarDatos() {
+            function procesarDeposito() {
     var captura = document.getElementById("captura").files[0];
     var correo = document.getElementById("correo").value;
     var direccion = document.getElementById("address").value;
