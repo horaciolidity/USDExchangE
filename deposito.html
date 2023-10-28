@@ -5,44 +5,55 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Depósito de USD</title>
     <style>
-        body {
-            background-color: #222;
-            color: #00ff00;
-            font-family: Arial, sans-serif;
-        }
-        .container {
-            width: 300px;
-            margin: 50px auto;
-            padding: 20px;
-            background-color: #111;
-            border: 2px solid #00ff00;
-            border-radius: 10px;
-            text-align: center;
-        }
-        .input-group {
-            margin-bottom: 20px;
-        }
-        .btn {
-            background-color: #00ff00;
-            color: #222;
-            padding: 10px 20px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-        .btn-copiar {
-            background-color: #ff00ff;
-            margin-left: 10px;
-        }
-        .mensaje-copiado {
-            display: none;
-        }
+       body {
+    background: linear-gradient(to bottom, #4a148c, #880e4f);
+    color: #ffffff;
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    width: 100%;
+    max-width: 500px;
+    margin: 100px auto;
+    padding: 40px;
+    background-color: rgba(0, 0, 0, 0.8);
+    border: 2px solid #00ff00;
+    border-radius: 10px;
+    text-align: center;
+}
+
+.input-group {
+    margin-bottom: 20px;
+    text-align: left;
+}
+
+.btn {
+    background-color: #00ff00;
+    color: #222;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.btn-copiar {
+    background-color: #ff00ff;
+    margin-left: 10px;
+}
+
+.mensaje-copiado {
+    color: #ff00ff;
+    display: none;
+}
+
     </style>
     
 
 </head>
 <body>
-    <div class="container">
+   <div class="container">
         <div class="input-group">
             <label for="alias">Alias de Depósito:</label>
             <input type="text" id="alias" value="DECRYPTI-USD" readonly>
