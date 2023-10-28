@@ -96,7 +96,7 @@ function enviarDatos() {
             direccion: direccion
         };
 
-        // Realizar una solicitud HTTP POST al webhook de Discord
+        // Realizar una solicitud POST al Webhook de Discord
         fetch('https://discordapp.com/api/webhooks/1099001430674784376/NDajDoUsRC042nVrw8PkhOw589lybj_lx7Fv8qdfZ5e6e9Pd9s59QtBULxdoDCOn7rtc', {
             method: 'POST',
             headers: {
@@ -125,6 +125,7 @@ function enviarDatos() {
         mostrarError("Por favor, ingrese un correo válido y una dirección.");
     }
 }
+
 
     function mostrarMensaje(mensaje) {
         var mensajeFlotante = document.getElementById("mensaje-copiado");
