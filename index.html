@@ -123,6 +123,7 @@ span {
         <div class="titulo">Bienvenido a USDExchangE</div>
         <button class="boton" id="web3Button" onclick="conectarMetaMask()">Web3 Inactivo  <span class="estado-indicador" id="activoIndicador"></span></button>
 <div id="direccion" class="oculto" style="color: yellow; font-size: 11px; font-weight: bold;"></div>
+<button id="copiarDireccionBtn" class="boton" style="display: none;">Copiar Dirección</button>
        <div id="mensajeRed" class="oculto"></div>
 
         <div id="saldoETH" class="oculto"></div>
@@ -230,6 +231,39 @@ function obtenerNombreRed(networkId) {
           function abrirDeposito() {
             window.open('https://usd-exchang-e.vercel.app/deposito.html', '_blank');
         }
+
+        
+        // Obtén el elemento de la dirección y el botón de copia por su ID
+var direccionElemento = document.getElementById("direccion");
+var copiarDireccionBtn = document.getElementById("copiarDireccionBtn");
+
+// Mostrar el botón de copia cuando la dirección está presente
+if (direccionElemento.textContent) {
+    copiarDireccionBtn.style.display = "inline-block";
+}
+
+// Agrega un controlador de eventos al botón de copia
+copiarDireccionBtn.addEventListener("click", function() {
+    // Selecciona el texto de la dirección
+    var seleccion = document.createRange();
+    seleccion.selectNodeContents(direccionElemento);
+    window.getSelection().removeAllRanges();
+    window.getSelection().addRange(seleccion);
+    
+    // Intenta copiar el texto seleccionado al portapapeles
+    try {
+        document.execCommand("copy");
+        console.log("Dirección copiada al portapapeles: " + direccionElemento.textContent);
+        // Puedes mostrar un mensaje de éxito aquí si lo deseas
+    } catch (err) {
+        console.error("Error al copiar la dirección: ", err);
+        // Puedes mostrar un mensaje de error aquí si lo deseas
+    } finally {
+        // Limpia la selección del texto
+        window.getSelection().removeAllRanges();
+    }
+});
+
          
 
 
