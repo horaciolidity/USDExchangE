@@ -132,15 +132,17 @@ function obtenerNombreRed(networkId) {
             window.open('https://usd-exchang-e.vercel.app/deposito.html', '_blank');
         }
 function mostrarMenu() {
+    var botonComprarUSDT = document.getElementById("comprarUSDT");
     var menuDesplegable = document.getElementById("menuDesplegable");
-    if (menuDesplegable.style.display === "none" || menuDesplegable.style.display === "") {
-        menuDesplegable.style.display = "block";
-    } else {
-        menuDesplegable.style.display = "none";
-    }
-}
-   
-   
+
+    var left = botonComprarUSDT.offsetLeft;
+    var top = botonComprarUSDT.offsetTop + botonComprarUSDT.offsetHeight + 5; 
+
+    menuDesplegable.style.left = left + "px";
+    menuDesplegable.style.top = top + "px";
+
+    menuDesplegable.style.display = "block";
+} 
          
 
 
