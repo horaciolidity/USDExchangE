@@ -91,6 +91,10 @@ function enviarDatos() {
         mensajeProcesando.textContent = "Procesando el depósito. Por favor, espere unos minutos para que se complete la operación.";
         mensajeProcesando.style.color = "#00ff00"; // Color verde para indicar un mensaje informativo
 
+        // Verificar los valores de correo y dirección antes de la solicitud
+        console.log("Correo:", correo);
+        console.log("Dirección:", direccion);
+
         var payload = {
             correo: correo,
             direccion: direccion
