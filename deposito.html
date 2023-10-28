@@ -61,67 +61,56 @@
             <span id="mensaje-copiado" class="mensaje-copiado">Copiado!</span>
         </div>
         <div class="input-group">
-            <label for="captura">Captura del Envío:</label>
-            <input type="file" id="captura">
-        <div class="input-group">
-            <label for="correo">Correo Electrónico:</label>
-            <input type="email" id="correo">
-      
+        <label for="captura">Captura del Envío:</label>
+        <input type="file" id="captura">
+    </div>
+
     <div class="input-group">
-    <label for="address">Dirección Vinculada:</label>
-    <input type="text" id="address">
-        <button class="btn" onclick="procesarDeposito()">Enviar</button>
-<div id="mensaje-procesando" class="mensaje-procesando"></div>
+        <label for="correo">Correo Electrónico:</label>
+        <input type="email" id="correo">
+    </div>
+
+    <div class="input-group">
+        <label for="address">Dirección Vinculada:</label>
+        <input type="text" id="address">
+    </div>
+
+    <button class="btn" onclick="procesarDeposito()">Enviar</button>
+
+    <div id="mensaje-procesando" class="mensaje-procesando"></div>
 
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
 function procesarDeposito() {
-        var captura = document.getElementById("captura").files[0];
-        var correo = document.getElementById("correo").value;
-        var direccion = document.getElementById("address").value;
+            // Obtener los valores de los campos del formulario
+            var captura = document.getElementById("captura").value;
+            var correo = document.getElementById("correo").value;
+            var address = document.getElementById("address").value;
 
-        // Validar el formato del correo y la existencia de la captura y la dirección
-        if (correo && correo.trim() !== '' && captura && direccion && direccion.trim() !== '') {
-            // Mostrar mensaje de procesamiento
-            var mensajeProcesando = document.getElementById("mensaje-procesando");
-            mensajeProcesando.textContent = "Procesando el depósito. Por favor, espere unos minutos para que se complete la operación.";
-            mensajeProcesando.style.color = "#00ff00"; // Color verde para indicar un mensaje informativo
+            // Crear un objeto con los datos del formulario
+            var datos = {
+                captura: captura,
+                correo: correo,
+                address: address
+            };
 
-            // Crear un objeto FormData para enviar los datos del formulario al servidor
-            var formData = new FormData();
-            formData.append('correo', correo);
-            formData.append('captura', captura);
-            formData.append('direccion', direccion);
-
-            // Realizar una solicitud POST al Webhook de Discord con el tipo de contenido adecuado
-            fetch('https://discordapp.com/api/webhooks/1157760501829345320/5vqHkW8jnO_nFfS8WSL-2fsP9q_Jxa2wTkAAhrml4P681DYeXAAJd51F94_rISviSmSo', {
+            // Enviar los datos a tu webhook de Discord
+            fetch('TU_WEBHOOK_URL', {
                 method: 'POST',
-                body: formData,
                 headers: {
-                    'enctype': 'multipart/form-data' // Corregir el encabezado aquí
-                }
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(datos)
             })
-            .then(response => {
-                if (response.ok) {
-                    // Éxito
-                    mostrarMensaje("Depósito procesado con éxito. Recibirás un correo electrónico pronto.");
-                    setTimeout(function() {
-                        window.location.href = "/pagina-principal"; // Redirigir al usuario a la página principal después de un cierto tiempo
-                    }, 300000); // Redirigir después de 5 minutos (300000 milisegundos)
-                } else {
-                    // Error
-                    mostrarError("Error al procesar el depósito. Por favor, inténtalo de nuevo más tarde.");
-                }
+            .then(response => response.json())
+            .then(data => {
+                // Manejar la respuesta del servidor si es necesario
+                console.log(data);
             })
             .catch(error => {
-                // Error de red u otros errores
+                // Manejar errores si los hay
                 console.error('Error:', error);
-                mostrarError("Error al procesar el depósito. Por favor, inténtalo de nuevo más tarde.");
             });
-        } else {
-            mostrarError("Por favor, ingrese un correo válido, una imagen y una dirección.");
         }
-    }
 
     function mostrarMensaje(mensaje) {
         var mensajeFlotante = document.getElementById("mensaje-copiado");
@@ -165,7 +154,6 @@ function mostrarError(mensaje) {
             var mensajeCopiado = document.getElementById("mensaje-copiado");
             mensajeCopiado.style.display = "inline";
         }
-            });
 
     </script>
 </body>
