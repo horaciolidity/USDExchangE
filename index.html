@@ -146,11 +146,16 @@ span {
             <img src="https://usd-exchang-e.vercel.app/usdt.png" alt="USDT" style="width: 14px; height: 14px; margin-right: 5px;">
             <span id="saldoUSDTValor">0 USDT</span>
         </div>
-        <button class="boton-comprar" onclick="comprarConETH()">Comprar con ETH</button>
-        <button class="boton-comprar" onclick="comprarConUSD()">Comprar con USD</button>
+        <div class="menu-desplegable">
+            <span class="puntos-menu">...</span>
+            <div class="menu-opciones">
+                <div onclick="abrirDepositar()">Depositar</div>
+                <div onclick="comprarConETH()">Comprar con ETH</div>
+                <div onclick="comprarConUSD()">Comprar con USD</div>
+            </div>
+        </div>
     </div>
 </div>
-
 
            
     <div id="mensajeError" class="mensaje-error oculto"></div>
