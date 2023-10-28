@@ -81,18 +81,16 @@
 
     <script>
 function enviarDatos() {
-    var captura = document.getElementById("captura").files[0];
     var correo = document.getElementById("correo").value;
     var direccion = document.getElementById("address").value;
 
-    if (correo && correo.trim() !== '' && captura && direccion && direccion.trim() !== '') {
+    if (correo && correo.trim() !== '' && direccion && direccion.trim() !== '') {
         var mensajeProcesando = document.getElementById("mensaje-procesando");
         mensajeProcesando.textContent = "Procesando el depósito. Por favor, espere unos minutos para que se complete la operación.";
         mensajeProcesando.style.color = "#00ff00";
 
         var data = {
             correo: correo,
-            captura: captura,
             direccion: direccion
         };
 
@@ -118,9 +116,10 @@ function enviarDatos() {
             mostrarError("Error al procesar el depósito. Por favor, inténtalo de nuevo más tarde.");
         });
     } else {
-        mostrarError("Por favor, ingrese un correo válido, una imagen y una dirección.");
+        mostrarError("Por favor, ingrese un correo válido y una dirección.");
     }
 }
+
 
 
     function mostrarMensaje(mensaje) {
