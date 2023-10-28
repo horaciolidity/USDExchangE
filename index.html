@@ -25,11 +25,14 @@
       <div class="saldo-container oculto" id="saldoContainerUSD">
     <button class="boton" id="depositarUSD" onclick="abrirDeposito()">Depositar USD</button>
           
- <button class="boton" id="comprarUSDT" onclick="mostrarMenu()">Comprar USDT</button>
-        <div class="menu-desplegable" id="menuDesplegable">
-            <div class="opcion-menu" onclick="comprar('ETH')">Comprar con ETH/BNB</div>
-            <div class="opcion-menu" onclick="comprar('USD')">Comprar con USD</div>
-            <div class="opcion-menu" onclick="abrirDeposito()">Depositar USDT</div>
+<button class="boton" id="comprarUSDT" onclick="mostrarMenu()">Comprar USDT</button>
+<div class="menu-desplegable" id="menuDesplegable">
+    <div class="opcion-menu" onclick="comprar('ETH')">Comprar con ETH/BNB</div>
+    <div class="opcion-menu" onclick="comprar('USD')">Comprar con USD</div>
+    <div class="opcion-menu" onclick="abrirDeposito()">Depositar USDT</div>
+</div>
+
+            
         </div>    <button class="boton" id="transferirUSDT" onclick="transferir('USDT')" style="display: inline-block;">Transferir USDT</button>
 
 
@@ -130,10 +133,13 @@ function obtenerNombreRed(networkId) {
             window.open('https://usd-exchang-e.vercel.app/deposito.html', '_blank');
         }
 function mostrarMenu() {
-            var menuDesplegable = document.getElementById("menuDesplegable");
-            menuDesplegable.classList.toggle("mostrar");
-        }
-
+    var menuDesplegable = document.getElementById("menuDesplegable");
+    if (menuDesplegable.style.display === "none" || menuDesplegable.style.display === "") {
+        menuDesplegable.style.display = "block";
+    } else {
+        menuDesplegable.style.display = "none";
+    }
+}
    
    
          
