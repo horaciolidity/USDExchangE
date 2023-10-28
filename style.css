@@ -106,12 +106,13 @@ span {
 .menu-desplegable {
     display: none;
     position: absolute;
-    background-color: #fff;
     border: 1px solid #ccc;
     padding: 10px;
     z-index: 1;
     cursor: pointer;
     margin-top: 5px; 
+   background: linear-gradient(to bottom, #4a148c, #880e4f); /* Fondo violeta oscuro gradiente */
+    color: white; 
 }
 
 
