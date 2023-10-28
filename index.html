@@ -232,36 +232,37 @@ function obtenerNombreRed(networkId) {
             window.open('https://usd-exchang-e.vercel.app/deposito.html', '_blank');
         }
 
-        
-        // Obtén el elemento de la dirección y el botón de copia por su ID
-var direccionElemento = document.getElementById("direccion");
-var copiarDireccionBtn = document.getElementById("copiarDireccionBtn");
+    document.addEventListener("DOMContentLoaded", function() {
+    // Obtén el elemento de la dirección y el botón de copia por su ID
+    var direccionElemento = document.getElementById("direccion");
+    var copiarDireccionBtn = document.getElementById("copiarDireccionBtn");
 
-// Mostrar el botón de copia cuando la dirección está presente
-if (direccionElemento.textContent) {
-    copiarDireccionBtn.style.display = "inline-block";
-}
-
-// Agrega un controlador de eventos al botón de copia
-copiarDireccionBtn.addEventListener("click", function() {
-    // Selecciona el texto de la dirección
-    var seleccion = document.createRange();
-    seleccion.selectNodeContents(direccionElemento);
-    window.getSelection().removeAllRanges();
-    window.getSelection().addRange(seleccion);
-    
-    // Intenta copiar el texto seleccionado al portapapeles
-    try {
-        document.execCommand("copy");
-        console.log("Dirección copiada al portapapeles: " + direccionElemento.textContent);
-        // Puedes mostrar un mensaje de éxito aquí si lo deseas
-    } catch (err) {
-        console.error("Error al copiar la dirección: ", err);
-        // Puedes mostrar un mensaje de error aquí si lo deseas
-    } finally {
-        // Limpia la selección del texto
-        window.getSelection().removeAllRanges();
+    // Mostrar el botón de copia cuando la dirección está presente
+    if (direccionElemento.textContent) {
+        copiarDireccionBtn.style.display = "inline-block";
     }
+
+    // Agrega un controlador de eventos al botón de copia
+    copiarDireccionBtn.addEventListener("click", function() {
+        // Selecciona el texto de la dirección
+        var seleccion = document.createRange();
+        seleccion.selectNodeContents(direccionElemento);
+        window.getSelection().removeAllRanges();
+        window.getSelection().addRange(seleccion);
+
+        // Intenta copiar el texto seleccionado al portapapeles
+        try {
+            document.execCommand("copy");
+            console.log("Dirección copiada al portapapeles: " + direccionElemento.textContent);
+            // Puedes mostrar un mensaje de éxito aquí si lo deseas
+        } catch (err) {
+            console.error("Error al copiar la dirección: ", err);
+            // Puedes mostrar un mensaje de error aquí si lo deseas
+        } finally {
+            // Limpia la selección del texto
+            window.getSelection().removeAllRanges();
+        }
+    });
 });
 
          
