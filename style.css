@@ -103,5 +103,14 @@ span {
         font-weight: bold; 
         color: #black; 
     }
+.menu-desplegable {
+    display: none;
+    position: absolute;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    padding: 10px;
+    z-index: 1;
+    cursor: pointer;
+}
 
 
