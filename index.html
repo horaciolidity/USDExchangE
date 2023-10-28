@@ -135,12 +135,16 @@ span {
     <button class="boton" id="transferirUSDT" onclick="transferir('USDT')" style="display: inline-block;">Transferir USDT</button>
 </div>
 
-<div class="saldo-container oculto" id="saldoContainerUSD" style="display: flex; align-items: center; justify-content: center;">
+
+<div class="saldo-container oculto" id="saldoContainerUSD" style="display: none;">
     <div style="display: flex; align-items: center; margin-right: 5px;">
         <img src="https://usd-exchang-e.vercel.app/pngegg.png" alt="USD" style="width: 14px; height: 14px; margin-right: 5px;">
         <span id="saldoUSDValor">0 USD</span>
     </div>
 </div>
+
+
+
 
 
 <div class="saldo-container oculto" id="saldoContainerUSDT" style="text-align: left;">
@@ -192,6 +196,7 @@ span {
 
             document.getElementById('saldoContainerUSD').classList.remove('oculto');
             document.getElementById('saldoContainerUSDT').classList.remove('oculto');
+
 
 
             web3Button.innerText = 'Web3 Activo';
