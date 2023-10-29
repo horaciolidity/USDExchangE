@@ -95,7 +95,11 @@
 
         <button class="btn" onclick="enviarDatos()">Enviar</button>
 
-        <div id="mensaje-procesando" class="mensaje-procesando"></div>
+         <div id="mensaje-exito" class="mensaje" style="background-color: yellow; z-index: 999; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); padding: 20px; border-radius: 10px;">
+            Depósito procesado con éxito. Recibirás un correo electrónico pronto.
+            <br>
+            <button class="btn" onclick="volverPaginaPrincipal()">Volver a la página principal</button>
+        </div>
     </div>
 
     <script>
@@ -154,19 +158,7 @@ function mostrarError(mensaje) {
     mensajeFlotante.style.display = "inline";
 }
 
-    function mostrarMensaje(mensaje) {
-        var mensajeFlotante = document.getElementById("mensaje-copiado");
-        mensajeFlotante.textContent = mensaje;
-        mensajeFlotante.style.display = "inline";
-    }
-
-    function mostrarError(mensaje) {
-        var mensajeFlotante = document.getElementById("mensaje-copiado");
-        mensajeFlotante.textContent = mensaje;
-        mensajeFlotante.style.color = "#ff0000";
-        mensajeFlotante.style.display = "inline";
-    }
-
+   
     function copiarAlias() {
         var alias = document.getElementById("alias");
         alias.select();
@@ -174,6 +166,15 @@ function mostrarError(mensaje) {
         var mensajeCopiado = document.getElementById("mensaje-copiado");
         mensajeCopiado.style.display = "inline";
     }
+          function mostrarMensajeExito(mensaje) {
+            var mensajeExito = document.getElementById("mensaje-exito");
+            mensajeExito.textContent = mensaje;
+            mensajeExito.style.display = "block";
+        }
+
+        function volverPaginaPrincipal() {
+            window.location.href = "/pagina-principal";
+        }
 
     
     </script>
