@@ -43,13 +43,12 @@
     </div>
 </div>
 
-<div class="boton" id="inversiones" onclick="mostrarMenu('menuInversiones')">INVERSIONES
+<div class="boton" id="btnInversiones" onclick="toggleInversionesMenu()">INVERSIONES
         <div class="menu-desplegable" id="menuInversiones" style="display: none; position: absolute; top: 100%; left: 0; background-color: #ffffff; border: 1px solid #ccc; padding: 10px; list-style: none; margin: 0;">
             <div class="opcion-menu" onclick="mostrarPlan('PLAN 1')">PLAN 1</div>
             <div class="opcion-menu" onclick="mostrarPlan('PLAN 2')">PLAN 2</div>
         </div>
     </div>
-</div>
 
 
 <div class="saldo-container oculto" id="saldoContainerUSD" style="display: flex; align-items: center; justify-content: center;">
@@ -195,18 +194,19 @@ function transferirUsuario(token) {
     // Lógica para transferir el token a un usuario de USDE (0% comisión)
     console.log("Transferir " + token + " a usuario de USDE (0% comisión)");
 }
-function mostrarMenu(menuId) {
-    var menu = document.getElementById(menuId);
-    if (menu.style.display === "none" || menu.style.display === "") {
-        menu.style.display = "block";
+function toggleInversionesMenu() {
+    var menuInversiones = document.getElementById("menuInversiones");
+    if (menuInversiones.style.display === "none" || menuInversiones.style.display === "") {
+        menuInversiones.style.display = "block";
     } else {
-        menu.style.display = "none";
+        menuInversiones.style.display = "none";
     }
 }
 
 function mostrarPlan(plan) {
     console.log("Mostrando plan: " + plan);
 }
+
 
 
     </script>
