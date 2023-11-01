@@ -62,7 +62,7 @@
     <script>
        async function conectarMetaMask() {
     const web3Button = document.getElementById('web3Button');
-    const mensajeRed = document.getElementById('mensajeRed');
+    const estadoIndicador = document.getElementById('activoIndicador');
 
     if (typeof window.ethereum !== 'undefined') {
         try {
@@ -95,17 +95,17 @@
 
 
 
-            web3Button.innerText = 'Web3 Activo';
-            web3Button.classList.add('activo');
-            web3Button.classList.remove('inactivo');
+             estadoIndicador.innerText = 'Activo';
+            estadoIndicador.classList.add('activo');
+            estadoIndicador.classList.remove('inactivo');
         } catch (error) {
             console.error(error);
         }
     } else {
-        web3Button.innerText = 'Web3 Inactivo';
-        web3Button.classList.add('inactivo');
-        web3Button.classList.remove('activo');
-
+         estadoIndicador.estadoIndicador
+         innerText = 'Inactivo';
+        estadoIndicador.classList.add('inactivo');
+        estadoIndicador.classList.remove('activo');
         alert('MetaMask no está instalado. Por favor, instálalo para continuar.');
     }
 }
