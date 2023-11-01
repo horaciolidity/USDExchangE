@@ -127,3 +127,15 @@ span {
     opacity: 0; 
     animation: titilar 1s infinite alternate; 
 }
+.web3Button {
+    /* Estilos para el botón inactivo */
+    background-color: #ff0000; /* Cambia el color de fondo según tu preferencia */
+    color: #ffffff; /* Cambia el color del texto según tu preferencia */
+    /* Agrega otros estilos que desees para el botón inactivo */
+
+    /* Estilos para el botón activo */
+    &.activo {
+        background-color: #00ff00; /* Cambia el color de fondo cuando está activo */
+        /* Puedes cambiar otros estilos cuando el botón está activo */
+    }
+}
