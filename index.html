@@ -59,11 +59,12 @@
                     
                 <div style="display: flex; align-items: center; margin-right: 5px;">
                     <img src="https://usd-exchang-e.vercel.app/usdt.png" alt="USDT" style="width: 20px; height: 20px; margin-right: 5px;">
-                    <span id="saldoUSDTValor">0 USDT</span>            </div>
+                    <span id="saldoUSDTValor">0 USDT</span>           
 
                 <div id="mensajeError" class="mensaje-error oculto"></div>
 
     <script>
+        document.addEventListener('DOMContentLoaded', function() {
 
        async function conectarMetaMask() {
     const web3Button = document.getElementById('web3Button');
@@ -191,6 +192,8 @@ function toggleInversionesMenu() {
 function mostrarPlan(plan) {
     console.log("Mostrando plan: " + plan);
 }
+                    });
+
 
     </script>
 </body>
