@@ -26,6 +26,7 @@
             <div class="opcion-menu" onclick="comprar('ETH')">Comprar con ETH</div>
             <div class="opcion-menu" onclick="comprar('USD')">Comprar con USD</div>
             <div class="opcion-menu" onclick="abrirDeposito()">Depositar USDT</div>
+        </div>
 
     <div class="contenedor-botones">
         <div class="boton" id="transferirUSDT" onclick="mostrarMenuTransferir()">Transferir
@@ -94,17 +95,18 @@
 
 
 
-             estadoIndicador.innerText = 'Activo';
+             web3Button.innerText = 'Web3-Login Activo';
+            estadoIndicador.innerText = 'Activo';
             estadoIndicador.classList.add('activo');
             estadoIndicador.classList.remove('inactivo');
         } catch (error) {
             console.error(error);
         }
     } else {
-         estadoIndicador.estadoIndicador
-         innerText = 'Inactivo';
-        estadoIndicador.classList.add('inactivo');
-        estadoIndicador.classList.remove('activo');
+          web3Button.innerText = 'Web3-Login Activo';
+            estadoIndicador.innerText = 'Activo';
+            estadoIndicador.classList.add('activo');
+            estadoIndicador.classList.remove('inactivo');
         alert('MetaMask no está instalado. Por favor, instálalo para continuar.');
     }
 }
