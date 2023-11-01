@@ -21,13 +21,13 @@
 }
 
 .boton {
-    padding: 12px 20px;
+    padding: 8px 15px;
     margin: 8px 0;
     border: none;
+    border-radius: 5px;
     cursor: pointer;
-    border-radius: 30px;
     font-size: 16px;
-    background-color: #ff6600;
+    background-color: #1c1c1e;
     color: #222;
     text-transform: uppercase;
     transition: all 0.3s ease;
@@ -37,7 +37,7 @@
 }
 
 .boton:hover {
-    background-color: #ff9900;
+    background-color: #29292b;
 }
 .estado-indicador {
     width: 10px;
@@ -104,15 +104,28 @@ span {
         color: #black; 
     }
 .menu-desplegable {
-    display: none;
     position: absolute;
-    border: 1px solid #ccc;
+    top: 100%;
+    left: 0;
+    background-color: #1c1c1e;
+    color: white;
+    border: 1px solid #fff;
+    border-radius: 5px;
     padding: 10px;
-    z-index: 1;
+    display: none;
+}
+ .menu-desplegable .opcion-menu {
     cursor: pointer;
-    margin-top: 5px; 
-   background: linear-gradient(to bottom, #4a148c, #880e4f); /* Fondo violeta oscuro gradiente */
-    color: white; 
+    margin-bottom: 10px;
+}
+
+.menu-desplegable .opcion-menu:last-child {
+    margin-bottom: 0;
+}
+.contenedor-botones {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 20px;
 }
 
 
