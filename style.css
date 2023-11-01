@@ -22,45 +22,7 @@ display: flex;
     letter-spacing: 2px;
 }
 
-.boton {
-    padding: 8px 15px;
-    margin: 8px 0;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 16px;
-    
-   
-background: linear-gradient(to right, #4e54c8, #8f94fb);
-    color: #ffffff;
-    text-transform: uppercase;
-    transition: all 0.3s ease;
-    box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.3);
-    position: relative;
-    overflow: hidden;
-}
 
-.boton::before {
-    content: "";
-    position: absolute;
-    background: radial-gradient(circle, #4e54c8, #8f94fb);
-    width: 100px;
-    height: 100px;
-    border-radius: 50%;
-    transform: scale(0);
-    animation: ripple 0.6s ease;
-}
-
-@keyframes ripple {
-    to {
-        transform: scale(4);
-        opacity: 0;
-    }
-}
-
-.boton:hover {
-    background-color: #6c73d2;
-}
 
 .estado-indicador {
     width: 10px;
@@ -104,32 +66,28 @@ background: linear-gradient(to right, #4e54c8, #8f94fb);
     color: #fff;
 }
 
-.saldo-container {
-    margin-top: 20px;
-    font-size: 20px;
-    letter-spacing: 1px;
+.boton {
+    padding: 8px 15px;
+    margin: 8px 0;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    background: linear-gradient(to right, #4e54c8, #8f94fb);
+    color: #ffffff;
+    text-transform: uppercase;
+    transition: all 0.3s ease;
+    box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.3);
+    position: relative;
+    overflow: hidden;
 }
 
-.saldo {
-    margin-bottom: 10px;
+.boton:hover {
+    background-color: #6c73d2;
 }
 
-span {
-    color: #ffcc00;
-}
-        .mensaje-error {
-    color: #ff3333; 
-    margin-top: 10px;
-}
-        #saldoETH {
-        font-size: 84px; 
-        font-weight: bold; 
-        color: #black; 
-    }
 .menu-desplegable {
     position: absolute;
-    top: 100%;
-    left: 0;
     background-color: #1c1c1e;
     color: white;
     border: 1px solid #fff;
@@ -137,37 +95,31 @@ span {
     padding: 10px;
     display: none;
 }
- .menu-desplegable .opcion-menu {
+
+.menu-desplegable .opcion-menu {
     cursor: pointer;
     margin-bottom: 10px;
 }
 
-.menu-desplegable .opcion-menu:last-child {
-    margin-bottom: 0;
-}
-.contenedor-botones {
-    display: flex;
-    justify-content: space-around;
+/* Estilos para los saldos y mensajes de error */
+.saldo-container {
     margin-top: 20px;
-}
-.contenedor-general {
-    display: flex;
-    justify-content: space-around;
-    width: 100%;
-    max-width: 600px;
-    margin-top: 20px;
+    font-size: 20px;
+    letter-spacing: 1px;
+    text-align: center;
 }
 
-.contenedor-columna {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+.mensaje-error {
+    color: #ff3333;
+    margin-top: 10px;
 }
 
-
-
-
-
+/* Estilos para las imágenes dentro de los saldos */
+.saldo-container img {
+    width: 20px;
+    height: 20px;
+    margin-right: 5px;
+}
 
 
 
