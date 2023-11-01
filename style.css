@@ -116,3 +116,14 @@ span {
     color: #ff3333; 
     margin-top: 10px;
 }
+.estado-indicador {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    opacity: 0; 
+    animation: titilar 1s infinite alternate; 
+}
