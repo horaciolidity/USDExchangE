@@ -97,4 +97,10 @@ body .oculto {
 .estado-indicador.inactivo {
     color: red; 
 }
-
+span {
+    color: #ffcc00;
+}
+        .mensaje-error {
+    color: #ff3333; 
+    margin-top: 10px;
+}
