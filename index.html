@@ -19,57 +19,47 @@
     <div id="mensajeRed" class="oculto"></div>
     <div id="saldoETH" class="oculto"></div>
 
-    <div class="contenedor-general">
-        <div class="contenedor-columna">
-            <div class="saldo-container oculto" id="saldoContainerUSD">
-                <button class="boton" id="depositarUSD" onclick="abrirDeposito()">Depositar USD</button>
-                <button class="boton" id="comprarUSDT" onclick="mostrarMenu()">Comprar USDT</button>
-                <div class="menu-desplegable" id="menuDesplegable">
-                    <div class="opcion-menu" onclick="comprar('ETH')">Comprar con ETH</div>
-                    <div class="opcion-menu" onclick="comprar('USD')">Comprar con USD</div>
-                    <div class="opcion-menu" onclick="abrirDeposito()">Depositar USDT</div>
-                </div>
-            </div>
-
-            <div class="saldo-container oculto" id="saldoContainerUSDT">
-                <div class="saldo" style="display: flex; align-items: center; justify-content: center;">
-                    <div style="display: flex; align-items: center; margin-right: 5px;">
-                        <img src="https://usd-exchang-e.vercel.app/usdt.png" alt="USDT" style="width: 20px; height: 20px; margin-right: 10px;">
-                        <span id="saldoUSDTValor">0 USDT</span>
-                    </div>
-                </div>
-                <div id="mensajeError" class="mensaje-error oculto"></div>
-            </div>
-        </div>
-
-        <div class="contenedor-columna">
-            <div class="contenedor-botones">
-                <div class="boton" id="transferirUSDT" onclick="mostrarMenuTransferir()">Transferir
-                    <div class="menu-desplegable" id="menuTransferir">
-                        <div class="opcion-menu" onclick="transferir('ERC20')">Transferir ERC20</div>
-                        <div class="opcion-menu" onclick="transferirUsuario('USDE')">Transferir a usuario de USDE (0% comisión)</div>
-                    </div>
-                </div>
-
-                <div class="boton" id="btnInversiones" onclick="toggleInversionesMenu()">INVERSIONES
-                    <div class="menu-desplegable" id="menuInversiones">
-                        <div class="opcion-menu" onclick="mostrarPlan('PLAN 1')">PLAN 1</div>
-                        <div class="opcion-menu" onclick="mostrarPlan('PLAN 2')">PLAN 2</div>
-                    </div>
-                </div>
-
-                <div class="boton" id="btnRewards" onclick="toggleRewardsMenu()">REWARDS</div>
-            </div>
-
-            <div class="saldo-container oculto" id="saldoContainerUSD">
-                <div style="display: flex; align-items: center; margin-right: 5px;">
-                    <img src="https://usd-exchang-e.vercel.app/pngegg.png" alt="USD" style="width: 20px; height: 20px; margin-right: 10px;">
-                    <span id="saldoUSDValor">0 USD</span>
-                </div>
-            </div>
+<div class="saldo-container oculto" id="saldoContainerUSD">
+    <button class="boton" id="depositarUSD" onclick="abrirDeposito()">Depositar USD</button>
+    <button class="boton" id="comprarUSDT" onclick="mostrarMenu()">Comprar USDT</button>
+    <div class="menu-desplegable" id="menuDesplegable">
+        <div class="opcion-menu" onclick="comprar('ETH')">Comprar con ETH</div>
+        <div class="opcion-menu" onclick="comprar('USD')">Comprar con USD</div>
+        <div class="opcion-menu" onclick="abrirDeposito()"> Depositar USDT</div>
+    </div>
+</div>
+<div class="contenedor-botones">
+    <div class="boton" id="transferirUSDT" onclick="mostrarMenuTransferir()" style="position: relativa; display: inline- block;">Transferir
+        <div class="menu-desplegable" id="menuTransferir" style="display: none; posición: absoluta; Top 100%; izquierda: 0; color de fondo: #ffffff; borde: 1px sólido #ccc; relleno: 10px; estilo de lista: ninguno; margen: 0;">
+            <div class="opcion-menu" onclick="transferir('ERC20')">Transferir ERC20</div>
+            <div class="opcion-menu" onclick="transferirUsuario('USDE')">Transferir a usuario de USDE (0% comisión)</div>
         </div>
     </div>
 </div>
+<div class="boton" id="btnInversiones" onclick="toggleInversionesMenu()">INVERSIONES
+    <div class="menu-desplegable" id="menuInversiones" style="display: none; posición: absoluta; Top 100%; izquierda: 0; color de fondo: #ffffff; borde: 1px sólido #ccc; relleno: 10px; estilo de lista: ninguno; margen: 0;">
+        <div class="opcion-menu" onclick="mostrarPlan('PLAN 1')">PLAN 1</div>
+        <div class="opcion-menu" onclick="mostrarPlan('PLAN 2')">PLAN 2</div>
+    </div>
+</div>
+<div class="boton" id="btnRewards" onclick="toggleRewardsMenu()">RECOMPENSAS
+    <div class="saldo-container oculto" id="saldoContainerUSD" style="display: flex; alinear elementos: centro; justificar-contenido: centro;">
+        <div style="display: flex; alinear elementos: centro; margen derecho: 5px;">
+            <img src="https://usd-exchang-e.vercel.app/pngegg.png" alt="USD" style="ancho: 20px; altura: 20 píxeles; margin-right: 10px;">
+            <span id="saldoUSDValor">0 USD</span>
+        </div>
+    </div>
+</div>
+<div class="saldo-container oculto" id="saldoContainerUSDT" style="text-align: left;">
+    <div class="saldo" style="display: flex; alinear elementos: centro; justificar-contenido: centro;">
+        <div style="display: flex; alinear elementos: centro; margen derecho: 5px;">
+            <img src="https://usd-exchang-e.vercel.app/usdt.png" alt="USDT" style="ancho: 20px; altura: 20 píxeles; margin-right: 10px;">
+            <span id="saldoUSDTValor">0 USDT</span>
+            <div id="mensajeError" class="mensaje-error oculto"></div>
+        </div>
+    </div>
+</div>
+
 
 
     <script>
