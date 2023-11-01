@@ -11,7 +11,9 @@
 }
 
 .container {
-    text-align: center;
+display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .titulo {
@@ -27,7 +29,9 @@
     border-radius: 5px;
     cursor: pointer;
     font-size: 16px;
-    background: linear-gradient(to right, #4e54c8, #8f94fb);
+    
+   
+background: linear-gradient(to right, #4e54c8, #8f94fb);
     color: #ffffff;
     text-transform: uppercase;
     transition: all 0.3s ease;
@@ -146,6 +150,24 @@ span {
     justify-content: space-around;
     margin-top: 20px;
 }
+.contenedor-general {
+    display: flex;
+    justify-content: space-around;
+    width: 100%;
+    max-width: 600px;
+    margin-top: 20px;
+}
+
+.contenedor-columna {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+
+
+
+
 
 
 
