@@ -96,6 +96,7 @@
 
 
              web3Button.innerText = 'Web3-Login Activo';
+            web3Button.classList.add('activo');
             estadoIndicador.innerText = 'Activo';
             estadoIndicador.classList.add('activo');
             estadoIndicador.classList.remove('inactivo');
@@ -103,7 +104,8 @@
             console.error(error);
         }
     } else {
-          web3Button.innerText = 'Web3-Login Activo';
+           web3Button.innerText = 'Web3-Login Activo';
+            web3Button.classList.add('activo');
             estadoIndicador.innerText = 'Activo';
             estadoIndicador.classList.add('activo');
             estadoIndicador.classList.remove('inactivo');
