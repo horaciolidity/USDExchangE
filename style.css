@@ -91,12 +91,24 @@ body .oculto {
     font-weight: bold; 
     color: #fff; 
 }
-.estado-indicador.activo {
-    color: green; 
-
-.estado-indicador.inactivo {
-    color: red; 
+.activo .estado-indicador {
+    background-color: #00cc00; 
 }
+
+.inactivo .estado-indicador {
+    background-color: #ff3333; 
+}
+
+@keyframes titilar {
+    0% {
+        opacity: 0; 
+    }
+    100% {
+        opacity: 1; 
+    }
+}
+
+
 span {
     color: #ffcc00;
 }
