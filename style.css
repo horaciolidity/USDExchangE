@@ -1,111 +1,80 @@
 body {
+    background-color: #222;
+    color: #fff;
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
 
-display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            height: 100vh;
-            margin: 0;
-            background-color: #222;
-            color: #fff;
-            font-family: Arial, sans-serif;
-        }
+.container {
+    text-align: center;
+    margin: 50px auto;
+}
 
-        .container {
-            text-align: center;
-        }
+.titulo {
+    font-size: 36px;
+    margin-bottom: 20px;
+}
 
-        .titulo {
-            font-size: 32px;
-            margin-bottom: 30px;
-            letter-spacing: 2px;
-        }
+.boton {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    margin: 5px;
+    cursor: pointer;
+    border-radius: 5px;
+    font-size: 16px;
+}
 
-        .boton {
-            padding: 12px 20px;
-            margin: 8px 0;
-            border: none;
-            cursor: pointer;
-            border-radius: 30px;
-            font-size: 16px;
-            background-color: #ff6600;
-            color: #222;
-            text-transform: uppercase;
-            transition: all 0.3s ease;
-            box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.3);
-            position: relative;
-        }
+.boton:hover {
+    background-color: #0056b3;
+}
 
-        .boton:hover {
-            background-color: #ff9900;
-        }
+.oculto {
+    display: none;
+}
 
-        .estado-indicador {
-            width: 10px;
-            height: 10px;
-            border-radius: 50%;
-            position: absolute;
-            right: 10px;
-            top: 50%;
-            transform: translateY(-50%);
-            opacity: 0;
-            animation: titilar 1s infinite alternate;
-        }
+.contenedor-botones {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
 
-        .activo .estado-indicador {
-            background-color: #00cc00;
-        }
+.menu-desplegable {
+    display: none;
+    position: absolute;
+    background-color: #333;
+    border: 1px solid #555;
+    padding: 10px;
+    border-radius: 5px;
+}
 
-        .inactivo .estado-indicador {
-            background-color: #ff3333;
-        }
+.opcion-menu {
+    cursor: pointer;
+    margin: 5px 0;
+}
 
-        @keyframes titilar {
-            0% {
-                opacity: 0;
-            }
+.saldo-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 20px;
+}
 
-            100% {
-                opacity: 1;
-            }
-        }
+.saldo-container span {
+    margin-left: 5px;
+}
 
-        .oculto {
-            display: none;
-        }
+.mensaje-error {
+    color: #ff6262;
+    margin-top: 10px;
+}
 
-        .menu-desplegable {
-            display: none;
-            position: absolute;
-            background-color: #fff;
-            border: 1px solid #ccc;
-            padding: 10px;
-            z-index: 1;
-            cursor: pointer;
-        }
+.activo {
+    background-color: #28a745;
+}
 
-        .menu-desplegable .opcion-menu {
-            margin: 10px 0;
-            font-size: 16px;
-            color: #333;
-            transition: color 0.3s ease;
-        }
-
-        .menu-desplegable .opcion-menu:hover {
-            color: #ff6600;
-        }
-
-        .menu-desplegable.mostrar {
-            display: block;
-        }
-
-        .mensaje-error {
-            color: #ff3333;
-            margin-top: 10px;
-        }
-
-        #saldoETH {
-            font-size: 84px;
-            font-weight: bold;
-            color: black;
-        }
+.inactivo {
+    background-color: #dc3545;
+}
