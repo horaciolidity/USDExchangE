@@ -64,6 +64,8 @@
        async function conectarMetaMask() {
     const web3Button = document.getElementById('web3Button');
     const estadoIndicador = document.getElementById('activoIndicador');
+    const mensajeRed = document.getElementById('mensajeRed');
+
 
     if (typeof window.ethereum !== 'undefined') {
         try {
