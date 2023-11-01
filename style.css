@@ -82,3 +82,10 @@ body .oculto {
 .inactivo {
     background-color: #dc3545;
 }
+#saldoETH {
+    font-size: 36px; /* Tamaño del texto */
+    text-align: center; /* Centrar el texto */
+    margin-top: 20px; /* Espacio superior para separar del resto de los elementos */
+    font-weight: bold; /* Texto en negrita */
+    color: #fff; /* Color del texto (blanco en este caso) */
+}
