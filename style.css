@@ -39,7 +39,7 @@ body .oculto {
     cursor: pointer;
     border-radius: 5px;
     font-size: 10px;
-
+ align-self: center;
 }
 
 .boton:hover {
