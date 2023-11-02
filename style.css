@@ -14,7 +14,8 @@ body .oculto {
     margin: 50px auto;
 }
  
-.titulo {
+
+.titulo-container {
       font-family: 'Arial', sans-serif;
       font-size: 48px;
       font-weight: bold;
@@ -23,17 +24,25 @@ body .oculto {
       margin-bottom: 20px;
     }
 
-    .titulo .mayusculas {
+    .titulo-container .mayusculas {
       color: #FFD700;
     }
 
-    .titulo .minusculas {
+    .titulo-container .minusculas {
       color: #00FFFF;
     }
 
-    .titulo:hover .mayusculas,
-    .titulo:hover .minusculas {
+    .titulo-container:hover .mayusculas,
+    .titulo-container:hover .minusculas {
       text-shadow: 0 0 10px #FFD700, 0 0 10px #00FFFF;
+    }
+
+    .boton {
+      background-color: red;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      cursor: pointer;
     }
 
    
