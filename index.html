@@ -14,7 +14,7 @@
 <body>
  <div class="container">
     <div class="titulo">Bienvenido a USDExchangE</div>
-    <button class="boton" id="web3Button" onclick="conectarMetaMask()">Web3-Login Inactivo  <span class="estado-indicador" id="activoIndicador"></span></button>
+        <button class="boton" id="web3Button" onclick="conectarMetaMask()" style="background-color: red; color: white;">Web3-Login Inactivo <span class="estado-indicador" id="activoIndicador"></span></button>
     <div id="direccion" class="oculto" style="color: yellow; font-size: 15px; font-weight: bold;"></div>
     <div id="mensajeRed" class="oculto"></div>
     <div id="saldoETH" class="oculto"></div>
@@ -100,16 +100,16 @@
 
 
 
-            web3Button.innerText = 'Web3 Activo';
-            web3Button.classList.add('activo');
-            web3Button.classList.remove('inactivo');
+            web3Button.innerText = 'WEB3 ACTIVO'; 
+                    web3Button.style.backgroundColor = 'green'; 
+                    web3Button.style.color = 'white'; 
         } catch (error) {
             console.error(error);
         }
     } else {
-        web3Button.innerText = 'Web3 Inactivo';
-        web3Button.classList.add('inactivo');
-        web3Button.classList.remove('activo');
+         web3Button.innerText = 'Web3 Inactivo'; 
+                web3Button.style.backgroundColor = 'red'; 
+                web3Button.style.color = 'white'; 
 
         alert('MetaMask no está instalado. Por favor, instálalo para continuar.');
     }
