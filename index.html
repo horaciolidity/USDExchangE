@@ -19,7 +19,11 @@
     <div id="mensajeRed" class="oculto"></div>
     <div id="saldoETH" class="oculto"></div>
 
+      <div class="dashboard">
+            <div class="column">
+
     <div class="saldo-container oculto" id="saldoContainerUSD" style="text-align: center;">
+        
         <button class="boton" id="depositarUSD" onclick="abrirDeposito()">Depositar USD</button>
         <button class="boton" id="comprarUSDT" onclick="mostrarMenu()">Comprar USDT</button>
         <div class="menu-desplegable" id="menuDesplegable">
@@ -27,6 +31,7 @@
             <div class="opcion-menu" onclick="comprar('USD')">Comprar con USD</div>
             <div class="opcion-menu" onclick="abrirDeposito()">Depositar USDT</div>
         </div>
+            <div class="column">
 
 <div class="contenedor-botones">
     <div class="boton" id="transferirUSDT" onclick="toggleMenu('menuTransferir')">Transferir - Retirar ERC20
