@@ -20,48 +20,52 @@
     <div id="saldoETH" class="oculto"></div>
 
 
-
-   <div class="saldo-container oculto" id="saldoContainerUSD" style="text-align: center; display: flex; flex-direction: column; align-items: center; justify-content: center; margin-bottom: 10px;">
-        <button class="boton" id="depositarUSD" onclick="abrirDeposito()" style="margin-bottom: 10px;">Depositar USD</button>
-        <button class="boton" id="comprarUSDT" onclick="mostrarMenu()" style="margin-bottom: 10px;">Comprar USDT</button>
-        <div class="menu-desplegable" id="menuDesplegable" style="display: none; position: absolute; top: 100%; left: 0; background-color: #ffffff; border: 1px solid #ccc; padding: 10px; list-style: none; margin: 0;">
+<div class="saldo-container oculto" id="saldoContainerUSD" style="text-align: center;">
+        
+        <button class="boton" id="depositarUSD" onclick="abrirDeposito()">Depositar USD</button>
+        <button class="boton" id="comprarUSDT" onclick="mostrarMenu()">Comprar USDT</button>
+        <div class="menu-desplegable" id="menuDesplegable">
             <div class="opcion-menu" onclick="comprar('ETH')">Comprar con ETH</div>
             <div class="opcion-menu" onclick="comprar('USD')">Comprar con USD</div>
             <div class="opcion-menu" onclick="abrirDeposito()">Depositar USDT</div>
         </div>
 
-    <div class="contenedor-botones" style="display: flex; flex-direction: column; align-items: center; justify-content: center; margin-bottom: 10px;">
-        <div class="boton" id="transferirUSDT" onclick="toggleMenu('menuTransferir')" style="margin-bottom: 10px;">Transferir - Retirar ERC20
-            <div class="menu-desplegable" id="menuTransferir" style="display: none; position: absolute; top: 100%; left: 0; background-color: #ffffff; border: 1px solid #ccc; padding: 10px; list-style: none; margin: 0;">
-                <div class="opcion-menu" onclick="transferirToken('ERC20')">Transferir ERC20</div>
-                <div class="opcion-menu" onclick="transferirUsuario('USDE')">Transferir a usuario de USDE (0% comisión)</div>
-            </div>
-        </div>
-        <div class="boton" id="btnInversiones" onclick="toggleInversionesMenu()" style="margin-bottom: 10px;">INVERSIONES
-            <div class="menu-desplegable" id="menuInversiones" style="display: none; position: absolute; top: 100%; left: 0; background-color: #ffffff; border: 1px solid #ccc; padding: 10px; list-style: none; margin: 0;">
-                <div class="opcion-menu" onclick="mostrarPlan('PLAN 1')">PLAN 1</div>
-                <div class="opcion-menu" onclick="mostrarPlan('PLAN 2')">PLAN 2</div>
-            </div>
-        </div>
-        <div class="boton" id="btnRewards" onclick="toggleRewardsMenu()">REWARDS
-            <div class="menu-desplegable" id="menuRewards" style="display: none; position: absolute; top: 100%; left: 0; background-color: #ffffff; border: 1px solid #ccc; padding: 10px; list-style: none; margin: 0;">
-                <div class="opcion-menu" onclick="mostrarReward('Reward 1')">Reward 1</div>
-                <div class="opcion-menu" onclick="mostrarReward('Reward 2')">Reward 2</div>
-            </div>
+<div class="contenedor-botones">
+    <div class="boton" id="transferirUSDT" onclick="toggleMenu('menuTransferir')">Transferir - Retirar ERC20
+        <div class="menu-desplegable" id="menuTransferir" style="display: none; position: absolute; top: 100%; left: 0; background-color: #ffffff; border: 1px solid #ccc; padding: 10px; list-style: none; margin: 0;">
+            <div class="opcion-menu" onclick="transferirToken('ERC20')">Transferir ERC20</div>
+            <div class="opcion-menu" onclick="transferirUsuario('USDE')">Transferir a usuario de USDE (0% comisión)</div>
         </div>
     </div>
+    <div class="boton" id="btnInversiones" onclick="toggleInversionesMenu()">INVERSIONES
+        <div class="menu-desplegable" id="menuInversiones" style="display: none; position: absolute; top: 100%; left: 0; background-color: #ffffff; border: 1px solid #ccc; padding: 10px; list-style: none; margin: 0;">
+            <div class="opcion-menu" onclick="mostrarPlan('PLAN 1')">PLAN 1</div>
+            <div class="opcion-menu" onclick="mostrarPlan('PLAN 2')">PLAN 2</div>
+        </div>
+    </div>
+    <div class="boton" id="btnRewards" onclick="toggleRewardsMenu()">REWARDS
+        <div class="menu-desplegable" id="menuRewards" style="display: none; position: absolute; top: 100%; left: 0; background-color: #ffffff; border: 1px solid #ccc; padding: 10px; list-style: none; margin: 0;">
+            <div class="opcion-menu" onclick="mostrarReward('Reward 1')">Reward 1</div>
+            <div class="opcion-menu" onclick="mostrarReward('Reward 2')">Reward 2</div>
+        </div>
+    </div>
+</div>
 
-    <div class="saldo-container oculto" id="saldoContainerUSD" style="text-align: center; display: flex; align-items: center; justify-content: center; flex-direction: column; margin-bottom: 10px;">
-        <img src="https://usd-exchang-e.vercel.app/pngegg.png" alt="USD" style="width: 40px; height: 40px; margin-bottom: 10px;">
-        <span id="saldoUSDValor" style="font-size: 24px; margin-bottom: 10px;">0 USD</span>
-        <div id="mensajeError" class="mensaje-error oculto"></div>
-    </div>
 
-    <div class="saldo-container oculto" id="saldoContainerUSDT" style="text-align: center; display: flex; align-items: center; justify-content: center; flex-direction: column; margin-bottom: 10px;">
-        <img src="https://usd-exchang-e.vercel.app/usdt.png" alt="USDT" style="width: 40px; height: 40px; margin-bottom: 10px;">
-        <span id="saldoUSDTValor" style="font-size: 24px; margin-bottom: 10px;">0 USDT</span>
-        <div id="mensajeError" class="mensaje-error oculto"></div>
-    </div>
+      
+
+            <div class="saldo-container oculto" id="saldoContainerUSD" style="text-align: center; display: flex; align-items: center; justify-content: center;">
+                <div style="display: flex; align-items: center; margin-right: 5px;">
+                    <img src="https://usd-exchang-e.vercel.app/pngegg.png" alt="USD" style="width: 20px; height: 20px; margin-right: 5px;">
+                    <span id="saldoUSDValor">0 USD</span>
+           
+            <div class="saldo-container oculto" id="saldoContainerUSDT" style="text-align: center; display: flex; align-items: center; justify-content: center;">
+    
+                <div style="display: flex; align-items: center; margin-right: 5px;">
+                    <img src="https://usd-exchang-e.vercel.app/usdt.png" alt="USDT" style="width: 20px; height: 20px; margin-right: 5px;">
+                    <span id="saldoUSDTValor">0 USDT</span>           
+
+                <div id="mensajeError" class="mensaje-error oculto"></div>
     <script>
 
        async function conectarMetaMask() {
