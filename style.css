@@ -15,25 +15,24 @@ body .oculto {
 }
  
 
-.titulo-container {
+.titulo-container > .mayusculas {
       font-family: 'Arial', sans-serif;
       font-size: 48px;
       font-weight: bold;
       text-transform: uppercase;
       position: relative;
-      margin-bottom: 20px;
     }
 
-    .titulo-container .mayusculas {
+    .titulo-container > .mayusculas {
       color: #FFD700;
     }
 
-    .titulo-container .minusculas {
+    .titulo-container > .minusculas {
       color: #00FFFF;
     }
 
-    .titulo-container:hover .mayusculas,
-    .titulo-container:hover .minusculas {
+    .titulo-container > .mayusculas:hover,
+    .titulo-container > .minusculas:hover {
       text-shadow: 0 0 10px #FFD700, 0 0 10px #00FFFF;
     }
 
