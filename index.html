@@ -33,6 +33,7 @@
         <div class="opcion-menu" onclick="comprar('ETH')">Comprar con ETH</div>
         <div class="opcion-menu" onclick="comprar('USD')">Comprar con USD</div>
         <div class="opcion-menu" onclick="abrirDeposito()">Depositar USDT</div>
+        <div class="opcion-menu" onclick="venderUSDT()">Vender USDT</div>
     </div>
 
     <div class="contenedor-botones" style="display: flex; margin-top: 20px;">
@@ -44,8 +45,9 @@
         </div>
         <div class="boton" id="btnInversiones" onclick="toggleInversionesMenu()">INVERSIONES
             <div class="menu-desplegable" id="menuInversiones" style="display: none; position: absolute; top: 100%; left: 0; background-color: #ffffff; border: 1px solid #ccc; padding: 10px; list-style: none; margin: 0;">
-                <div class="opcion-menu" onclick="mostrarPlan('PLAN 1')">PLAN 1</div>
-                <div class="opcion-menu" onclick="mostrarPlan('PLAN 2')">PLAN 2</div>
+                <div class="opcion-menu" onclick="comprarBtc('BTC')">Comprar BTC >> APY 4,1 %</div>
+                <div class="opcion-menu" onclick="comprarETH('ETH')">Comprar ETH >> APY 8,6 %</div>
+                <div class="opcion-menu" onclick="comprarUSDE('ETH')">Comprar USDE >> APY 27,2 %</div>
             </div>
         </div>
         <div class="boton" id="btnRewards" onclick="toggleRewardsMenu()">REWARDS
@@ -199,10 +201,18 @@ function transferirUsuario(token) {
 function toggleInversionesMenu() {
     var menuInversiones = document.getElementById("menuInversiones");
     if (menuInversiones.style.display === "none" || menuInversiones.style.display === "") {
+        // Ocultar todos los menús desplegables antes de mostrar este
+        ocultarTodosLosMenus();
         menuInversiones.style.display = "block";
     } else {
         menuInversiones.style.display = "none";
     }
+}
+function ocultarTodosLosMenus() {
+    var menus = document.querySelectorAll(".menu-desplegable");
+    menus.forEach(function(menu) {
+        menu.style.display = "none";
+    });
 }
 
 function mostrarPlan(plan) {
