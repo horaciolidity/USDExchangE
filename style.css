@@ -8,11 +8,7 @@ body {
 body .oculto {
     display: none;
 }
-.titulo {
-    font-size: 16px;
-    margin-bottom: 20px;
-}
- .titulo-container {
+titulo {
       font-family: 'Arial', sans-serif;
       font-size: 48px;
       font-weight: bold;
@@ -21,20 +17,18 @@ body .oculto {
       margin-bottom: 20px;
     }
 
-    .titulo-container .mayusculas {
+    .titulo .mayusculas {
       color: #FFD700;
     }
 
-    .titulo-container .minusculas {
+    .titulo .minusculas {
       color: #00FFFF;
     }
 
-    .titulo-container:hover .mayusculas,
-    .titulo-container:hover .minusculas {
+    .titulo:hover .mayusculas,
+    .titulo:hover .minusculas {
       text-shadow: 0 0 10px #FFD700, 0 0 10px #00FFFF;
     }
-
-   
 
 .boton {
     background-color: #007bff;
