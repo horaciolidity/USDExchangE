@@ -49,11 +49,6 @@ body .oculto {
     display: none;
 }
 
-.contenedor-botones {
-    display: flex;
-    justify-content: center;
-    margin-top: 20px;
-}
 
 .menu-desplegable {
     display: none;
