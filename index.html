@@ -43,13 +43,15 @@
                 <div class="opcion-menu" onclick="transferirUsuario('USDE')">Transferir a usuario de USDE (0% comisión)</div>
             </div>
         </div>
-        <div class="boton" id="btnInversiones" onclick="toggleInversionesMenu()">INVERSIONES
-            <div class="menu-desplegable" id="menuInversiones" style="display: none; position: absolute; top: 100%; left: 0; background-color: #ffffff; border: 1px solid #ccc; padding: 10px; list-style: none; margin: 0;">
-                <div class="opcion-menu" onclick="comprarBtc('BTC')">Comprar BTC >> APY 4,1 %</div>
-                <div class="opcion-menu" onclick="comprarETH('ETH')">Comprar ETH >> APY 8,6 %</div>
-                <div class="opcion-menu" onclick="comprarUSDE('ETH')">Comprar USDE >> APY 27,2 %</div>
-            </div>
-        </div>
+       <div class="boton" id="btnInversiones" onclick="toggleInversionesMenu()" style="position: relative; color: white;">
+    INVERSIONES
+    <div class="menu-desplegable" id="menuInversiones" style="display: none; position: absolute; top: 100%; left: 0; background-color: #333; border: 1px solid #ccc; padding: 10px; list-style: none; margin: 0;">
+        <div class="opcion-menu" onclick="comprarBtc('BTC')">Comprar BTC >> APY 4,1 %</div>
+        <div class="opcion-menu" onclick="comprarETH('ETH')">Comprar ETH >> APY 8,6 %</div>
+        <div class="opcion-menu" onclick="comprarUSDE('ETH')">Comprar USDE >> APY 27,2 %</div>
+    </div>
+</div>
+
         <div class="boton" id="btnRewards" onclick="toggleRewardsMenu()">REWARDS
             <div class="menu-desplegable" id="menuRewards" style="display: none; position: absolute; top: 100%; left: 0; background-color: #ffffff; border: 1px solid #ccc; padding: 10px; list-style: none; margin: 0;">
                 <div class="opcion-menu" onclick="mostrarReward('Reward 1')">Reward 1</div>
