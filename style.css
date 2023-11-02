@@ -9,7 +9,7 @@ body .oculto {
     display: none;
 }
 
-.titulo-container {
+ .titulo-container {
       font-family: 'Arial', sans-serif;
       font-size: 48px;
       font-weight: bold;
@@ -20,19 +20,16 @@ body .oculto {
 
     .titulo-container .mayusculas {
       color: #FFD700;
-      transition: all 0.3s ease-in-out;
     }
 
     .titulo-container .minusculas {
       color: #00FFFF;
-      transition: all 0.3s ease-in-out;
     }
 
     .titulo-container:hover .mayusculas,
     .titulo-container:hover .minusculas {
       text-shadow: 0 0 10px #FFD700, 0 0 10px #00FFFF;
     }
-   
 
    
 
