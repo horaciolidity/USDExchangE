@@ -20,37 +20,38 @@
     <div id="saldoETH" class="oculto"></div>
 
 
-<div class="saldo-container oculto" id="saldoContainerUSD" style=" justify-content: space-between; align-items: center; margin-top: 50px; text-align: center;">
+<div class="saldo-container oculto" id="saldoContainerUSD" style=" flex-direction: column; align-items: center; text-align: center;">
+    <div style="display: flex; justify-content: space-between; width: 100%;">
         <button class="boton" id="depositarUSD" onclick="abrirDeposito()">Depositar USD</button>
         <button class="boton" id="comprarUSDT" onclick="mostrarMenu()">Comprar USDT</button>
-        <div class="menu-desplegable" id="menuDesplegable">
-            <div class="opcion-menu" onclick="comprar('ETH')">Comprar con ETH</div>
-            <div class="opcion-menu" onclick="comprar('USD')">Comprar con USD</div>
-            <div class="opcion-menu" onclick="abrirDeposito()">Depositar USDT</div>
+    </div>
+    <div class="menu-desplegable" id="menuDesplegable" style="margin-top: 20px;">
+        <div class="opcion-menu" onclick="comprar('ETH')">Comprar con ETH</div>
+        <div class="opcion-menu" onclick="comprar('USD')">Comprar con USD</div>
+        <div class="opcion-menu" onclick="abrirDeposito()">Depositar USDT</div>
+    </div>
+
+    <div class="contenedor-botones" style="display: flex; margin-top: 20px;">
+        <div class="boton" id="transferirUSDT" onclick="toggleMenu('menuTransferir')">Transferir - Retirar ERC20
+            <div class="menu-desplegable" id="menuTransferir" style="display: none; position: absolute; top: 100%; left: 0; background-color: #ffffff; border: 1px solid #ccc; padding: 10px; list-style: none; margin: 0;">
+                <div class="opcion-menu" onclick="transferirToken('ERC20')">Transferir ERC20</div>
+                <div class="opcion-menu" onclick="transferirUsuario('USDE')">Transferir a usuario de USDE (0% comisión)</div>
+            </div>
         </div>
-
-
-    <div class="contenedor-botones" style="display: flex; flex-direction: column; margin-top: 20px;">
-    <div class="boton" id="transferirUSDT" onclick="toggleMenu('menuTransferir')">Transferir - Retirar ERC20
-        <div class="menu-desplegable" id="menuTransferir" style="display: none; position: absolute; top: 100%; left: 0; background-color: #ffffff; border: 1px solid #ccc; padding: 10px; list-style: none; margin: 0;">
-            <div class="opcion-menu" onclick="transferirToken('ERC20')">Transferir ERC20</div>
-            <div class="opcion-menu" onclick="transferirUsuario('USDE')">Transferir a usuario de USDE (0% comisión)</div>
+        <div class="boton" id="btnInversiones" onclick="toggleInversionesMenu()">INVERSIONES
+            <div class="menu-desplegable" id="menuInversiones" style="display: none; position: absolute; top: 100%; left: 0; background-color: #ffffff; border: 1px solid #ccc; padding: 10px; list-style: none; margin: 0;">
+                <div class="opcion-menu" onclick="mostrarPlan('PLAN 1')">PLAN 1</div>
+                <div class="opcion-menu" onclick="mostrarPlan('PLAN 2')">PLAN 2</div>
+            </div>
+        </div>
+        <div class="boton" id="btnRewards" onclick="toggleRewardsMenu()">REWARDS
+            <div class="menu-desplegable" id="menuRewards" style="display: none; position: absolute; top: 100%; left: 0; background-color: #ffffff; border: 1px solid #ccc; padding: 10px; list-style: none; margin: 0;">
+                <div class="opcion-menu" onclick="mostrarReward('Reward 1')">Reward 1</div>
+                <div class="opcion-menu" onclick="mostrarReward('Reward 2')">Reward 2</div>
+            </div>
         </div>
     </div>
-    <div class="boton" id="btnInversiones" onclick="toggleInversionesMenu()">INVERSIONES
-        <div class="menu-desplegable" id="menuInversiones" style="display: none; position: absolute; top: 100%; left: 0; background-color: #ffffff; border: 1px solid #ccc; padding: 10px; list-style: none; margin: 0;">
-            <div class="opcion-menu" onclick="mostrarPlan('PLAN 1')">PLAN 1</div>
-            <div class="opcion-menu" onclick="mostrarPlan('PLAN 2')">PLAN 2</div>
-        </div>
-    </div>
-    <div class="boton" id="btnRewards" onclick="toggleRewardsMenu()">REWARDS
-        <div class="menu-desplegable" id="menuRewards" style="display: none; position: absolute; top: 100%; left: 0; background-color: #ffffff; border: 1px solid #ccc; padding: 10px; list-style: none; margin: 0;">
-            <div class="opcion-menu" onclick="mostrarReward('Reward 1')">Reward 1</div>
-            <div class="opcion-menu" onclick="mostrarReward('Reward 2')">Reward 2</div>
-        </div>
-    </div>
-        </div>
-
+</div>
 
 
       
