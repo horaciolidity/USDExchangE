@@ -9,40 +9,30 @@ body .oculto {
     display: none;
 }
 
-.container {
-    text-align: center;
-    margin: 50px auto;
-}
- 
-
-.titulo-container > .mayusculas {
+.titulo-container {
       font-family: 'Arial', sans-serif;
       font-size: 48px;
       font-weight: bold;
       text-transform: uppercase;
       position: relative;
+      margin-bottom: 20px;
     }
 
-    .titulo-container > .mayusculas {
+    .titulo-container .mayusculas {
       color: #FFD700;
+      transition: all 0.3s ease-in-out;
     }
 
-    .titulo-container > .minusculas {
+    .titulo-container .minusculas {
       color: #00FFFF;
+      transition: all 0.3s ease-in-out;
     }
 
-    .titulo-container > .mayusculas:hover,
-    .titulo-container > .minusculas:hover {
+    .titulo-container:hover .mayusculas,
+    .titulo-container:hover .minusculas {
       text-shadow: 0 0 10px #FFD700, 0 0 10px #00FFFF;
     }
-
-    .boton {
-      background-color: red;
-      color: white;
-      border: none;
-      padding: 10px 20px;
-      cursor: pointer;
-    }
+   
 
    
 
