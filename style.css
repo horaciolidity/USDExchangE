@@ -55,12 +55,14 @@ body .oculto {
     position: absolute;
     top: 100%;
     left: 0;
-    background-color: #ffffff;
+    background-color: black; 
+    color: white;
     border: 1px solid #ccc;
     padding: 10px;
     list-style: none;
     margin: 0;
 }
+
 
 
 .opcion-menu {
