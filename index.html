@@ -36,13 +36,14 @@
         <div class="opcion-menu" onclick="venderUSDT()">Vender USDT</div>
     </div>
 
-   <div class="contenedor-botones" style="display: flex; margin-top: 20px;">
-        <div class="boton" id="transferirUSDT" onclick="toggleMenu('menuTransferir')">Transferir
-            <div class="menu-desplegable" id="menuTransferir" style="display: none; position: absolute; top: 100%; left: 0; background-color: #ffffff; border: 1px solid #ccc; padding: 10px; list-style: none; margin: 0;">
-                <div class="opcion-menu" onclick="transferirToken('ERC20')">Transferir ERC20</div>
-                <div class="opcion-menu" onclick="transferirUsuario('USDE')">Transferir a usuario de USDE (0% comisión)</div>
-            </div>
+   <div class="contenedor-botones" style="display: flex; margin-top: 20px; position: relative;">
+    <div class="boton" id="transferirUSDT" onclick="toggleMenu('menuTransferir')">Transferir
+        <div class="menu-desplegable" id="menuTransferir">
+            <div class="opcion-menu" onclick="transferirToken('ERC20')">Transferir ERC20</div>
+            <div class="opcion-menu" onclick="transferirUsuario('USDE')">Transferir a usuario de USDE (0% comisión)</div>
         </div>
+    </div>
+
 
 
        <div class="boton" id="btnInversiones" onclick="toggleInversionesMenu()" style="position: relative; color: white;">
