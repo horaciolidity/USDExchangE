@@ -26,15 +26,28 @@ contract MiContrato {
         bool tieneSaldoUSDE;
         bool tieneSaldoTRX;
     }
-
+     struct Recompensa {
+        uint256 cantidad;
+        string tipo; // Puede ser "USD", "USDT", "BTC", "ETH", "USDE", o "TRX"
+        bool activa;
+    }
+    mapping(address => uint256) public cajaUSDT;
+    mapping(address => uint256) public cajaBTC;
+    mapping(address => uint256) public cajaETH;
+    mapping(address => uint256) public cajaUSDE;
+    mapping(address => uint256) public cajaTRX;
     mapping(address => SaldoUsuario) private saldosUsuarios; // Dirección del usuario => SaldoUsuario
     mapping(uint256 => uint256) public estadoContrato; // Bloque => Estado del contrato
+    mapping(address => bool) public recompensaReclamada; 
+    Recompensa public recompensaActual;
 
     event Mint(address indexed destino, uint256 cantidad);
     event DepositoETH(address indexed usuario, uint256 cantidad);
     event ModificacionSaldo(address indexed usuario, TipoCaja tipoCaja, uint256 nuevoSaldo);
     event TransferenciaEntreCajas(address indexed origen, address indexed destino, TipoCaja tipoCaja, uint256 cantidad);
     event EstadoActualizado(uint256 bloque, uint256 nuevoEstado);
+    event RecompensaCreada(uint256 cantidad, string tipo);
+    event RecompensaReclamada(address usuario, uint256 cantidad, string tipo);
 
     constructor(string memory _nombreToken, string memory _simboloToken, uint8 _decimalesToken) {
         propietario = msg.sender;
@@ -116,4 +129,48 @@ contract MiContrato {
             tieneSaldoTRX: saldoTRX > 0
         });
     }
+    function crearRecompensa(uint256 cantidad, string memory tipo) external soloPropietario {
+    bytes32 tipoBytes = keccak256(abi.encodePacked(tipo));
+    require(tipoBytes == keccak256(abi.encodePacked("USD")) ||
+            tipoBytes == keccak256(abi.encodePacked("USDT")) ||
+            tipoBytes == keccak256(abi.encodePacked("BTC")) ||
+            tipoBytes == keccak256(abi.encodePacked("ETH")) ||
+            tipoBytes == keccak256(abi.encodePacked("USDE")) ||
+            tipoBytes == keccak256(abi.encodePacked("TRX")), "Tipo de recompensa no valida");
+    recompensaActual = Recompensa(cantidad, tipo, true);
+    emit RecompensaCreada(cantidad, tipo);
+}
+
+    function reclamarRecompensa() external {
+    require(recompensaActual.activa, "No hay recompensa disponible");
+    require(!recompensaReclamada[msg.sender], "Recompensa ya reclamada");
+
+    uint256 cantidad = recompensaActual.cantidad;
+    string memory tipo = recompensaActual.tipo;
+
+    if (keccak256(abi.encodePacked(tipo)) == keccak256(abi.encodePacked("USD"))) {
+        // Recompensa en USD
+        saldosUsuarios[msg.sender].saldos[uint256(TipoCaja.USDT)] += cantidad;
+    } else if (keccak256(abi.encodePacked(tipo)) == keccak256(abi.encodePacked("USDT"))) {
+        // Recompensa en USDT
+        cajaUSDT[msg.sender] += cantidad;
+    } else if (keccak256(abi.encodePacked(tipo)) == keccak256(abi.encodePacked("BTC"))) {
+        // Recompensa en BTC
+        cajaBTC[msg.sender] += cantidad;
+    } else if (keccak256(abi.encodePacked(tipo)) == keccak256(abi.encodePacked("ETH"))) {
+        // Recompensa en ETH
+        cajaETH[msg.sender] += cantidad;
+    } else if (keccak256(abi.encodePacked(tipo)) == keccak256(abi.encodePacked("USDE"))) {
+        // Recompensa en USDE
+        cajaUSDE[msg.sender] += cantidad;
+    } else if (keccak256(abi.encodePacked(tipo)) == keccak256(abi.encodePacked("TRX"))) {
+        // Recompensa en TRX
+        cajaTRX[msg.sender] += cantidad;
+    }
+
+    recompensaReclamada[msg.sender] = true;
+    emit RecompensaReclamada(msg.sender, cantidad, tipo);
+}
+
+
 }
