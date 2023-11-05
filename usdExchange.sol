@@ -1,4 +1,9 @@
+// SPDX-License-Identifier: UNLICENSED
+
 pragma solidity ^0.8.0;
+
+
+
 
 contract MiContrato {
 
@@ -36,10 +41,13 @@ contract MiContrato {
     mapping(address => uint256) public cajaETH;
     mapping(address => uint256) public cajaUSDE;
     mapping(address => uint256) public cajaTRX;
+    mapping(uint256 => uint256) public preciosCriptomonedas; // Tipo de caja (enum) => Precio en USD
+
     mapping(address => SaldoUsuario) private saldosUsuarios; // Dirección del usuario => SaldoUsuario
     mapping(uint256 => uint256) public estadoContrato; // Bloque => Estado del contrato
     mapping(address => bool) public recompensaReclamada; 
     Recompensa public recompensaActual;
+
 
     event Mint(address indexed destino, uint256 cantidad);
     event DepositoETH(address indexed usuario, uint256 cantidad);
@@ -50,10 +58,12 @@ contract MiContrato {
     event RecompensaReclamada(address usuario, uint256 cantidad, string tipo);
 
     constructor(string memory _nombreToken, string memory _simboloToken, uint8 _decimalesToken) {
+
         propietario = msg.sender;
         nombreToken = _nombreToken;
         simboloToken = _simboloToken;
         decimalesToken = _decimalesToken;
+       
     }
 
     modifier soloPropietario() {
@@ -86,13 +96,7 @@ contract MiContrato {
         emit TransferenciaEntreCajas(origen, destino, tipoCaja, cantidad);
     }
 
-    function consultarValorCripto(TipoCaja tipoCaja) internal view returns (uint256) {
-        // Implementa la lógica para consultar el valor de la criptomoneda (tipo de caja) en la blockchain
-        // Devuelve el valor de la criptomoneda en USD
-        // (Puedes utilizar oráculos o APIs externas para obtener el valor real)
-        return 1; // Por defecto, 1 unidad de la criptomoneda equivale a 1 unidad de valor representativo en USD
-    }
-
+    
     function actualizarEstadoContrato(uint256 nuevoEstado) external soloPropietario {
         estadoContrato[block.number] = nuevoEstado;
         emit EstadoActualizado(block.number, nuevoEstado);
@@ -171,6 +175,21 @@ contract MiContrato {
     recompensaReclamada[msg.sender] = true;
     emit RecompensaReclamada(msg.sender, cantidad, tipo);
 }
+ function setPrecioCriptomoneda(TipoCaja tipoCaja, uint256 precioUSD) external soloPropietario {
+        preciosCriptomonedas[uint256(tipoCaja)] = precioUSD;
+    }
+
+    function consultarValorCripto(TipoCaja tipoCaja) internal view returns (uint256) {
+        // Consulta el precio de la criptomoneda en USD desde la configuración del contrato
+        uint256 precio = preciosCriptomonedas[uint256(tipoCaja)];
+
+        // Si el precio está configurado como 0, devuelve un valor predeterminado (1 USD)
+        if (precio == 0) {
+            return 1;
+        }
+
+        return precio;
+    }
 
 
 }
