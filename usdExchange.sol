@@ -2,11 +2,7 @@
 
 pragma solidity ^0.8.0;
 
-
-
-
 contract MiContrato {
-
     address public propietario;
     string public nombreToken;
     string public simboloToken;
@@ -16,6 +12,12 @@ contract MiContrato {
 
     struct SaldoUsuario {
         mapping(uint256 => uint256) saldos; // Tipo de caja (enum) => Saldo
+    }
+
+    struct Recompensa {
+        uint256 cantidad;
+        TipoCaja tipo; // Puede ser USDT, BTC, ETH, USDE o TRX
+        bool activa;
     }
 
     struct DetalleSaldoUsuario {
@@ -31,39 +33,34 @@ contract MiContrato {
         bool tieneSaldoUSDE;
         bool tieneSaldoTRX;
     }
-     struct Recompensa {
-        uint256 cantidad;
-        string tipo; // Puede ser "USD", "USDT", "BTC", "ETH", "USDE", o "TRX"
-        bool activa;
+
+    struct DetalleUsuario {
+        uint256 saldoUSDT;
+        uint256 saldoBTC;
+        uint256 saldoETH;
+        uint256 saldoUSDE;
+        uint256 saldoTRX;
+        uint256 saldoTotalUSD;
     }
-    mapping(address => uint256) public cajaUSDT;
-    mapping(address => uint256) public cajaBTC;
-    mapping(address => uint256) public cajaETH;
-    mapping(address => uint256) public cajaUSDE;
-    mapping(address => uint256) public cajaTRX;
-    mapping(uint256 => uint256) public preciosCriptomonedas; // Tipo de caja (enum) => Precio en USD
 
     mapping(address => SaldoUsuario) private saldosUsuarios; // Dirección del usuario => SaldoUsuario
-    mapping(uint256 => uint256) public estadoContrato; // Bloque => Estado del contrato
     mapping(address => bool) public recompensaReclamada; 
     Recompensa public recompensaActual;
-
+    mapping(uint256 => uint256) public preciosCriptomonedas; // Tipo de caja (enum) => Precio en USD
 
     event Mint(address indexed destino, uint256 cantidad);
     event DepositoETH(address indexed usuario, uint256 cantidad);
     event ModificacionSaldo(address indexed usuario, TipoCaja tipoCaja, uint256 nuevoSaldo);
     event TransferenciaEntreCajas(address indexed origen, address indexed destino, TipoCaja tipoCaja, uint256 cantidad);
-    event EstadoActualizado(uint256 bloque, uint256 nuevoEstado);
     event RecompensaCreada(uint256 cantidad, string tipo);
     event RecompensaReclamada(address usuario, uint256 cantidad, string tipo);
+    event PrecioCriptomonedaActualizado(TipoCaja tipoCaja, uint256 nuevoPrecio);
 
     constructor(string memory _nombreToken, string memory _simboloToken, uint8 _decimalesToken) {
-
         propietario = msg.sender;
         nombreToken = _nombreToken;
         simboloToken = _simboloToken;
         decimalesToken = _decimalesToken;
-       
     }
 
     modifier soloPropietario() {
@@ -96,21 +93,70 @@ contract MiContrato {
         emit TransferenciaEntreCajas(origen, destino, tipoCaja, cantidad);
     }
 
-    
-    function actualizarEstadoContrato(uint256 nuevoEstado) external soloPropietario {
-        estadoContrato[block.number] = nuevoEstado;
-        emit EstadoActualizado(block.number, nuevoEstado);
+    function crearRecompensa(uint256 cantidad, TipoCaja tipo) external soloPropietario {
+        require(tipo >= TipoCaja.USDT && tipo <= TipoCaja.TRX, "Tipo de caja no valido");
+        recompensaActual = Recompensa(cantidad, tipo, true);
+        emit RecompensaCreada(cantidad, _tipoCajaToString(tipo));
     }
 
-    function consultarEstadoContrato(uint256 bloque) external view returns (uint256) {
-        return estadoContrato[bloque];
+    function reclamarRecompensa() external {
+        require(recompensaActual.activa, "No hay recompensa disponible");
+        require(!recompensaReclamada[msg.sender], "Recompensa ya reclamada");
+
+        uint256 cantidad = recompensaActual.cantidad;
+        TipoCaja tipo = recompensaActual.tipo;
+
+        // Sumar la recompensa al saldo del usuario
+        saldosUsuarios[msg.sender].saldos[uint256(tipo)] += cantidad;
+
+        recompensaReclamada[msg.sender] = true;
+        emit RecompensaReclamada(msg.sender, cantidad, _tipoCajaToString(tipo));
     }
 
     function consultarBalanceUsuario(address usuario, TipoCaja tipoCaja) external view returns (uint256) {
         return saldosUsuarios[usuario].saldos[uint256(tipoCaja)];
     }
 
-    function consultarDetalleSaldoUsuario(address usuario) external view returns (DetalleSaldoUsuario memory) {
+    function setPrecioCriptomoneda(TipoCaja tipoCaja, uint256 precioUSD) external soloPropietario {
+        preciosCriptomonedas[uint256(tipoCaja)] = precioUSD;
+        emit PrecioCriptomonedaActualizado(tipoCaja, precioUSD);
+    }
+
+    function consultarValorCripto(TipoCaja tipoCaja) internal view returns (uint256) {
+        // Consulta el precio de la criptomoneda en USD desde la configuración del contrato
+        uint256 precio = preciosCriptomonedas[uint256(tipoCaja)];
+
+        // Si el precio está configurado como 0, devuelve un valor predeterminado (1 USD)
+        if (precio == 0) {
+            return 1;
+        }
+
+        return precio;
+    }
+
+    function _tipoCajaToString(TipoCaja tipo) internal pure returns (string memory) {
+        if (tipo == TipoCaja.USDT) return "USDT";
+        if (tipo == TipoCaja.BTC) return "BTC";
+        if (tipo == TipoCaja.ETH) return "ETH";
+        if (tipo == TipoCaja.USDE) return "USDE";
+        if (tipo == TipoCaja.TRX) return "TRX";
+        revert("Tipo de caja no valido");
+    }
+
+    function consultarDetalleUsuario(address usuario) external view returns (DetalleUsuario memory) {
+        DetalleSaldoUsuario memory saldoDetalle = _consultarDetalleSaldoUsuario(usuario);
+
+        return DetalleUsuario({
+            saldoUSDT: saldoDetalle.saldoUSDT,
+            saldoBTC: saldoDetalle.saldoBTC,
+            saldoETH: saldoDetalle.saldoETH,
+            saldoUSDE: saldoDetalle.saldoUSDE,
+            saldoTRX: saldoDetalle.saldoTRX,
+            saldoTotalUSD: saldoDetalle.saldoTotalUSD
+        });
+    }
+
+    function _consultarDetalleSaldoUsuario(address usuario) internal view returns (DetalleSaldoUsuario memory) {
         uint256 saldoUSDT = saldosUsuarios[usuario].saldos[uint256(TipoCaja.USDT)] * consultarValorCripto(TipoCaja.USDT);
         uint256 saldoBTC = saldosUsuarios[usuario].saldos[uint256(TipoCaja.BTC)] * consultarValorCripto(TipoCaja.BTC);
         uint256 saldoETH = saldosUsuarios[usuario].saldos[uint256(TipoCaja.ETH)] * consultarValorCripto(TipoCaja.ETH);
@@ -133,63 +179,4 @@ contract MiContrato {
             tieneSaldoTRX: saldoTRX > 0
         });
     }
-    function crearRecompensa(uint256 cantidad, string memory tipo) external soloPropietario {
-    bytes32 tipoBytes = keccak256(abi.encodePacked(tipo));
-    require(tipoBytes == keccak256(abi.encodePacked("USD")) ||
-            tipoBytes == keccak256(abi.encodePacked("USDT")) ||
-            tipoBytes == keccak256(abi.encodePacked("BTC")) ||
-            tipoBytes == keccak256(abi.encodePacked("ETH")) ||
-            tipoBytes == keccak256(abi.encodePacked("USDE")) ||
-            tipoBytes == keccak256(abi.encodePacked("TRX")), "Tipo de recompensa no valida");
-    recompensaActual = Recompensa(cantidad, tipo, true);
-    emit RecompensaCreada(cantidad, tipo);
-}
-
-    function reclamarRecompensa() external {
-    require(recompensaActual.activa, "No hay recompensa disponible");
-    require(!recompensaReclamada[msg.sender], "Recompensa ya reclamada");
-
-    uint256 cantidad = recompensaActual.cantidad;
-    string memory tipo = recompensaActual.tipo;
-
-    if (keccak256(abi.encodePacked(tipo)) == keccak256(abi.encodePacked("USD"))) {
-        // Recompensa en USD
-        saldosUsuarios[msg.sender].saldos[uint256(TipoCaja.USDT)] += cantidad;
-    } else if (keccak256(abi.encodePacked(tipo)) == keccak256(abi.encodePacked("USDT"))) {
-        // Recompensa en USDT
-        cajaUSDT[msg.sender] += cantidad;
-    } else if (keccak256(abi.encodePacked(tipo)) == keccak256(abi.encodePacked("BTC"))) {
-        // Recompensa en BTC
-        cajaBTC[msg.sender] += cantidad;
-    } else if (keccak256(abi.encodePacked(tipo)) == keccak256(abi.encodePacked("ETH"))) {
-        // Recompensa en ETH
-        cajaETH[msg.sender] += cantidad;
-    } else if (keccak256(abi.encodePacked(tipo)) == keccak256(abi.encodePacked("USDE"))) {
-        // Recompensa en USDE
-        cajaUSDE[msg.sender] += cantidad;
-    } else if (keccak256(abi.encodePacked(tipo)) == keccak256(abi.encodePacked("TRX"))) {
-        // Recompensa en TRX
-        cajaTRX[msg.sender] += cantidad;
-    }
-
-    recompensaReclamada[msg.sender] = true;
-    emit RecompensaReclamada(msg.sender, cantidad, tipo);
-}
- function setPrecioCriptomoneda(TipoCaja tipoCaja, uint256 precioUSD) external soloPropietario {
-        preciosCriptomonedas[uint256(tipoCaja)] = precioUSD;
-    }
-
-    function consultarValorCripto(TipoCaja tipoCaja) internal view returns (uint256) {
-        // Consulta el precio de la criptomoneda en USD desde la configuración del contrato
-        uint256 precio = preciosCriptomonedas[uint256(tipoCaja)];
-
-        // Si el precio está configurado como 0, devuelve un valor predeterminado (1 USD)
-        if (precio == 0) {
-            return 1;
-        }
-
-        return precio;
-    }
-
-
 }
