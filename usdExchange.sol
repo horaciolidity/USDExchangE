@@ -8,7 +8,8 @@ contract MiContrato {
     string public simboloToken;
     uint8 public decimalesToken;
 
-    enum TipoCaja { USDT, BTC, ETH, USDE, TRX }
+    enum TipoCaja { USDT, BTC, ETH, USDE, BNB }
+
 
     struct SaldoUsuario {
         mapping(uint256 => uint256) saldos; // Tipo de caja (enum) => Saldo
@@ -16,7 +17,7 @@ contract MiContrato {
 
     struct Recompensa {
         uint256 cantidad;
-        TipoCaja tipo; // Puede ser USDT, BTC, ETH, USDE o TRX
+        TipoCaja tipo; // Puede ser USDT, BTC, ETH, USDE o BNB
         bool activa;
     }
 
@@ -25,13 +26,13 @@ contract MiContrato {
         uint256 saldoBTC;
         uint256 saldoETH;
         uint256 saldoUSDE;
-        uint256 saldoTRX;
+        uint256 saldoBNB;
         uint256 saldoTotalUSD;
         bool tieneSaldoUSDT;
         bool tieneSaldoBTC;
         bool tieneSaldoETH;
         bool tieneSaldoUSDE;
-        bool tieneSaldoTRX;
+        bool tieneSaldoBNB;
     }
 
     struct DetalleUsuario {
@@ -39,14 +40,16 @@ contract MiContrato {
         uint256 saldoBTC;
         uint256 saldoETH;
         uint256 saldoUSDE;
-        uint256 saldoTRX;
+        uint256 saldoBNB;
         uint256 saldoTotalUSD;
     }
 
+
     mapping(address => SaldoUsuario) private saldosUsuarios; // Dirección del usuario => SaldoUsuario
-    mapping(address => bool) public recompensaReclamada; 
+    mapping(uint256 => mapping(address => bool)) public recompensaReclamada;
+
     Recompensa public recompensaActual;
-    mapping(uint256 => uint256) public preciosCriptomonedas; // Tipo de caja (enum) => Precio en USD
+    mapping(uint256 => uint256) public preciosCriptomonedas; // Tipo de caja (enum) => Precio en BNB
 
     event Mint(address indexed destino, uint256 cantidad);
     event DepositoETH(address indexed usuario, uint256 cantidad);
@@ -94,24 +97,25 @@ contract MiContrato {
     }
 
     function crearRecompensa(uint256 cantidad, TipoCaja tipo) external soloPropietario {
-        require(tipo >= TipoCaja.USDT && tipo <= TipoCaja.TRX, "Tipo de caja no valido");
+        require(tipo >= TipoCaja.USDT && tipo <= TipoCaja.BNB, "Tipo de caja no valido");
         recompensaActual = Recompensa(cantidad, tipo, true);
         emit RecompensaCreada(cantidad, _tipoCajaToString(tipo));
     }
 
     function reclamarRecompensa() external {
-        require(recompensaActual.activa, "No hay recompensa disponible");
-        require(!recompensaReclamada[msg.sender], "Recompensa ya reclamada");
+    require(recompensaActual.activa, "No hay recompensa disponible");
+    require(!recompensaReclamada[uint256(recompensaActual.tipo)][msg.sender], "Recompensa ya reclamada");
 
-        uint256 cantidad = recompensaActual.cantidad;
-        TipoCaja tipo = recompensaActual.tipo;
+    uint256 cantidad = recompensaActual.cantidad;
+    TipoCaja tipo = recompensaActual.tipo;
 
-        // Sumar la recompensa al saldo del usuario
-        saldosUsuarios[msg.sender].saldos[uint256(tipo)] += cantidad;
+    // Sumar la recompensa al saldo del usuario
+    saldosUsuarios[msg.sender].saldos[uint256(tipo)] += cantidad;
 
-        recompensaReclamada[msg.sender] = true;
-        emit RecompensaReclamada(msg.sender, cantidad, _tipoCajaToString(tipo));
-    }
+    recompensaReclamada[uint256(tipo)][msg.sender] = true;
+    emit RecompensaReclamada(msg.sender, cantidad, _tipoCajaToString(tipo));
+}
+
 
     function consultarBalanceUsuario(address usuario, TipoCaja tipoCaja) external view returns (uint256) {
         return saldosUsuarios[usuario].saldos[uint256(tipoCaja)];
@@ -139,7 +143,7 @@ contract MiContrato {
         if (tipo == TipoCaja.BTC) return "BTC";
         if (tipo == TipoCaja.ETH) return "ETH";
         if (tipo == TipoCaja.USDE) return "USDE";
-        if (tipo == TipoCaja.TRX) return "TRX";
+        if (tipo == TipoCaja.BNB) return "BNB";
         revert("Tipo de caja no valido");
     }
 
@@ -151,32 +155,83 @@ contract MiContrato {
             saldoBTC: saldoDetalle.saldoBTC,
             saldoETH: saldoDetalle.saldoETH,
             saldoUSDE: saldoDetalle.saldoUSDE,
-            saldoTRX: saldoDetalle.saldoTRX,
+            saldoBNB: saldoDetalle.saldoBNB,
             saldoTotalUSD: saldoDetalle.saldoTotalUSD
         });
     }
+
+    function comprarCaja(TipoCaja tipo, uint256 cantidad) external payable {
+    require(tipo != TipoCaja.BNB, "No se admiten compras con BNB"); // No se admite BNB
+    require(preciosCriptomonedas[uint256(tipo)] > 0, "Tipo de caja no tiene precio establecido");
+
+    uint256 costoTotal = preciosCriptomonedas[uint256(tipo)] * cantidad;
+
+    if (tipo == TipoCaja.USDT || tipo == TipoCaja.BTC || tipo == TipoCaja.ETH || tipo == TipoCaja.USDE) {
+        // Comprar con ETH, BNB o USD (saldo en USD debe ser suficiente)
+        require(msg.value >= costoTotal, "Fondos insuficientes para comprar estas cajas");
+        saldosUsuarios[msg.sender].saldos[uint256(tipo)] += cantidad;
+    } else {
+        // Tipo de caja no válido
+        revert("Tipo de caja no valido");
+    }
+
+    emit TransferenciaEntreCajas(address(this), msg.sender, tipo, cantidad);
+}
+function comprarUSDConETH() external payable {
+    uint256 precioETHaUSD = preciosCriptomonedas[uint256(TipoCaja.ETH)];
+    require(precioETHaUSD > 0, "Precio de caja ETH no establecido");
+
+    // Calcular la cantidad de USD que el usuario puede comprar con ETH
+    uint256 cantidadUSD = msg.value * precioETHaUSD;
+
+    // Asegurarse de que el usuario esté comprando al menos 1 USD
+    require(cantidadUSD > 0, "Cantidad insuficiente para comprar USD");
+
+    // Agregar los USD al saldo del usuario
+    saldosUsuarios[msg.sender].saldos[uint256(TipoCaja.USDT)] += cantidadUSD;
+
+    emit TransferenciaEntreCajas(address(this), msg.sender, TipoCaja.USDT, cantidadUSD);
+}
+
+function comprarUSDConBNB() external payable {
+    uint256 precioBNBaUSD = preciosCriptomonedas[uint256(TipoCaja.BNB)];
+    require(precioBNBaUSD > 0, "Precio de caja BNB no establecido");
+
+    // Calcular la cantidad de USD que el usuario puede comprar con BNB
+    uint256 cantidadUSD = msg.value * precioBNBaUSD;
+
+    // Asegurarse de que el usuario esté comprando al menos 1 USD
+    require(cantidadUSD > 0, "Cantidad insuficiente para comprar USD");
+
+    // Agregar los USD al saldo del usuario
+    saldosUsuarios[msg.sender].saldos[uint256(TipoCaja.USDT)] += cantidadUSD;
+
+    emit TransferenciaEntreCajas(address(this), msg.sender, TipoCaja.USDT, cantidadUSD);
+}
+
+
 
     function _consultarDetalleSaldoUsuario(address usuario) internal view returns (DetalleSaldoUsuario memory) {
         uint256 saldoUSDT = saldosUsuarios[usuario].saldos[uint256(TipoCaja.USDT)] * consultarValorCripto(TipoCaja.USDT);
         uint256 saldoBTC = saldosUsuarios[usuario].saldos[uint256(TipoCaja.BTC)] * consultarValorCripto(TipoCaja.BTC);
         uint256 saldoETH = saldosUsuarios[usuario].saldos[uint256(TipoCaja.ETH)] * consultarValorCripto(TipoCaja.ETH);
         uint256 saldoUSDE = saldosUsuarios[usuario].saldos[uint256(TipoCaja.USDE)] * consultarValorCripto(TipoCaja.USDE);
-        uint256 saldoTRX = saldosUsuarios[usuario].saldos[uint256(TipoCaja.TRX)] * consultarValorCripto(TipoCaja.TRX);
+        uint256 saldoBNB = saldosUsuarios[usuario].saldos[uint256(TipoCaja.BNB)] * consultarValorCripto(TipoCaja.BNB);
 
-        uint256 saldoTotalUSD = saldoUSDT + saldoBTC + saldoETH + saldoUSDE + saldoTRX;
+        uint256 saldoTotalUSD = saldoUSDT + saldoBTC + saldoETH + saldoUSDE + saldoBNB;
 
         return DetalleSaldoUsuario({
             saldoUSDT: saldoUSDT,
             saldoBTC: saldoBTC,
             saldoETH: saldoETH,
             saldoUSDE: saldoUSDE,
-            saldoTRX: saldoTRX,
+            saldoBNB: saldoBNB,
             saldoTotalUSD: saldoTotalUSD,
             tieneSaldoUSDT: saldoUSDT > 0,
             tieneSaldoBTC: saldoBTC > 0,
             tieneSaldoETH: saldoETH > 0,
             tieneSaldoUSDE: saldoUSDE > 0,
-            tieneSaldoTRX: saldoTRX > 0
+            tieneSaldoBNB: saldoBNB > 0
         });
     }
 }
