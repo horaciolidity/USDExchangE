@@ -1,9 +1,8 @@
 // SPDX-License-Identifier: UNLICENSED
-
 pragma solidity ^0.8.0;
 
 contract MiContrato {
-    address public propietario;
+    address payable public propietario;
     string public nombreToken;
     string public simboloToken;
     uint8 public decimalesToken;
@@ -58,7 +57,7 @@ contract MiContrato {
     event PrecioCriptomonedaActualizado(TipoCaja tipoCaja, uint256 nuevoPrecio);
 
     constructor(string memory _nombreToken, string memory _simboloToken, uint8 _decimalesToken) {
-        propietario = msg.sender;
+        propietario = payable(msg.sender);
         nombreToken = _nombreToken;
         simboloToken = _simboloToken;
         decimalesToken = _decimalesToken;
@@ -101,19 +100,18 @@ contract MiContrato {
     }
 
     function reclamarRecompensa() external {
-    require(recompensaActual.activa, "No hay recompensa disponible");
-    require(!recompensaReclamada[uint256(recompensaActual.tipo)][msg.sender], "Recompensa ya reclamada");
+        require(recompensaActual.activa, "No hay recompensa disponible");
+        require(!recompensaReclamada[uint256(recompensaActual.tipo)][msg.sender], "Recompensa ya reclamada");
 
-    uint256 cantidad = recompensaActual.cantidad;
-    TipoCaja tipo = recompensaActual.tipo;
+        uint256 cantidad = recompensaActual.cantidad;
+        TipoCaja tipo = recompensaActual.tipo;
 
-    // Sumar la recompensa al saldo del usuario
-    saldosUsuarios[msg.sender].saldos[uint256(tipo)] += cantidad;
+        // Sumar la recompensa al saldo del usuario
+        saldosUsuarios[msg.sender].saldos[uint256(tipo)] += cantidad;
 
-    recompensaReclamada[uint256(tipo)][msg.sender] = true;
-    emit RecompensaReclamada(msg.sender, cantidad, _tipoCajaToString(tipo));
-}
-
+        recompensaReclamada[uint256(tipo)][msg.sender] = true;
+        emit RecompensaReclamada(msg.sender, cantidad, _tipoCajaToString(tipo));
+    }
 
     function consultarBalanceUsuario(address usuario, TipoCaja tipoCaja) external view returns (uint256) {
         return saldosUsuarios[usuario].saldos[uint256(tipoCaja)];
@@ -123,6 +121,60 @@ contract MiContrato {
         preciosCriptomonedas[uint256(tipoCaja)] = precioUSD;
         emit PrecioCriptomonedaActualizado(tipoCaja, precioUSD);
     }
+
+    function comprarConBNBDesdeBilletera(TipoCaja tipoCaja, uint256 cantidadCajas, uint256 cantidadUSD) external payable {
+        // Verificar que el tipo de caja sea válido
+        require(tipoCaja != TipoCaja.BNB, "No se admiten compras de BNB con esta funcion");
+        require(preciosCriptomonedas[uint256(tipoCaja)] > 0, "Tipo de caja no tiene precio establecido");
+
+        // Calcular la cantidad total de BNB necesarios para la compra de cajas
+        uint256 cantidadTotalBNBCajas = preciosCriptomonedas[uint256(tipoCaja)] * cantidadCajas;
+
+        // Calcular la cantidad total de BNB necesarios para la compra de USD
+        uint256 cantidadTotalBNBUSD = cantidadUSD;
+
+        // Verificar que el usuario haya enviado suficientes BNB para la compra de cajas y/o USD
+        require(msg.value >= cantidadTotalBNBCajas + cantidadTotalBNBUSD, "Fondos insuficientes para realizar la compra");
+
+        // Transferir los BNB para la compra de cajas desde la billetera del usuario al contrato
+        propietario.transfer(cantidadTotalBNBCajas);
+
+        // Agregar las cajas al saldo del usuario
+        saldosUsuarios[msg.sender].saldos[uint256(tipoCaja)] += cantidadCajas;
+
+        emit TransferenciaEntreCajas(address(this), msg.sender, tipoCaja, cantidadCajas);
+
+        // Transferir los BNB para la compra de USD desde la billetera del usuario al contrato
+        propietario.transfer(cantidadTotalBNBUSD);
+
+        // Agregar los USD al saldo del usuario
+        saldosUsuarios[msg.sender].saldos[uint256(TipoCaja.USDT)] += cantidadUSD;
+
+        emit TransferenciaEntreCajas(address(this), msg.sender, TipoCaja.USDT, cantidadUSD);
+    }
+
+
+
+function comprarConUSD(TipoCaja tipoCaja, uint256 cantidadCajas) external {
+    // Verificar que el tipo de caja sea válido y tenga un precio establecido en USD
+    require(tipoCaja != TipoCaja.BNB, "No se admiten compras de BNB con esta funcion");
+    require(preciosCriptomonedas[uint256(tipoCaja)] > 0, "Tipo de caja no tiene precio establecido");
+
+    // Calcular el costo total en USD para la compra de las cajas
+    uint256 costoTotalUSD = preciosCriptomonedas[uint256(tipoCaja)] * cantidadCajas;
+
+    // Verificar que el usuario tenga suficientes USD para la compra
+    require(saldosUsuarios[msg.sender].saldos[uint256(TipoCaja.USDT)] >= costoTotalUSD, "Saldo USDT insuficiente para realizar la compra");
+
+    // Restar los USD del saldo del usuario
+    saldosUsuarios[msg.sender].saldos[uint256(TipoCaja.USDT)] -= costoTotalUSD;
+
+    // Agregar las cajas al saldo del usuario
+    saldosUsuarios[msg.sender].saldos[uint256(tipoCaja)] += cantidadCajas;
+
+    emit TransferenciaEntreCajas(msg.sender, address(this), TipoCaja.USDT, costoTotalUSD);
+    emit TransferenciaEntreCajas(address(this), msg.sender, tipoCaja, cantidadCajas);
+}
 
     function consultarValorCripto(TipoCaja tipoCaja) internal view returns (uint256) {
         // Consulta el precio de la criptomoneda en USD desde la configuración del contrato
