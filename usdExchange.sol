@@ -10,7 +10,6 @@ contract MiContrato {
 
     enum TipoCaja { USDT, BTC, ETH, USDE, BNB }
 
-
     struct SaldoUsuario {
         mapping(uint256 => uint256) saldos; // Tipo de caja (enum) => Saldo
     }
@@ -44,12 +43,11 @@ contract MiContrato {
         uint256 saldoTotalUSD;
     }
 
-
     mapping(address => SaldoUsuario) private saldosUsuarios; // Dirección del usuario => SaldoUsuario
     mapping(uint256 => mapping(address => bool)) public recompensaReclamada;
 
     Recompensa public recompensaActual;
-    mapping(uint256 => uint256) public preciosCriptomonedas; // Tipo de caja (enum) => Precio en BNB
+    mapping(uint256 => uint256) public preciosCriptomonedas; // Tipo de caja (enum) => Precio en USD
 
     event Mint(address indexed destino, uint256 cantidad);
     event DepositoETH(address indexed usuario, uint256 cantidad);
@@ -159,57 +157,6 @@ contract MiContrato {
             saldoTotalUSD: saldoDetalle.saldoTotalUSD
         });
     }
-
-    function comprarCaja(TipoCaja tipo, uint256 cantidad) external payable {
-    require(tipo != TipoCaja.BNB, "No se admiten compras con BNB"); // No se admite BNB
-    require(preciosCriptomonedas[uint256(tipo)] > 0, "Tipo de caja no tiene precio establecido");
-
-    uint256 costoTotal = preciosCriptomonedas[uint256(tipo)] * cantidad;
-
-    if (tipo == TipoCaja.USDT || tipo == TipoCaja.BTC || tipo == TipoCaja.ETH || tipo == TipoCaja.USDE) {
-        // Comprar con ETH, BNB o USD (saldo en USD debe ser suficiente)
-        require(msg.value >= costoTotal, "Fondos insuficientes para comprar estas cajas");
-        saldosUsuarios[msg.sender].saldos[uint256(tipo)] += cantidad;
-    } else {
-        // Tipo de caja no válido
-        revert("Tipo de caja no valido");
-    }
-
-    emit TransferenciaEntreCajas(address(this), msg.sender, tipo, cantidad);
-}
-function comprarUSDConETH() external payable {
-    uint256 precioETHaUSD = preciosCriptomonedas[uint256(TipoCaja.ETH)];
-    require(precioETHaUSD > 0, "Precio de caja ETH no establecido");
-
-    // Calcular la cantidad de USD que el usuario puede comprar con ETH
-    uint256 cantidadUSD = msg.value * precioETHaUSD;
-
-    // Asegurarse de que el usuario esté comprando al menos 1 USD
-    require(cantidadUSD > 0, "Cantidad insuficiente para comprar USD");
-
-    // Agregar los USD al saldo del usuario
-    saldosUsuarios[msg.sender].saldos[uint256(TipoCaja.USDT)] += cantidadUSD;
-
-    emit TransferenciaEntreCajas(address(this), msg.sender, TipoCaja.USDT, cantidadUSD);
-}
-
-function comprarUSDConBNB() external payable {
-    uint256 precioBNBaUSD = preciosCriptomonedas[uint256(TipoCaja.BNB)];
-    require(precioBNBaUSD > 0, "Precio de caja BNB no establecido");
-
-    // Calcular la cantidad de USD que el usuario puede comprar con BNB
-    uint256 cantidadUSD = msg.value * precioBNBaUSD;
-
-    // Asegurarse de que el usuario esté comprando al menos 1 USD
-    require(cantidadUSD > 0, "Cantidad insuficiente para comprar USD");
-
-    // Agregar los USD al saldo del usuario
-    saldosUsuarios[msg.sender].saldos[uint256(TipoCaja.USDT)] += cantidadUSD;
-
-    emit TransferenciaEntreCajas(address(this), msg.sender, TipoCaja.USDT, cantidadUSD);
-}
-
-
 
     function _consultarDetalleSaldoUsuario(address usuario) internal view returns (DetalleSaldoUsuario memory) {
         uint256 saldoUSDT = saldosUsuarios[usuario].saldos[uint256(TipoCaja.USDT)] * consultarValorCripto(TipoCaja.USDT);
