@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: UNLICENSED
 pragma solidity ^0.8.0;
 
-contract MiContrato {
+contract USDEx {
     address payable public propietario;
     string public nombreToken;
     string public simboloToken;
@@ -153,28 +153,26 @@ contract MiContrato {
         emit TransferenciaEntreCajas(address(this), msg.sender, TipoCaja.USDT, cantidadUSD);
     }
 
+    function comprarConUSD(TipoCaja tipoCaja, uint256 cantidadCajas) external {
+        // Verificar que el tipo de caja sea válido y tenga un precio establecido en USD
+        require(tipoCaja != TipoCaja.BNB, "No se admiten compras de BNB con esta funcion");
+        require(preciosCriptomonedas[uint256(tipoCaja)] > 0, "Tipo de caja no tiene precio establecido");
 
+        // Calcular el costo total en USD para la compra de las cajas
+        uint256 costoTotalUSD = preciosCriptomonedas[uint256(tipoCaja)] * cantidadCajas;
 
-function comprarConUSD(TipoCaja tipoCaja, uint256 cantidadCajas) external {
-    // Verificar que el tipo de caja sea válido y tenga un precio establecido en USD
-    require(tipoCaja != TipoCaja.BNB, "No se admiten compras de BNB con esta funcion");
-    require(preciosCriptomonedas[uint256(tipoCaja)] > 0, "Tipo de caja no tiene precio establecido");
+        // Verificar que el usuario tenga suficientes USD para la compra
+        require(saldosUsuarios[msg.sender].saldos[uint256(TipoCaja.USDT)] >= costoTotalUSD, "Saldo USDT insuficiente para realizar la compra");
 
-    // Calcular el costo total en USD para la compra de las cajas
-    uint256 costoTotalUSD = preciosCriptomonedas[uint256(tipoCaja)] * cantidadCajas;
+        // Restar los USD del saldo del usuario
+        saldosUsuarios[msg.sender].saldos[uint256(TipoCaja.USDT)] -= costoTotalUSD;
 
-    // Verificar que el usuario tenga suficientes USD para la compra
-    require(saldosUsuarios[msg.sender].saldos[uint256(TipoCaja.USDT)] >= costoTotalUSD, "Saldo USDT insuficiente para realizar la compra");
+        // Agregar las cajas al saldo del usuario
+        saldosUsuarios[msg.sender].saldos[uint256(tipoCaja)] += cantidadCajas;
 
-    // Restar los USD del saldo del usuario
-    saldosUsuarios[msg.sender].saldos[uint256(TipoCaja.USDT)] -= costoTotalUSD;
-
-    // Agregar las cajas al saldo del usuario
-    saldosUsuarios[msg.sender].saldos[uint256(tipoCaja)] += cantidadCajas;
-
-    emit TransferenciaEntreCajas(msg.sender, address(this), TipoCaja.USDT, costoTotalUSD);
-    emit TransferenciaEntreCajas(address(this), msg.sender, tipoCaja, cantidadCajas);
-}
+        emit TransferenciaEntreCajas(msg.sender, address(this), TipoCaja.USDT, costoTotalUSD);
+        emit TransferenciaEntreCajas(address(this), msg.sender, tipoCaja, cantidadCajas);
+    }
 
     function consultarValorCripto(TipoCaja tipoCaja) internal view returns (uint256) {
         // Consulta el precio de la criptomoneda en USD desde la configuración del contrato
@@ -208,6 +206,12 @@ function comprarConUSD(TipoCaja tipoCaja, uint256 cantidadCajas) external {
             saldoBNB: saldoDetalle.saldoBNB,
             saldoTotalUSD: saldoDetalle.saldoTotalUSD
         });
+    }
+
+    function consultarSupplyActual(TipoCaja tipoCaja) external view returns (uint256) {
+        uint256 supply = 0;
+        supply += saldosUsuarios[address(this)].saldos[uint256(tipoCaja)] * preciosCriptomonedas[uint256(tipoCaja)];
+        return supply;
     }
 
     function _consultarDetalleSaldoUsuario(address usuario) internal view returns (DetalleSaldoUsuario memory) {
