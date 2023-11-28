@@ -11,6 +11,10 @@ contract USDEx {
     struct SaldoUsuario {
         mapping(uint256 => uint256) saldos; 
     }
+    struct RecompensaAportacionLiquidez {
+        uint256 porcentajeDiario; 
+        uint256 ultimaActualizacion; 
+    }
     struct Recompensa {
         uint256 cantidad;
         TipoCaja tipo; 
@@ -37,6 +41,7 @@ contract USDEx {
         uint256 saldoBNB;
         uint256 saldoTotalUSD;
     }
+    mapping(uint256 => RecompensaAportacionLiquidez) public recompensasAportacionLiquidez;
     mapping(address => SaldoUsuario) private saldosUsuarios; 
     mapping(uint256 => mapping(address => bool)) public recompensaReclamada;
     Recompensa public recompensaActual;
@@ -49,6 +54,7 @@ contract USDEx {
     event RecompensaReclamada(address usuario, uint256 cantidad, string tipo);
     event PrecioCriptomonedaActualizado(TipoCaja tipoCaja, uint256 nuevoPrecio);
     event FeeActualizado(uint256 nuevoFeeCompra, uint256 nuevoFeeVenta);
+    event RecompensaAportacionLiquidezActualizada(uint256 tipoCaja, uint256 nuevoPorcentaje);
     constructor(string memory _nombreToken, string memory _simboloToken, uint8 _decimalesToken) {
         propietario = payable(msg.sender);
         nombreToken = _nombreToken;
@@ -131,15 +137,15 @@ contract USDEx {
     emit TransferenciaEntreCajas(address(this), msg.sender, TipoCaja.USDT, cantidadUSD);
 }
     function comprarConUSD(TipoCaja tipoCaja, uint256 cantidadCajas) external {
-        require(tipoCaja != TipoCaja.BNB, "No se admiten compras de BNB con esta funcion");
-        require(preciosCriptomonedas[uint256(tipoCaja)] > 0, "Tipo de caja no tiene precio establecido");
-        uint256 costoTotalUSD = preciosCriptomonedas[uint256(tipoCaja)] * cantidadCajas;
-        require(saldosUsuarios[msg.sender].saldos[uint256(TipoCaja.USDT)] >= costoTotalUSD, "Saldo USDT insuficiente para realizar la compra");
-        saldosUsuarios[msg.sender].saldos[uint256(TipoCaja.USDT)] -= costoTotalUSD;
-        saldosUsuarios[msg.sender].saldos[uint256(tipoCaja)] += cantidadCajas;
-        emit TransferenciaEntreCajas(msg.sender, address(this), TipoCaja.USDT, costoTotalUSD);
-        emit TransferenciaEntreCajas(address(this), msg.sender, tipoCaja, cantidadCajas);
-    }
+    require(preciosCriptomonedas[uint256(tipoCaja)] > 0, "Tipo de caja no tiene precio establecido");
+    uint256 costoTotalUSD = preciosCriptomonedas[uint256(tipoCaja)] * cantidadCajas;
+    require(saldosUsuarios[msg.sender].saldos[uint256(TipoCaja.USDT)] >= costoTotalUSD, "Saldo USDT insuficiente para realizar la compra");
+    saldosUsuarios[msg.sender].saldos[uint256(TipoCaja.USDT)] -= costoTotalUSD;
+    saldosUsuarios[msg.sender].saldos[uint256(tipoCaja)] += cantidadCajas;
+    emit TransferenciaEntreCajas(msg.sender, address(this), TipoCaja.USDT, costoTotalUSD);
+    emit TransferenciaEntreCajas(address(this), msg.sender, tipoCaja, cantidadCajas);
+}
+
     function consultarValorCripto(TipoCaja tipoCaja) internal view returns (uint256) {
         uint256 precio = preciosCriptomonedas[uint256(tipoCaja)];
         if (precio == 0) {
@@ -155,6 +161,55 @@ contract USDEx {
   modifier onlyPropietario() {
         require(msg.sender == propietario, "Solo el propietario puede realizar esta operacion");
         _;
+    }
+     function actualizarRecompensaAportacionLiquidez(uint256 tipoCaja, uint256 nuevoPorcentaje) external soloPropietario {
+        require(tipoCaja >= uint256(TipoCaja.USDT) && tipoCaja <= uint256(TipoCaja.BNB), "Tipo de caja no valido");
+        require(nuevoPorcentaje <= 100, "El porcentaje de recompensa no puede ser mayor que 100%");
+
+        recompensasAportacionLiquidez[tipoCaja].porcentajeDiario = nuevoPorcentaje;
+        recompensasAportacionLiquidez[tipoCaja].ultimaActualizacion = block.timestamp;
+
+        emit RecompensaAportacionLiquidezActualizada(tipoCaja, nuevoPorcentaje);
+    }
+
+    function calcularRecompensaAportacionLiquidez(uint256 tipoCaja, uint256 tiempoTranscurrido) internal view returns (uint256) {
+        uint256 porcentajeDiario = recompensasAportacionLiquidez[tipoCaja].porcentajeDiario;
+
+        // Calcular la recompensa acumulada
+        uint256 recompensaAcumulada = (porcentajeDiario * tiempoTranscurrido) / (1 days);
+
+        return recompensaAcumulada;
+    }
+
+    function reclamarRecompensaAportacionLiquidez(uint256 tipoCaja) external {
+        // Asegurarse de que el usuario tenga el tipo de caja
+        require(saldosUsuarios[msg.sender].saldos[tipoCaja] > 0, "El usuario no posee el tipo de caja seleccionado");
+
+        // Calcular el tiempo transcurrido desde la última actualización
+        uint256 tiempoTranscurrido = block.timestamp - recompensasAportacionLiquidez[tipoCaja].ultimaActualizacion;
+
+        // Calcular la recompensa acumulada
+        uint256 recompensa = calcularRecompensaAportacionLiquidez(tipoCaja, tiempoTranscurrido);
+
+        // Asegurarse de que haya una recompensa acumulada
+        require(recompensa > 0, "No hay recompensa acumulada");
+
+        // Actualizar la última actualización
+        recompensasAportacionLiquidez[tipoCaja].ultimaActualizacion = block.timestamp;
+
+        // Bloquear la cantidad del tipo de caja seleccionada
+        // (Asume que hay una función para bloquear fondos)
+        bloquearFondos(msg.sender, tipoCaja, recompensa);
+
+        emit RecompensaReclamada(msg.sender, recompensa, _tipoCajaToString(TipoCaja(tipoCaja)));
+    }
+
+
+    function bloquearFondos(address usuario, uint256 tipoCaja, uint256 cantidad) internal {
+        // Asumir que hay una función para bloquear fondos
+        // Esto podría ser una lógica específica según tus necesidades
+        // Por ejemplo, mover fondos a una bóveda o utilizar contratos de bloqueo de fondos
+        // Puedes implementar esta función según tu lógica específica.
     }
     function _tipoCajaToString(TipoCaja tipo) internal pure returns (string memory) {
         if (tipo == TipoCaja.USDT) return "USDT";
