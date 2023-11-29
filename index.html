@@ -278,26 +278,6 @@ function transferirUsuario(token) {
     // Lógica para transferir el token a un usuario de USDE (0% comisión)
     console.log("Transferir " + token + " a usuario de USDE (0% comisión)");
 }
-// Evento ModificacionSaldo
-contrato.events.ModificacionSaldo()
-    .on('data', (event) => {
-        console.log('Evento ModificacionSaldo:', event.returnValues);
-        actualizarSaldos(event.returnValues.usuario);
-    })
-    .on('error', console.error);
-
-// Función para actualizar saldos
-async function actualizarSaldos(usuario) {
-    const saldoContrato = await contrato.methods.consultarDetalleUsuario(usuario).call();
-
-    const saldoUSDE = saldoContrato.saldoUSDE;
-    const saldoBTC = saldoContrato.saldoBTC;
-    const saldoETH = saldoContrato.saldoETH;
-
-    document.getElementById('saldoUSDEValor').innerText = `${saldoUSDE} USDE`;
-    document.getElementById('saldoBTCValor').innerText = `${saldoBTC} BTC`;
-    document.getElementById('saldoETHValor').innerText = `${saldoETH} ETH`;
-}
 
 
     </script>
