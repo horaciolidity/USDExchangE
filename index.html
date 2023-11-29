@@ -166,7 +166,6 @@ async function consultarSaldosContrato(userAddress) {
 }
 
 
-// Función principal para conectar MetaMask y consultar saldos
 async function conectarMetaMask() {
   const web3Button = document.getElementById('web3Button');
   const mensajeRed = document.getElementById('mensajeRed');
@@ -195,11 +194,18 @@ async function conectarMetaMask() {
       // Consultar los saldos en el contrato
       const saldosContrato = await consultarSaldosContrato(userAddress);
 
-      // Puedes hacer lo que quieras con los saldos, por ejemplo:
-      console.log('Saldos en el contrato:', saldosContrato);
+      // Verificar si la respuesta tiene los saldos antes de actualizar el HTML
+      if (saldosContrato) {
+        // Actualizar los elementos HTML con los saldos
+        document.getElementById('saldoUSDT').innerText = ` ${saldosContrato.saldoUSDT} USDT`;
+        document.getElementById('saldoBTC').innerText = ` ${saldosContrato.saldoBTC} BTC`;
+        document.getElementById('saldoETHContract').innerText = ` ${saldosContrato.saldoETH} ETH`;
+        document.getElementById('saldoUSDE').innerText = ` ${saldosContrato.saldoUSDE} USDE`;
 
-      document.getElementById('saldoContainerUSD').classList.remove('oculto');
-      document.getElementById('saldoContainerUSDT').classList.remove('oculto');
+        // Mostrar los contenedores de saldos
+        document.getElementById('saldoContainerUSD').classList.remove('oculto');
+        document.getElementById('saldoContainerUSDT').classList.remove('oculto');
+      }
 
       web3Button.innerText = 'WEB3 ACTIVO';
       web3Button.style.backgroundColor = 'green';
@@ -215,7 +221,6 @@ async function conectarMetaMask() {
     alert('MetaMask no está instalado. Por favor, instálalo para continuar.');
   }
 }
-
 function obtenerNombreRed(networkId) {
   switch (networkId) {
     case '1':
