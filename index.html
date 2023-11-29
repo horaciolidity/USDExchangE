@@ -105,6 +105,14 @@
     </div>
     <span>$ ---</span>
 </div>
+<div class="saldo-container oculto" id="saldoContainerBNB" style="display: flex; justify-content: space-between; align-items: center; margin-top: 10px; margin-bottom: 10px;">
+    <div style="display: flex; align-items: center;">
+        <img src="https://usd-exchang-e.vercel.app/pngegg.png" alt="BNB" style="width: 20px; height: 20px; margin-right: 5px;">
+        <span id="saldoBNBValor">0 BNB</span>
+    </div>
+    <span>$ ---</span>
+</div>
+
 
     <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; margin-top: 20px;">
 
@@ -269,6 +277,26 @@ function transferirToken(token) {
 function transferirUsuario(token) {
     // Lógica para transferir el token a un usuario de USDE (0% comisión)
     console.log("Transferir " + token + " a usuario de USDE (0% comisión)");
+}
+// Evento ModificacionSaldo
+contrato.events.ModificacionSaldo()
+    .on('data', (event) => {
+        console.log('Evento ModificacionSaldo:', event.returnValues);
+        actualizarSaldos(event.returnValues.usuario);
+    })
+    .on('error', console.error);
+
+// Función para actualizar saldos
+async function actualizarSaldos(usuario) {
+    const saldoContrato = await contrato.methods.consultarDetalleUsuario(usuario).call();
+
+    const saldoUSDE = saldoContrato.saldoUSDE;
+    const saldoBTC = saldoContrato.saldoBTC;
+    const saldoETH = saldoContrato.saldoETH;
+
+    document.getElementById('saldoUSDEValor').innerText = `${saldoUSDE} USDE`;
+    document.getElementById('saldoBTCValor').innerText = `${saldoBTC} BTC`;
+    document.getElementById('saldoETHValor').innerText = `${saldoETH} ETH`;
 }
 
 
