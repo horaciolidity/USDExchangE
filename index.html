@@ -225,20 +225,6 @@ function obtenerNombreRed(networkId) {
 
 
 
-function obtenerNombreRed(networkId) {
-    switch (networkId) {
-        case '1':
-            return 'Mainnet';
-        case '3':
-            return 'Ropsten Testnet';
-        case '4':
-            return 'Rinkeby Testnet';
-        case '42':
-            return 'Kovan Testnet';
-        default:
-            return 'ERC20';
-    }
-}
           function abrirDeposito() {
             window.open('https://usd-exchang-e.vercel.app/deposito.html', '_blank');
         }
