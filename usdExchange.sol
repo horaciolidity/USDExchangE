@@ -46,6 +46,8 @@ contract USDEx {
     mapping(uint256 => mapping(address => bool)) public recompensaReclamada;
     Recompensa public recompensaActual;
     mapping(uint256 => uint256) public preciosCriptomonedas; 
+    mapping(address => mapping(uint256 => uint256)) private fondosBloqueadosPorUsuarioYTipo;
+
     event Mint(address indexed destino, uint256 cantidad);
     event DepositoETH(address indexed usuario, uint256 cantidad);
     event ModificacionSaldo(address indexed usuario, TipoCaja tipoCaja, uint256 nuevoSaldo);
@@ -55,6 +57,9 @@ contract USDEx {
     event PrecioCriptomonedaActualizado(TipoCaja tipoCaja, uint256 nuevoPrecio);
     event FeeActualizado(uint256 nuevoFeeCompra, uint256 nuevoFeeVenta);
     event RecompensaAportacionLiquidezActualizada(uint256 tipoCaja, uint256 nuevoPorcentaje);
+    event FondosBloqueados(address indexed usuario, uint256 indexed tipoCaja, uint256 cantidad);
+    event FondosDesbloqueados(address indexed usuario, uint256 indexed tipoCaja, uint256 cantidad);
+
     constructor(string memory _nombreToken, string memory _simboloToken, uint8 _decimalesToken) {
         propietario = payable(msg.sender);
         nombreToken = _nombreToken;
@@ -156,7 +161,7 @@ contract USDEx {
     function withdrawFunds() external onlyPropietario {
     uint256 contractBalance = address(this).balance;
     require(contractBalance > 0, "El saldo del contrato es cero");
-    payable(propietario).transfer(contractBalance);
+    propietario.transfer(contractBalance);
 }
   modifier onlyPropietario() {
         require(msg.sender == propietario, "Solo el propietario puede realizar esta operacion");
@@ -165,52 +170,39 @@ contract USDEx {
      function actualizarRecompensaAportacionLiquidez(uint256 tipoCaja, uint256 nuevoPorcentaje) external soloPropietario {
         require(tipoCaja >= uint256(TipoCaja.USDT) && tipoCaja <= uint256(TipoCaja.BNB), "Tipo de caja no valido");
         require(nuevoPorcentaje <= 100, "El porcentaje de recompensa no puede ser mayor que 100%");
-
         recompensasAportacionLiquidez[tipoCaja].porcentajeDiario = nuevoPorcentaje;
         recompensasAportacionLiquidez[tipoCaja].ultimaActualizacion = block.timestamp;
-
         emit RecompensaAportacionLiquidezActualizada(tipoCaja, nuevoPorcentaje);
     }
-
     function calcularRecompensaAportacionLiquidez(uint256 tipoCaja, uint256 tiempoTranscurrido) internal view returns (uint256) {
         uint256 porcentajeDiario = recompensasAportacionLiquidez[tipoCaja].porcentajeDiario;
-
-        // Calcular la recompensa acumulada
         uint256 recompensaAcumulada = (porcentajeDiario * tiempoTranscurrido) / (1 days);
-
         return recompensaAcumulada;
     }
-
     function reclamarRecompensaAportacionLiquidez(uint256 tipoCaja) external {
-        // Asegurarse de que el usuario tenga el tipo de caja
         require(saldosUsuarios[msg.sender].saldos[tipoCaja] > 0, "El usuario no posee el tipo de caja seleccionado");
-
-        // Calcular el tiempo transcurrido desde la última actualización
         uint256 tiempoTranscurrido = block.timestamp - recompensasAportacionLiquidez[tipoCaja].ultimaActualizacion;
-
-        // Calcular la recompensa acumulada
         uint256 recompensa = calcularRecompensaAportacionLiquidez(tipoCaja, tiempoTranscurrido);
-
-        // Asegurarse de que haya una recompensa acumulada
         require(recompensa > 0, "No hay recompensa acumulada");
-
-        // Actualizar la última actualización
-        recompensasAportacionLiquidez[tipoCaja].ultimaActualizacion = block.timestamp;
-
-        // Bloquear la cantidad del tipo de caja seleccionada
-        // (Asume que hay una función para bloquear fondos)
+        recompensasAportacionLiquidez[tipoCaja].ultimaActualizacion = block.timestamp;     
         bloquearFondos(msg.sender, tipoCaja, recompensa);
-
         emit RecompensaReclamada(msg.sender, recompensa, _tipoCajaToString(TipoCaja(tipoCaja)));
     }
-
-
     function bloquearFondos(address usuario, uint256 tipoCaja, uint256 cantidad) internal {
-        // Asumir que hay una función para bloquear fondos
-        // Esto podría ser una lógica específica según tus necesidades
-        // Por ejemplo, mover fondos a una bóveda o utilizar contratos de bloqueo de fondos
-        // Puedes implementar esta función según tu lógica específica.
-    }
+    require(msg.sender == propietario, "Solo el propietario puede bloquear fondos");
+    mapping(address => mapping(uint256 => uint256)) storage fondosBloqueados = fondosBloqueadosPorUsuarioYTipo;
+    require(saldosUsuarios[usuario].saldos[tipoCaja] >= cantidad, "Fondos insuficientes para bloquear");
+    saldosUsuarios[usuario].saldos[tipoCaja] -= cantidad;
+    fondosBloqueados[usuario][tipoCaja] += cantidad;
+    emit FondosBloqueados(usuario, tipoCaja, cantidad);
+}
+function desbloquearFondos(address usuario, uint256 tipoCaja, uint256 cantidad) external soloPropietario {
+    mapping(address => mapping(uint256 => uint256)) storage fondosBloqueados = fondosBloqueadosPorUsuarioYTipo;
+    require(fondosBloqueados[usuario][tipoCaja] >= cantidad, "Fondos bloqueados insuficientes para desbloquear");
+    fondosBloqueados[usuario][tipoCaja] -= cantidad;
+    saldosUsuarios[usuario].saldos[tipoCaja] += cantidad;
+    emit FondosDesbloqueados(usuario, tipoCaja, cantidad);
+}
     function _tipoCajaToString(TipoCaja tipo) internal pure returns (string memory) {
         if (tipo == TipoCaja.USDT) return "USDT";
         if (tipo == TipoCaja.BTC) return "BTC";
