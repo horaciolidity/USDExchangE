@@ -126,25 +126,27 @@ const saldoUSDT = detalleUsuario[0];
 const saldoBTC = detalleUsuario[1];
 const saldoETH = detalleUsuario[2];
 const saldoUSDE = detalleUsuario[3];
-const saldoBNB = detalleUsuario[5]; // También añadí saldoBNB ya que está presente en la respuesta
+const saldoBNB = detalleUsuario[4]; // También añadí saldoBNB ya que está presente en la respuesta
 
 
 
-      // Imprimir los saldos para depuración
-      console.log('Saldos recuperados:', {
-        saldoUSDT,
-        saldoBTC,
-        saldoETH,
-        saldoUSDE
-      });
+    // Imprimir los saldos para depuración
+console.log('Saldos recuperados:', {
+  saldoUSDT,
+  saldoBTC,
+  saldoETH,
+  saldoUSDE,
+  saldoBNB
+});
 
       // Devolver los saldos o hacer lo que necesites con ellos
       return {
-        saldoUSDT,
-        saldoBTC,
-        saldoETH,
-        saldoUSDE
-      };
+         saldoUSDT,
+  saldoBTC,
+  saldoETH,
+  saldoUSDE,
+  saldoBNB
+      });
     } else {
       console.error('La respuesta de consultarDetalleUsuario está vacía o no tiene el formato esperado.');
       return null;
