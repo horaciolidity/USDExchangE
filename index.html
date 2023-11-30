@@ -63,8 +63,6 @@
         </div>
     </div>
 
-<!-- Agrega estos elementos para mostrar los saldos -->
-
 <!-- Saldo USDT -->
 <div class="saldo-container oculto" id="saldoContainerUSDT" style="flex-direction: column; align-items: center; text-align: center;">
     <div id="saldoUSDTValor" style="font-size: 18px;"></div>
@@ -90,7 +88,8 @@
     <div id="saldoBNBValor" style="font-size: 18px;"></div>
 </div>
 
-      
+<!-- Agrega estos elementos para mostrar los saldos -->
+
 
 
 
@@ -173,27 +172,29 @@ async function conectarMetaMask() {
       document.getElementById('saldoETH').classList.remove('oculto');
 
       // Consultar los saldos en el contrato
-      const saldosContrato = await consultarSaldosContrato(userAddress);
+const saldosContrato = await consultarSaldosContrato(userAddress);
 
+// Actualizar los elementos HTML con los saldos del contrato
+if (saldosContrato) {
+  document.getElementById('saldoUSDTValor').innerText = `${saldosContrato.saldoUSDT} USDT`;
+  document.getElementById('saldoContainerUSDT').classList.remove('oculto');
 
-      // Actualizar los elementos HTML con los saldos del contrato
-      if (saldosContrato) {
-        document.getElementById('saldoUSDTValor').innerText = `${saldosContrato.saldoUSDT} USDT`;
-        document.getElementById('saldoContainerUSDT').classList.remove('oculto');
+  document.getElementById('saldoBTCValor').innerText = `${saldosContrato.saldoBTC} BTC`;
+  document.getElementById('saldoContainerBTC').classList.remove('oculto');
 
-        document.getElementById('saldoBTCValor').innerText = `${saldosContrato.saldoBTC} BTC`;
-        document.getElementById('saldoContainerBTC').classList.remove('oculto');
+  document.getElementById('saldoETHValor').innerText = `${saldosContrato.saldoETH} ETH`;
+  document.getElementById('saldoContainerETH').classList.remove('oculto');
 
-        document.getElementById('saldoETHValor').innerText = `${saldosContrato.saldoETH} ETH`;
-        document.getElementById('saldoContainerETH').classList.remove('oculto');
+  document.getElementById('saldoUSDEValor').innerText = `${saldosContrato.saldoUSDE} USDE`;
+  document.getElementById('saldoContainerUSDE').classList.remove('oculto');
 
-        document.getElementById('saldoUSDEValor').innerText = `${saldosContrato.saldoUSDE} USDE`;
-        document.getElementById('saldoContainerUSDE').classList.remove('oculto');
+  document.getElementById('saldoBNBValor').innerText = `${saldosContrato.saldoBNB} BNB`;
+  document.getElementById('saldoContainerBNB').classList.remove('oculto');
+}
 
-        document.getElementById('saldoBNBValor').innerText = `${saldosContrato.saldoBNB} BNB`;
-        document.getElementById('saldoContainerBNB').classList.remove('oculto');
-      }
-      actualizarSaldosEnColumna(saldosContrato);
+// Asegúrate de llamar a la función actualizarSaldosEnColumna solo si es necesario
+actualizarSaldosEnColumna(saldosContrato);
+
 
       web3Button.innerText = 'WEB3 ACTIVO';
       web3Button.style.backgroundColor = 'green';
