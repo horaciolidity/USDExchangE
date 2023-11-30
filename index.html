@@ -124,7 +124,8 @@ async function consultarSaldosContrato(userAddress) {
       const saldoBTC = detalleUsuario[1];
       const saldoETH = detalleUsuario[2];
       const saldoUSDE = detalleUsuario[3];
-      const saldoBNB = detalleUsuario[4]; // También añadí saldoBNB ya que está presente en la respuesta
+      const saldoBNB = detalleUsuario[4]; 
+      const saldoTotalUSD = detalleUsuario[5]; 
 
       // Imprimir los saldos para depuración
       console.log('Saldos recuperados:', {
@@ -132,7 +133,9 @@ async function consultarSaldosContrato(userAddress) {
         saldoBTC,
         saldoETH,
         saldoUSDE,
-        saldoBNB
+        saldoBNB,
+        saldoTotalUSD
+
       });
 
       // Devolver los saldos o hacer lo que necesites con ellos
@@ -141,7 +144,9 @@ async function consultarSaldosContrato(userAddress) {
         saldoBTC,
         saldoETH,
         saldoUSDE,
-        saldoBNB
+        saldoBNB,
+        saldoTotalUSD
+
       };
     } else {
       console.error('La respuesta de consultarDetalleUsuario está vacía o no tiene el formato esperado.');
@@ -233,7 +238,6 @@ function obtenerNombreRed(networkId) {
       return 'ERC20';
   }
 }
-     // Función para actualizar los saldos en la interfaz de usuario
 function actualizarSaldosEnColumna(saldosContrato) {
   // Verificar que los saldos sean válidos
   if (saldosContrato) {
@@ -242,6 +246,7 @@ function actualizarSaldosEnColumna(saldosContrato) {
     document.getElementById('saldoBTCValor').innerText = `${saldosContrato.saldoBTC} BTC`;
     document.getElementById('saldoETHValor').innerText = `${saldosContrato.saldoETH} ETH`;
     document.getElementById('saldoUSDEValor').innerText = `${saldosContrato.saldoUSDE} USDE`;
+    document.getElementById('saldoTotalUSDValor').innerText = `${saldosContrato.saldoTotalUSD} Token USD`; // Modificar el texto según sea necesario
 
     // Mostrar el contenedor de saldos
     document.getElementById('saldoContainerUSD').classList.remove('oculto');
