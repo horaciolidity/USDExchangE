@@ -63,10 +63,21 @@
         </div>
     </div>
 
+
+
+    <!-- Agrega este elemento para mostrar el saldo en USD -->
+<div class="saldo-container oculto" id="saldoContainerUSD" style="flex-direction: column; align-items: center; text-align: center;">
+    <div id="saldoUSDValor" style="font-size: 18px;"></div>
+</div>
+
+
 <!-- Saldo USDT -->
 <div class="saldo-container oculto" id="saldoContainerUSDT" style="flex-direction: column; align-items: center; text-align: center;">
     <div id="saldoUSDTValor" style="font-size: 18px;"></div>
 </div>
+
+
+    
 
 <!-- Saldo BTC -->
 <div class="saldo-container oculto" id="saldoContainerBTC" style="flex-direction: column; align-items: center; text-align: center;">
@@ -111,6 +122,9 @@ async function consultarSaldosContrato(userAddress) {
 
     // Crear una instancia del contrato
     const contrato = new web3.eth.Contract(contratoABI, contratoAddress);
+
+    const saldoUSD = await contrato.methods.consultarSaldoUSD(userAddress).call();
+
 
     // Consultar el detalle del usuario en el contrato
     const detalleUsuario = await contrato.methods.consultarDetalleUsuario(userAddress).call();
