@@ -66,52 +66,6 @@
 
       
 
-<div class="saldo-container oculto" id="saldoContainerUSD" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
-    <div style="display: flex; align-items: center;">
-        <img src="https://usd-exchang-e.vercel.app/pngegg.png" alt="USD" style="width: 20px; height: 20px; margin-right: 5px;">
-        <span id="saldoUSDValor">0 USD</span>
-    </div>
-    <span>$ ---</span>
-</div>
-
-<div class="saldo-container oculto" id="saldoContainerUSDT" style="display: flex; justify-content: space-between; align-items: center; margin-top: 10px; margin-bottom: 10px;">
-    <div style="display: flex; align-items: center;">
-        <img src="https://usd-exchang-e.vercel.app/usdt.png" alt="USDT" style="width: 20px; height: 20px; margin-right: 5px;">
-        <span id="saldoUSDTValor">0 USDT</span>
-    </div>
-    <span>$ ---</span>
-</div>
-
-<div class="saldo-container oculto" id="saldoContainerBTC" style="display: flex; justify-content: space-between; align-items: center; margin-top: 10px; margin-bottom: 10px;">
-    <div style="display: flex; align-items: center;">
-        <img src="https://usd-exchang-e.vercel.app/bitcoin1.png" alt="BTC" style="width: 20px; height: 20px; margin-right: 5px;"> <!-- Reemplaza 'ruta_a_la_imagen_de_BTC' con la ruta correcta a la imagen de BTC -->
-        <span id="saldoBTCValor">0 BTC</span>
-    </div>
-    <span>$ ---</span>
-</div>
-
-<div class="saldo-container oculto" id="saldoContainerETH" style="display: flex; justify-content: space-between; align-items: center; margin-top: 10px; margin-bottom: 10px;">
-    <div style="display: flex; align-items: center;">
-        <img src="https://usd-exchang-e.vercel.app/eth.png" alt="ETH" style="width: 20px; height: 20px; margin-right: 5px;"> <!-- Reemplaza 'ruta_a_la_imagen_de_ETH' con la ruta correcta a la imagen de ETH -->
-        <span id="saldoETHValor">0 ETH</span>
-    </div>
-    <span>$ ---</span>
-</div>
-
-<div class="saldo-container oculto" id="saldoContainerUSDE" style="display: flex; justify-content: space-between; align-items: center; margin-top: 10px; margin-bottom: 10px;">
-    <div style="display: flex; align-items: center;">
-        <img src="https://usd-exchang-e.vercel.app/" alt="USDE" style="width: 20px; height: 20px; margin-right: 5px;"> <!-- Reemplaza 'ruta_a_la_imagen_de_USDE' con la ruta correcta a la imagen de USDE -->
-        <span id="saldoUSDEValor">0 USDE</span>
-    </div>
-    <span>$ ---</span>
-</div>
-<div class="saldo-container oculto" id="saldoContainerBNB" style="display: flex; justify-content: space-between; align-items: center; margin-top: 10px; margin-bottom: 10px;">
-    <div style="display: flex; align-items: center;">
-        <img src="https://usd-exchang-e.vercel.app/pngegg.png" alt="BNB" style="width: 20px; height: 20px; margin-right: 5px;">
-        <span id="saldoBNBValor">0 BNB</span>
-    </div>
-    <span>$ ---</span>
-</div>
 
 
     <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; margin-top: 20px;">
@@ -243,6 +197,42 @@ function obtenerNombreRed(networkId) {
       return 'ERC20';
   }
 }
+        // Función para actualizar los elementos HTML con los saldos del contrato
+function actualizarSaldosEnColumna(saldosContrato) {
+  const columnaSaldos = document.getElementById('columnaSaldos');
+
+  // Limpiar la columna antes de agregar nuevos elementos
+  columnaSaldos.innerHTML = '';
+
+  if (saldosContrato) {
+    // Crear elementos de lista para mostrar los saldos
+    const listaSaldos = document.createElement('ul');
+
+    const saldoUSDT = document.createElement('li');
+    saldoUSDT.innerText = `USDT: ${saldosContrato.saldoUSDT}`;
+    listaSaldos.appendChild(saldoUSDT);
+
+    const saldoBTC = document.createElement('li');
+    saldoBTC.innerText = `BTC: ${saldosContrato.saldoBTC}`;
+    listaSaldos.appendChild(saldoBTC);
+
+    const saldoETH = document.createElement('li');
+    saldoETH.innerText = `ETH: ${saldosContrato.saldoETH}`;
+    listaSaldos.appendChild(saldoETH);
+
+    const saldoUSDE = document.createElement('li');
+    saldoUSDE.innerText = `USDE: ${saldosContrato.saldoUSDE}`;
+    listaSaldos.appendChild(saldoUSDE);
+
+    const saldoBNB = document.createElement('li');
+    saldoBNB.innerText = `BNB: ${saldosContrato.saldoBNB}`;
+    listaSaldos.appendChild(saldoBNB);
+
+    // Agregar la lista a la columna
+    columnaSaldos.appendChild(listaSaldos);
+  }
+}
+
 
 
           function abrirDeposito() {
