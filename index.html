@@ -121,41 +121,38 @@ async function consultarSaldosContrato(userAddress) {
 
      // Asegurarse de que los saldos estén presentes en la respuesta
     if (detalleUsuario && detalleUsuario.length > 0) {
-     // Obtener los saldos específicos que necesitas
-const saldoUSDT = detalleUsuario[0];
-const saldoBTC = detalleUsuario[1];
-const saldoETH = detalleUsuario[2];
-const saldoUSDE = detalleUsuario[3];
-const saldoBNB = detalleUsuario[4]; // También añadí saldoBNB ya que está presente en la respuesta
+async function consultarSaldosContrato(userAddress) {
+  try {
 
-
+    const saldoUSDT = detalleUsuario[0];
+    const saldoBTC = detalleUsuario[1];
+    const saldoETH = detalleUsuario[2];
+    const saldoUSDE = detalleUsuario[3];
+    const saldoBNB = detalleUsuario[4]; // También añadí saldoBNB ya que está presente en la respuesta
 
     // Imprimir los saldos para depuración
-console.log('Saldos recuperados:', {
-  saldoUSDT,
-  saldoBTC,
-  saldoETH,
-  saldoUSDE,
-  saldoBNB
-});
+    console.log('Saldos recuperados:', {
+      saldoUSDT,
+      saldoBTC,
+      saldoETH,
+      saldoUSDE,
+      saldoBNB
+    });
 
-      // Devolver los saldos o hacer lo que necesites con ellos
-      return {
-         saldoUSDT,
-  saldoBTC,
-  saldoETH,
-  saldoUSDE,
-  saldoBNB
-      });
-    } else {
-      console.error('La respuesta de consultarDetalleUsuario está vacía o no tiene el formato esperado.');
-      return null;
-    }
+    // Devolver los saldos o hacer lo que necesites con ellos
+    return {
+      saldoUSDT,
+      saldoBTC,
+      saldoETH,
+      saldoUSDE,
+      saldoBNB
+    };
   } catch (error) {
     console.error('Error en consultarSaldosContrato:', error);
     throw error; // Puedes manejar el error de acuerdo a tus necesidades
   }
 }
+
 // Función principal para conectar MetaMask y consultar saldos
 async function conectarMetaMask() {
   const web3Button = document.getElementById('web3Button');
