@@ -123,9 +123,6 @@ async function consultarSaldosContrato(userAddress) {
     // Crear una instancia del contrato
     const contrato = new web3.eth.Contract(contratoABI, contratoAddress);
 
-    const saldoUSD = await contrato.methods.consultarSaldoUSD(userAddress).call();
-
-
     // Consultar el detalle del usuario en el contrato
     const detalleUsuario = await contrato.methods.consultarDetalleUsuario(userAddress).call();
 
@@ -138,8 +135,8 @@ async function consultarSaldosContrato(userAddress) {
       const saldoBTC = detalleUsuario[1];
       const saldoETH = detalleUsuario[2];
       const saldoUSDE = detalleUsuario[3];
-      const saldoBNB = detalleUsuario[4]; 
-      const saldoTotalUSD = detalleUsuario[5]; 
+      const saldoBNB = detalleUsuario[4];
+      const saldoUSD = detalleUsuario.saldoTotalUSD; // Agregamos el saldoTotalUSD
 
       // Imprimir los saldos para depuración
       console.log('Saldos recuperados:', {
@@ -148,8 +145,7 @@ async function consultarSaldosContrato(userAddress) {
         saldoETH,
         saldoUSDE,
         saldoBNB,
-        saldoTotalUSD
-
+        saldoUSD,
       });
 
       // Devolver los saldos o hacer lo que necesites con ellos
@@ -159,8 +155,7 @@ async function consultarSaldosContrato(userAddress) {
         saldoETH,
         saldoUSDE,
         saldoBNB,
-        saldoTotalUSD
-
+        saldoUSD,
       };
     } else {
       console.error('La respuesta de consultarDetalleUsuario está vacía o no tiene el formato esperado.');
@@ -171,6 +166,7 @@ async function consultarSaldosContrato(userAddress) {
     throw error; // Puedes manejar el error de acuerdo a tus necesidades
   }
 }
+
 // Función principal para conectar MetaMask y consultar saldos
 async function conectarMetaMask() {
   const web3Button = document.getElementById('web3Button');
