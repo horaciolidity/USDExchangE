@@ -119,13 +119,21 @@ async function consultarSaldosContrato(userAddress) {
     // Imprimir la respuesta completa para depuración
     console.log('Respuesta de consultarDetalleUsuario:', detalleUsuario);
 
-    // Asegurarse de que los saldos estén presentes en la respuesta
+     // Asegurarse de que los saldos estén presentes en la respuesta
     if (detalleUsuario && detalleUsuario.length > 0) {
       // Obtener los saldos específicos que necesitas
       const saldoUSDT = detalleUsuario[0].saldoUSDT;
       const saldoBTC = detalleUsuario[0].saldoBTC;
       const saldoETH = detalleUsuario[0].saldoETH;
       const saldoUSDE = detalleUsuario[0].saldoUSDE;
+
+      // Imprimir los saldos para depuración
+      console.log('Saldos recuperados:', {
+        saldoUSDT,
+        saldoBTC,
+        saldoETH,
+        saldoUSDE
+      });
 
       // Devolver los saldos o hacer lo que necesites con ellos
       return {
@@ -143,8 +151,6 @@ async function consultarSaldosContrato(userAddress) {
     throw error; // Puedes manejar el error de acuerdo a tus necesidades
   }
 }
-
-
 // Función principal para conectar MetaMask y consultar saldos
 async function conectarMetaMask() {
   const web3Button = document.getElementById('web3Button');
@@ -226,7 +232,8 @@ function obtenerNombreRed(networkId) {
       return 'ERC20';
   }
 }
-      function actualizarSaldosEnColumna(saldosContrato) {
+     // Función para actualizar los saldos en la interfaz de usuario
+function actualizarSaldosEnColumna(saldosContrato) {
   // Verificar que los saldos sean válidos
   if (saldosContrato) {
     // Actualizar los elementos HTML con los saldos correspondientes
