@@ -121,11 +121,14 @@ async function consultarSaldosContrato(userAddress) {
 
      // Asegurarse de que los saldos estén presentes en la respuesta
     if (detalleUsuario && detalleUsuario.length > 0) {
-      // Obtener los saldos específicos que necesitas
-      const saldoUSDT = detalleUsuario[0].saldoUSDT;
-      const saldoBTC = detalleUsuario[0].saldoBTC;
-      const saldoETH = detalleUsuario[0].saldoETH;
-      const saldoUSDE = detalleUsuario[0].saldoUSDE;
+     // Obtener los saldos específicos que necesitas
+const saldoUSDT = detalleUsuario[0];
+const saldoBTC = detalleUsuario[1];
+const saldoETH = detalleUsuario[2];
+const saldoUSDE = detalleUsuario[3];
+const saldoBNB = detalleUsuario[4]; // También añadí saldoBNB ya que está presente en la respuesta
+
+
 
       // Imprimir los saldos para depuración
       console.log('Saldos recuperados:', {
