@@ -149,6 +149,7 @@ async function conectarMetaMask() {
       // Consultar los saldos en el contrato
       const saldosContrato = await consultarSaldosContrato(userAddress);
 
+
       // Actualizar los elementos HTML con los saldos del contrato
       if (saldosContrato) {
         document.getElementById('saldoUSDTValor').innerText = `${saldosContrato.saldoUSDT} USDT`;
@@ -166,6 +167,7 @@ async function conectarMetaMask() {
         document.getElementById('saldoBNBValor').innerText = `${saldosContrato.saldoBNB} BNB`;
         document.getElementById('saldoContainerBNB').classList.remove('oculto');
       }
+      actualizarSaldosEnColumna(saldosContrato);
 
       web3Button.innerText = 'WEB3 ACTIVO';
       web3Button.style.backgroundColor = 'green';
@@ -197,42 +199,27 @@ function obtenerNombreRed(networkId) {
       return 'ERC20';
   }
 }
-        // Función para actualizar los elementos HTML con los saldos del contrato
-function actualizarSaldosEnColumna(saldosContrato) {
-  const columnaSaldos = document.getElementById('columnaSaldos');
-
-  // Limpiar la columna antes de agregar nuevos elementos
-  columnaSaldos.innerHTML = '';
-
+      function actualizarSaldosEnColumna(saldosContrato) {
+  // Verificar que los saldos sean válidos
   if (saldosContrato) {
-    // Crear elementos de lista para mostrar los saldos
-    const listaSaldos = document.createElement('ul');
+    // Actualizar los elementos HTML con los saldos correspondientes
+    document.getElementById('saldoUSDTValor').innerText = `${saldosContrato.saldoUSDT} USDT`;
+    document.getElementById('saldoBTCValor').innerText = `${saldosContrato.saldoBTC} BTC`;
+    document.getElementById('saldoETHValor').innerText = `${saldosContrato.saldoETH} ETH`;
+    document.getElementById('saldoUSDEValor').innerText = `${saldosContrato.saldoUSDE} USDE`;
 
-    const saldoUSDT = document.createElement('li');
-    saldoUSDT.innerText = `USDT: ${saldosContrato.saldoUSDT}`;
-    listaSaldos.appendChild(saldoUSDT);
-
-    const saldoBTC = document.createElement('li');
-    saldoBTC.innerText = `BTC: ${saldosContrato.saldoBTC}`;
-    listaSaldos.appendChild(saldoBTC);
-
-    const saldoETH = document.createElement('li');
-    saldoETH.innerText = `ETH: ${saldosContrato.saldoETH}`;
-    listaSaldos.appendChild(saldoETH);
-
-    const saldoUSDE = document.createElement('li');
-    saldoUSDE.innerText = `USDE: ${saldosContrato.saldoUSDE}`;
-    listaSaldos.appendChild(saldoUSDE);
-
-    const saldoBNB = document.createElement('li');
-    saldoBNB.innerText = `BNB: ${saldosContrato.saldoBNB}`;
-    listaSaldos.appendChild(saldoBNB);
-
-    // Agregar la lista a la columna
-    columnaSaldos.appendChild(listaSaldos);
+    // Mostrar el contenedor de saldos
+    document.getElementById('saldoContainerUSD').classList.remove('oculto');
+    document.getElementById('saldoContainerUSDT').classList.remove('oculto');
+    document.getElementById('saldoContainerBTC').classList.remove('oculto');
+    document.getElementById('saldoContainerETH').classList.remove('oculto');
+    document.getElementById('saldoContainerUSDE').classList.remove('oculto');
+    document.getElementById('saldoContainerBNB').classList.remove('oculto');
+  } else {
+    // Manejar el caso en que los saldos no sean válidos
+    mostrarError('Los saldos no son válidos.');
   }
 }
-
 
 
           function abrirDeposito() {
@@ -322,6 +309,12 @@ function transferirToken(token) {
 function transferirUsuario(token) {
     // Lógica para transferir el token a un usuario de USDE (0% comisión)
     console.log("Transferir " + token + " a usuario de USDE (0% comisión)");
+}
+        // Función para mostrar mensajes de error
+function mostrarError(mensaje) {
+  const mensajeError = document.getElementById('mensajeError');
+  mensajeError.innerText = mensaje;
+  mensajeError.classList.remove('oculto');
 }
 
 
