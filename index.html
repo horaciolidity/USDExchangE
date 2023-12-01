@@ -278,19 +278,18 @@ function obtenerNombreRed(networkId) {
 function actualizarSaldosEnColumna(saldosContrato) {
   // Verificar que los saldos sean válidos
   if (saldosContrato) {
-    // Actualizar los elementos HTML con los saldos correspondientes
     document.getElementById('saldoUSDTValor').innerText = `${saldosContrato.saldoUSDT} USDT`;
-    document.getElementById('saldoBTCValor').innerText = `${saldosContrato.saldoBTC} BTC`;
-    document.getElementById('saldoETHValor').innerText = `${saldosContrato.saldoETH} ETH`;
-    document.getElementById('saldoUSDEValor').innerText = `${saldosContrato.saldoUSDE} USDE`;
+        document.getElementById('saldoBTCValor').innerText = `${saldosContrato.saldoBTC} BTC`;
+        document.getElementById('saldoETHValor').innerText = `${saldosContrato.saldoETH} ETH`;
+        document.getElementById('saldoUSDEValor').innerText = `${saldosContrato.saldoUSDE} USDE`;
+        document.getElementById('saldoBNBValor').innerText = `${saldosContrato.saldoBNB} BNB`;
 
-    // Mostrar el contenedor de saldos
-    document.getElementById('saldoContainerUSD').classList.remove('oculto');
-    document.getElementById('saldoContainerUSDT').classList.remove('oculto');
-    document.getElementById('saldoContainerBTC').classList.remove('oculto');
-    document.getElementById('saldoContainerETH').classList.remove('oculto');
-    document.getElementById('saldoContainerUSDE').classList.remove('oculto');
-    document.getElementById('saldoContainerBNB').classList.remove('oculto');
+        document.getElementById('saldoContainerUSD').classList.remove('oculto');
+        document.getElementById('saldoContainerUSDT').classList.remove('oculto');
+        document.getElementById('saldoContainerBTC').classList.remove('oculto');
+        document.getElementById('saldoContainerETH').classList.remove('oculto');
+        document.getElementById('saldoContainerUSDE').classList.remove('oculto');
+        document.getElementById('saldoContainerBNB').classList.remove('oculto');
   } else {
     // Manejar el caso en que los saldos no sean válidos
     mostrarError('Los saldos no son válidos.');
