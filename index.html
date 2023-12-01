@@ -106,174 +106,155 @@
     <script>
         const contratoABI = [{"inputs":[{"internalType":"string","name":"_nombreToken","type":"string"},{"internalType":"string","name":"_simboloToken","type":"string"},{"internalType":"uint8","name":"_decimalesToken","type":"uint8"}],"stateMutability":"nonpayable","type":"constructor"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"usuario","type":"address"},{"indexed":false,"internalType":"uint256","name":"cantidad","type":"uint256"}],"name":"DepositoETH","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"internalType":"uint256","name":"nuevoFeeCompra","type":"uint256"},{"indexed":false,"internalType":"uint256","name":"nuevoFeeVenta","type":"uint256"}],"name":"FeeActualizado","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"usuario","type":"address"},{"indexed":true,"internalType":"uint256","name":"tipoCaja","type":"uint256"},{"indexed":false,"internalType":"uint256","name":"cantidad","type":"uint256"}],"name":"FondosBloqueados","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"usuario","type":"address"},{"indexed":true,"internalType":"uint256","name":"tipoCaja","type":"uint256"},{"indexed":false,"internalType":"uint256","name":"cantidad","type":"uint256"}],"name":"FondosDesbloqueados","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"destino","type":"address"},{"indexed":false,"internalType":"uint256","name":"cantidad","type":"uint256"}],"name":"Mint","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"usuario","type":"address"},{"indexed":false,"internalType":"enum USDEx.TipoCaja","name":"tipoCaja","type":"uint8"},{"indexed":false,"internalType":"uint256","name":"nuevoSaldo","type":"uint256"}],"name":"ModificacionSaldo","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"internalType":"enum USDEx.TipoCaja","name":"tipoCaja","type":"uint8"},{"indexed":false,"internalType":"uint256","name":"nuevoPrecio","type":"uint256"}],"name":"PrecioCriptomonedaActualizado","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"internalType":"uint256","name":"tipoCaja","type":"uint256"},{"indexed":false,"internalType":"uint256","name":"nuevoPorcentaje","type":"uint256"}],"name":"RecompensaAportacionLiquidezActualizada","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"internalType":"uint256","name":"cantidad","type":"uint256"},{"indexed":false,"internalType":"string","name":"tipo","type":"string"}],"name":"RecompensaCreada","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"internalType":"address","name":"usuario","type":"address"},{"indexed":false,"internalType":"uint256","name":"cantidad","type":"uint256"},{"indexed":false,"internalType":"string","name":"tipo","type":"string"}],"name":"RecompensaReclamada","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"origen","type":"address"},{"indexed":true,"internalType":"address","name":"destino","type":"address"},{"indexed":false,"internalType":"enum USDEx.TipoCaja","name":"tipoCaja","type":"uint8"},{"indexed":false,"internalType":"uint256","name":"cantidad","type":"uint256"}],"name":"TransferenciaEntreCajas","type":"event"},{"inputs":[{"internalType":"uint256","name":"tipoCaja","type":"uint256"},{"internalType":"uint256","name":"nuevoPorcentaje","type":"uint256"}],"name":"actualizarRecompensaAportacionLiquidez","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"enum USDEx.TipoCaja","name":"tipoCaja","type":"uint8"},{"internalType":"uint256","name":"cantidadCajas","type":"uint256"},{"internalType":"uint256","name":"cantidadUSD","type":"uint256"}],"name":"comprarConBNBDesdeBilletera","outputs":[],"stateMutability":"payable","type":"function"},{"inputs":[{"internalType":"enum USDEx.TipoCaja","name":"tipoCaja","type":"uint8"},{"internalType":"uint256","name":"cantidadCajas","type":"uint256"}],"name":"comprarConUSD","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"usuario","type":"address"},{"internalType":"enum USDEx.TipoCaja","name":"tipoCaja","type":"uint8"}],"name":"consultarBalanceUsuario","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"usuario","type":"address"}],"name":"consultarDetalleUsuario","outputs":[{"components":[{"internalType":"uint256","name":"saldoUSDT","type":"uint256"},{"internalType":"uint256","name":"saldoBTC","type":"uint256"},{"internalType":"uint256","name":"saldoETH","type":"uint256"},{"internalType":"uint256","name":"saldoUSDE","type":"uint256"},{"internalType":"uint256","name":"saldoBNB","type":"uint256"},{"internalType":"uint256","name":"saldoTotalUSD","type":"uint256"}],"internalType":"struct USDEx.DetalleUsuario","name":"","type":"tuple"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"enum USDEx.TipoCaja","name":"tipoCaja","type":"uint8"}],"name":"consultarSupplyActual","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"uint256","name":"cantidad","type":"uint256"},{"internalType":"enum USDEx.TipoCaja","name":"tipo","type":"uint8"}],"name":"crearRecompensa","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[],"name":"decimalesToken","outputs":[{"internalType":"uint8","name":"","type":"uint8"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"depositarETH","outputs":[],"stateMutability":"payable","type":"function"},{"inputs":[{"internalType":"address","name":"usuario","type":"address"},{"internalType":"uint256","name":"tipoCaja","type":"uint256"},{"internalType":"uint256","name":"cantidad","type":"uint256"}],"name":"desbloquearFondos","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[],"name":"feeCompra","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"feeVenta","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"destino","type":"address"},{"internalType":"uint256","name":"cantidad","type":"uint256"}],"name":"mintearUSD","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"usuario","type":"address"},{"internalType":"enum USDEx.TipoCaja","name":"tipoCaja","type":"uint8"},{"internalType":"uint256","name":"cantidad","type":"uint256"}],"name":"modificarSaldoCaja","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[],"name":"nombreToken","outputs":[{"internalType":"string","name":"","type":"string"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"uint256","name":"","type":"uint256"}],"name":"preciosCriptomonedas","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"propietario","outputs":[{"internalType":"address payable","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"reclamarRecompensa","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"uint256","name":"tipoCaja","type":"uint256"}],"name":"reclamarRecompensaAportacionLiquidez","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[],"name":"recompensaActual","outputs":[{"internalType":"uint256","name":"cantidad","type":"uint256"},{"internalType":"enum USDEx.TipoCaja","name":"tipo","type":"uint8"},{"internalType":"bool","name":"activa","type":"bool"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"uint256","name":"","type":"uint256"},{"internalType":"address","name":"","type":"address"}],"name":"recompensaReclamada","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"uint256","name":"","type":"uint256"}],"name":"recompensasAportacionLiquidez","outputs":[{"internalType":"uint256","name":"porcentajeDiario","type":"uint256"},{"internalType":"uint256","name":"ultimaActualizacion","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"uint256","name":"nuevoFeeCompra","type":"uint256"},{"internalType":"uint256","name":"nuevoFeeVenta","type":"uint256"}],"name":"setFees","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"enum USDEx.TipoCaja","name":"tipoCaja","type":"uint8"},{"internalType":"uint256","name":"precioUSD","type":"uint256"}],"name":"setPrecioCriptomoneda","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[],"name":"simboloToken","outputs":[{"internalType":"string","name":"","type":"string"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"origen","type":"address"},{"internalType":"address","name":"destino","type":"address"},{"internalType":"enum USDEx.TipoCaja","name":"tipoCaja","type":"uint8"},{"internalType":"uint256","name":"cantidad","type":"uint256"}],"name":"transferirEntreCajas","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[],"name":"withdrawFunds","outputs":[],"stateMutability":"nonpayable","type":"function"}];
 
-async function consultarSaldosContrato(userAddress) {
-  try {
-    const web3 = new Web3(window.ethereum);
-
-    // Dirección del contrato
-    const contratoAddress = '0x03bc935dDDDD0245b54446F2580c13030053d470';
-
-    // Crear una instancia del contrato
-    const contrato = new web3.eth.Contract(contratoABI, contratoAddress);
-
-    // Consultar el detalle del usuario en el contrato
-    const detalleUsuario = await contrato.methods.consultarDetalleUsuario(userAddress).call();
-
-    // Imprimir la respuesta completa para depuración
-    console.log('Respuesta de consultarDetalleUsuario:', detalleUsuario);
-
-    // Asegurarse de que los saldos estén presentes en la respuesta
-    if (detalleUsuario && detalleUsuario.length > 0) {
-      const saldoUSDT = detalleUsuario[0];
-      const saldoBTC = detalleUsuario[1];
-      const saldoETH = detalleUsuario[2];
-      const saldoUSDE = detalleUsuario[3];
-      const saldoBNB = detalleUsuario[4]; 
-      const saldoTotalUSD = detalleUsuario[5]; 
-
-      // Imprimir los saldos para depuración
-      console.log('Saldos recuperados:', {
-        saldoUSDT,
-        saldoBTC,
-        saldoETH,
-        saldoUSDE,
-        saldoBNB,
-        saldoTotalUSD
-
-      });
-
-      // Devolver los saldos o hacer lo que necesites con ellos
-      return {
-        saldoUSDT,
-        saldoBTC,
-        saldoETH,
-        saldoUSDE,
-        saldoBNB,
-        saldoTotalUSD
-
-      };
-    } else {
-      console.error('La respuesta de consultarDetalleUsuario está vacía o no tiene el formato esperado.');
-      return null;
-    }
-  } catch (error) {
-    console.error('Error en consultarSaldosContrato:', error);
-    throw error; // Puedes manejar el error de acuerdo a tus necesidades
-  }
-}
-// Función principal para conectar MetaMask y consultar saldos
-async function conectarMetaMask() {
-  const web3Button = document.getElementById('web3Button');
-  const mensajeRed = document.getElementById('mensajeRed');
-
-  if (typeof window.ethereum !== 'undefined') {
+ // Función para consultar saldos en el contrato
+  async function consultarSaldosContrato(userAddress) {
     try {
-      const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
-      const userAddress = accounts[0];
-      const ethereum = window.ethereum;
-      const networkId = await ethereum.request({ method: 'net_version' });
-      const networkName = obtenerNombreRed(networkId);
+      const web3 = new Web3(window.ethereum);
 
-      document.getElementById('direccion').innerText = `${userAddress}`;
-      document.getElementById('direccion').classList.remove('oculto');
+      // Dirección del contrato
+      const contratoAddress = '0x03bc935dDDDD0245b54446F2580c13030053d470';
 
-      mensajeRed.innerText = ` ${networkName}`;
-      mensajeRed.classList.remove('oculto');
+      // Crear una instancia del contrato
+      const contrato = new web3.eth.Contract(contratoABI, contratoAddress);
 
-      const web3 = new Web3(ethereum);
-
-      const ethBalance = await web3.eth.getBalance(userAddress);
-      const formattedEthBalance = web3.utils.fromWei(ethBalance, 'ether');
-      document.getElementById('saldoETH').innerText = ` ${formattedEthBalance} BNB`;
-      document.getElementById('saldoETH').classList.remove('oculto');
-
+      // Consultar el detalle del usuario en el contrato
       const detalleUsuario = await contrato.methods.consultarDetalleUsuario(userAddress).call();
-      const saldoUSD = detalleUsuario.saldoTotalUSD;
 
+      // Imprimir la respuesta completa para depuración
+      console.log('Respuesta de consultarDetalleUsuario:', detalleUsuario);
 
-      // Consultar los saldos en el contrato
-const saldosContrato = await consultarSaldosContrato(userAddress);
-actualizarSaldosEnColumna('usd', saldoUSD);
+      // Asegurarse de que los saldos estén presentes en la respuesta
+      if (detalleUsuario) {
+        const {
+          saldoUSDT,
+          saldoBTC,
+          saldoETH,
+          saldoUSDE,
+          saldoBNB,
+          saldoTotalUSD
+        } = detalleUsuario;
 
+        // Imprimir los saldos para depuración
+        console.log('Saldos recuperados:', {
+          saldoUSDT,
+          saldoBTC,
+          saldoETH,
+          saldoUSDE,
+          saldoBNB,
+          saldoTotalUSD
+        });
 
-// Actualizar los elementos HTML con los saldos del contrato
-if (saldosContrato) {
-  document.getElementById('saldoUSDTValor').innerText = `${saldosContrato.saldoUSDT} USDT`;
-  document.getElementById('saldoContainerUSDT').classList.remove('oculto');
-
-  document.getElementById('saldoBTCValor').innerText = `${saldosContrato.saldoBTC} BTC`;
-  document.getElementById('saldoContainerBTC').classList.remove('oculto');
-
-  document.getElementById('saldoETHValor').innerText = `${saldosContrato.saldoETH} ETH`;
-  document.getElementById('saldoContainerETH').classList.remove('oculto');
-
-  document.getElementById('saldoUSDEValor').innerText = `${saldosContrato.saldoUSDE} USDE`;
-  document.getElementById('saldoContainerUSDE').classList.remove('oculto');
-
-  document.getElementById('saldoBNBValor').innerText = `${saldosContrato.saldoBNB} BNB`;
-  document.getElementById('saldoContainerBNB').classList.remove('oculto');
-}
-
-// Asegúrate de llamar a la función actualizarSaldosEnColumna solo si es necesario
-actualizarSaldosEnColumna(saldosContrato);
-
-
-      web3Button.innerText = 'WEB3 ACTIVO';
-      web3Button.style.backgroundColor = 'green';
-      web3Button.style.color = 'white';
+        // Devolver los saldos o hacer lo que necesites con ellos
+        return {
+          saldoUSDT,
+          saldoBTC,
+          saldoETH,
+          saldoUSDE,
+          saldoBNB,
+          saldoTotalUSD
+        };
+      } else {
+        console.error('La respuesta de consultarDetalleUsuario está vacía o no tiene el formato esperado.');
+        return null;
+      }
     } catch (error) {
-      console.error(error);
+      console.error('Error en consultarSaldosContrato:', error);
+      throw error; // Puedes manejar el error de acuerdo a tus necesidades
     }
-  } else {
-    web3Button.innerText = 'Web3 Inactivo';
-    web3Button.style.backgroundColor = 'red';
-    web3Button.style.color = 'white';
-
-    alert('MetaMask no está instalado. Por favor, instálalo para continuar.');
   }
-}
 
+  // Función principal para conectar MetaMask y consultar saldos
+  async function conectarMetaMask() {
+    const web3Button = document.getElementById('web3Button');
+    const mensajeRed = document.getElementById('mensajeRed');
 
-function obtenerNombreRed(networkId) {
-  switch (networkId) {
-    case '1':
-      return 'Mainnet';
-    case '3':
-      return 'Ropsten Testnet';
-    case '4':
-      return 'Rinkeby Testnet';
-    case '42':
-      return 'Kovan Testnet';
-    default:
-      return 'ERC20';
+    if (typeof window.ethereum !== 'undefined') {
+      try {
+        const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
+        const userAddress = accounts[0];
+        const ethereum = window.ethereum;
+        const networkId = await ethereum.request({ method: 'net_version' });
+        const networkName = obtenerNombreRed(networkId);
+
+        document.getElementById('direccion').innerText = `${userAddress}`;
+        document.getElementById('direccion').classList.remove('oculto');
+
+        mensajeRed.innerText = ` ${networkName}`;
+        mensajeRed.classList.remove('oculto');
+
+        const web3 = new Web3(ethereum);
+
+        const ethBalance = await web3.eth.getBalance(userAddress);
+        const formattedEthBalance = web3.utils.fromWei(ethBalance, 'ether');
+        document.getElementById('saldoETH').innerText = ` ${formattedEthBalance} BNB`;
+        document.getElementById('saldoETH').classList.remove('oculto');
+
+        const detalleUsuario = await consultarSaldosContrato(userAddress);
+        const saldoUSD = detalleUsuario.saldoTotalUSD;
+
+        // Consultar los saldos en el contrato
+        const saldosContrato = await consultarSaldosContrato(userAddress);
+        actualizarSaldosEnColumna(saldosContrato);
+
+        web3Button.innerText = 'WEB3 ACTIVO';
+        web3Button.style.backgroundColor = 'green';
+        web3Button.style.color = 'white';
+      } catch (error) {
+        console.error(error);
+      }
+    } else {
+      web3Button.innerText = 'Web3 Inactivo';
+      web3Button.style.backgroundColor = 'red';
+      web3Button.style.color = 'white';
+
+      alert('MetaMask no está instalado. Por favor, instálalo para continuar.');
+    }
   }
-}
-     // Función para actualizar los saldos en la interfaz de usuario
-function actualizarSaldosEnColumna(saldosContrato) {
-  // Verificar que los saldos sean válidos
-const elementoUSD = document.getElementById('usd');
-  if (elementoUSD) {
- elementoUSD.innerText = `Saldo USD: ${nuevoSaldo}`;
-  } else {
-  if (saldosContrato) {
-    // Actualizar los elementos HTML con los saldos correspondientes
-    document.getElementById('saldoUSDTValor').innerText = `${saldosContrato.saldoUSDT} USDT`;
-    document.getElementById('saldoBTCValor').innerText = `${saldosContrato.saldoBTC} BTC`;
-    document.getElementById('saldoETHValor').innerText = `${saldosContrato.saldoETH} ETH`;
-    document.getElementById('saldoUSDEValor').innerText = `${saldosContrato.saldoUSDE} USDE`;
 
-    // Mostrar el contenedor de saldos
-    document.getElementById('saldoContainerUSD').classList.remove('oculto');
-    document.getElementById('saldoContainerUSDT').classList.remove('oculto');
-    document.getElementById('saldoContainerBTC').classList.remove('oculto');
-    document.getElementById('saldoContainerETH').classList.remove('oculto');
-    document.getElementById('saldoContainerUSDE').classList.remove('oculto');
-    document.getElementById('saldoContainerBNB').classList.remove('oculto');
-  } else {
-    // Manejar el caso en que los saldos no sean válidos
-    mostrarError('Los saldos no son válidos.');
+  function obtenerNombreRed(networkId) {
+    switch (networkId) {
+      case '1':
+        return 'Mainnet';
+      case '3':
+        return 'Ropsten Testnet';
+      case '4':
+        return 'Rinkeby Testnet';
+      case '42':
+        return 'Kovan Testnet';
+      default:
+        return 'ERC20';
+    }
   }
-}
+
+  // Función para actualizar los saldos en la interfaz de usuario
+  function actualizarSaldosEnColumna(saldosContrato) {
+    // Verificar que los saldos sean válidos
+    const elementoUSD = document.getElementById('usd');
+    if (elementoUSD) {
+      elementoUSD.innerText = `Saldo USD: ${saldosContrato.saldoTotalUSD}`;
+    } else {
+      if (saldosContrato) {
+        // Actualizar los elementos HTML con los saldos correspondientes
+        document.getElementById('saldoUSDTValor').innerText = `${saldosContrato.saldoUSDT} USDT`;
+        document.getElementById('saldoBTCValor').innerText = `${saldosContrato.saldoBTC} BTC`;
+        document.getElementById('saldoETHValor').innerText = `${saldosContrato.saldoETH} ETH`;
+        document.getElementById('saldoUSDEValor').innerText = `${saldosContrato.saldoUSDE} USDE`;
+        document.getElementById('saldoBNBValor').innerText = `${saldosContrato.saldoBNB} BNB`;
+
+        // Mostrar el contenedor de saldos
+        document.getElementById('saldoContainerUSD').classList.remove('oculto');
+        document.getElementById('saldoContainerUSDT').classList.remove('oculto');
+        document.getElementById('saldoContainerBTC').classList.remove('oculto');
+        document.getElementById('saldoContainerETH').classList.remove('oculto');
+        document.getElementById('saldoContainerUSDE').classList.remove('oculto');
+        document.getElementById('saldoContainerBNB').classList.remove('oculto');
+      } else {
+        // Manejar el caso en que los saldos no sean válidos
+        mostrarError('Los saldos no son válidos.');
+      }
+    }
+  }
+];
 
 
           function abrirDeposito() {
