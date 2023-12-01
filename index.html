@@ -63,6 +63,10 @@
         </div>
     </div>
 
+
+    <div id="usd">Saldo USD: 0</div>
+
+
 <!-- Saldo USDT -->
 <div class="saldo-container oculto" id="saldoContainerUSDT" style="flex-direction: column; align-items: center; text-align: center;">
     <div id="saldoUSDTValor" style="font-size: 18px;"></div>
@@ -180,11 +184,17 @@ async function conectarMetaMask() {
 
       const ethBalance = await web3.eth.getBalance(userAddress);
       const formattedEthBalance = web3.utils.fromWei(ethBalance, 'ether');
-      document.getElementById('saldoETH').innerText = ` ${formattedEthBalance} ETH`;
+      document.getElementById('saldoETH').innerText = ` ${formattedEthBalance} BNB`;
       document.getElementById('saldoETH').classList.remove('oculto');
+
+      const detalleUsuario = await contrato.methods.consultarDetalleUsuario(userAddress).call();
+      const saldoUSD = detalleUsuario.saldoTotalUSD;
+
 
       // Consultar los saldos en el contrato
 const saldosContrato = await consultarSaldosContrato(userAddress);
+actualizarSaldosEnColumna('usd', saldoUSD);
+
 
 // Actualizar los elementos HTML con los saldos del contrato
 if (saldosContrato) {
@@ -241,6 +251,10 @@ function obtenerNombreRed(networkId) {
      // Función para actualizar los saldos en la interfaz de usuario
 function actualizarSaldosEnColumna(saldosContrato) {
   // Verificar que los saldos sean válidos
+const elementoUSD = document.getElementById('usd');
+  if (elementoUSD) {
+ elementoUSD.innerText = `Saldo USD: ${nuevoSaldo}`;
+  } else {
   if (saldosContrato) {
     // Actualizar los elementos HTML con los saldos correspondientes
     document.getElementById('saldoUSDTValor').innerText = `${saldosContrato.saldoUSDT} USDT`;
