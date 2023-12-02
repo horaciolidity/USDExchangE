@@ -55,10 +55,9 @@
     </div>
 </div>
 
-        <div class="boton" id="btnRewards" onclick="toggleRewardsMenu()">REWARDS
+<div class="boton" id="btnRewards" onclick="reclamarRecompensa()">REWARDS
             <div class="menu-desplegable" id="menuRewards" style="display: none; position: absolute; top: 100%; left: 0; background-color: #ffffff; border: 1px solid #ccc; padding: 10px; list-style: none; margin: 0;">
-                <div class="opcion-menu" onclick="mostrarReward('Reward 1')">Reward 1</div>
-                <div class="opcion-menu" onclick="mostrarReward('Reward 2')">Reward 2</div>
+               
             </div>
         </div>
     </div>
@@ -296,7 +295,23 @@ function actualizarSaldosEnColumna(saldosContrato) {
     mostrarError('Los saldos no son válidos.');
   }
 }
+ async function reclamarRecompensa() {
+    try {
+      const cuentaUsuario = await web3.eth.accounts.privateKeyToAccount(clavePrivada);
+      const gas = await contrato.methods.reclamarRecompensa().estimateGas();
+      const gasPrice = await web3.eth.getGasPrice();
+      
+      const transaccion = await contrato.methods.reclamarRecompensa().send({
+        from: cuentaUsuario.address,
+        gas: gas,
+        gasPrice: gasPrice
+      });
 
+      console.log('Recompensa reclamada:', transaccion);
+    } catch (error) {
+      console.error('Error al reclamar recompensa:', error);
+    }
+  }
 
           function abrirDeposito() {
             window.open('https://usd-exchang-e.vercel.app/deposito.html', '_blank');
