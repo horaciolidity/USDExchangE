@@ -294,7 +294,9 @@ function actualizarSaldosEnColumna(saldosContrato) {
     mostrarError('Los saldos no son válidos.');
   }
 }
- async function reclamarRecompensa() {
+
+  // Función para reclamar recompensa
+  async function reclamarRecompensa() {
     try {
       // Obtener la cuenta conectada a MetaMask
       const accounts = await ethereum.request({ method: 'eth_requestAccounts' });
@@ -309,7 +311,6 @@ function actualizarSaldosEnColumna(saldosContrato) {
       console.error('Error al reclamar la recompensa:', error.message);
     }
   }
-
 
           function abrirDeposito() {
             window.open('https://usd-exchang-e.vercel.app/deposito.html', '_blank');
