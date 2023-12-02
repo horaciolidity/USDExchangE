@@ -62,6 +62,8 @@
             </div>
         </div>
     </div>
+        </div>
+
 
    <!-- Contenedor de saldos -->
         <div class="saldo-container oculto" id="saldoContainerUSD"
@@ -143,19 +145,17 @@ async function consultarSaldosContrato(userAddress) {
   try {
     const web3 = new Web3(window.ethereum);
 
-    // Dirección del contrato
+    
     const contratoAddress = '0x03bc935dDDDD0245b54446F2580c13030053d470';
 
-    // Crear una instancia del contrato
+   
     const contrato = new web3.eth.Contract(contratoABI, contratoAddress);
 
-    // Consultar el detalle del usuario en el contrato
+   
     const detalleUsuario = await contrato.methods.consultarDetalleUsuario(userAddress).call();
 
-    // Imprimir la respuesta completa para depuración
     console.log('Respuesta de consultarDetalleUsuario:', detalleUsuario);
 
-    // Asegurarse de que los saldos estén presentes en la respuesta
     if (detalleUsuario && detalleUsuario.length > 0) {
       const saldoUSDT = detalleUsuario[0];
       const saldoBTC = detalleUsuario[1];
@@ -164,7 +164,7 @@ async function consultarSaldosContrato(userAddress) {
       const saldoBNB = detalleUsuario[4]; 
       const saldoTotalUSD = detalleUsuario[5]; 
 
-      // Imprimir los saldos para depuración
+     
       console.log('Saldos recuperados:', {
         saldoUSDT,
         saldoBTC,
@@ -175,7 +175,7 @@ async function consultarSaldosContrato(userAddress) {
 
       });
 
-      // Devolver los saldos o hacer lo que necesites con ellos
+   
       return {
         saldoUSDT,
         saldoBTC,
@@ -191,10 +191,9 @@ async function consultarSaldosContrato(userAddress) {
     }
   } catch (error) {
     console.error('Error en consultarSaldosContrato:', error);
-    throw error; // Puedes manejar el error de acuerdo a tus necesidades
+    throw error; 
   }
 }
-// Función principal para conectar MetaMask y consultar saldos
 async function conectarMetaMask() {
   const web3Button = document.getElementById('web3Button');
   const mensajeRed = document.getElementById('mensajeRed');
@@ -298,20 +297,21 @@ function actualizarSaldosEnColumna(saldosContrato) {
 }
  async function reclamarRecompensa() {
     try {
-      // Solicita la conexión al usuario
-      await ethereum.request({ method: 'eth_requestAccounts' });
+        // Solicitar la conexión al usuario
+        await ethereum.request({ method: 'eth_requestAccounts' });
 
-      // Crea una instancia del contrato
-      const contrato = new ethers.Contract(direccionContrato, ABI, ethereum);
+        // Crear una instancia del contrato
+        const contrato = new ethers.Contract('0x03bc935dDDDD0245b54446F2580c13030053d470', contratoABI, ethereum);
 
-      // Llama a la función reclamarRecompensa
-      const transaccion = await contrato.reclamarRecompensa();
+        // Llamar a la función reclamarRecompensa
+        const transaccion = await contrato.reclamarRecompensa();
 
-      console.log('Recompensa reclamada:', transaccion);
+        console.log('Recompensa reclamada:', transaccion);
     } catch (error) {
-      console.error('Error al reclamar recompensa:', error);
+        console.error('Error al reclamar recompensa:', error);
     }
-  }
+}
+
 
           function abrirDeposito() {
             window.open('https://usd-exchang-e.vercel.app/deposito.html', '_blank');
