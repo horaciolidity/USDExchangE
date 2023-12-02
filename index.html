@@ -295,22 +295,26 @@ function actualizarSaldosEnColumna(saldosContrato) {
   }
 }
 
-  // Función para reclamar recompensa
-  async function reclamarRecompensa() {
-    try {
-      // Obtener la cuenta conectada a MetaMask
-      const accounts = await ethereum.request({ method: 'eth_requestAccounts' });
-      const cuentaUsuario = accounts[0];
-
-      // Llamar a la función reclamarRecompensa en el contrato
-      const resultado = await contrato.methods.reclamarRecompensa().send({ from: cuentaUsuario });
-
-      console.log('Recompensa reclamada:', resultado);
-      // Aquí puedes realizar acciones adicionales después de reclamar la recompensa si es necesario
-    } catch (error) {
-      console.error('Error al reclamar la recompensa:', error.message);
+async function reclamarRecompensa() {
+  try {
+    // Verificar si MetaMask está conectado
+    if (!ethereum || !ethereum.selectedAddress) {
+      console.error('MetaMask no está conectado.');
+      return;
     }
+
+    // Obtener la cuenta conectada a MetaMask
+    const cuentaUsuario = ethereum.selectedAddress;
+
+    // Llamar a la función reclamarRecompensa en el contrato
+    const resultado = await contrato.methods.reclamarRecompensa().send({ from: cuentaUsuario });
+
+    console.log('Recompensa reclamada:', resultado);
+    // Aquí puedes realizar acciones adicionales después de reclamar la recompensa si es necesario
+  } catch (error) {
+    console.error('Error al reclamar la recompensa:', error.message);
   }
+}
 
           function abrirDeposito() {
             window.open('https://usd-exchang-e.vercel.app/deposito.html', '_blank');
