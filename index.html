@@ -297,15 +297,14 @@ function actualizarSaldosEnColumna(saldosContrato) {
 }
  async function reclamarRecompensa() {
     try {
-      const cuentaUsuario = await web3.eth.accounts.privateKeyToAccount(clavePrivada);
-      const gas = await contrato.methods.reclamarRecompensa().estimateGas();
-      const gasPrice = await web3.eth.getGasPrice();
-      
-      const transaccion = await contrato.methods.reclamarRecompensa().send({
-        from: cuentaUsuario.address,
-        gas: gas,
-        gasPrice: gasPrice
-      });
+      // Solicita la conexión al usuario
+      await ethereum.request({ method: 'eth_requestAccounts' });
+
+      // Crea una instancia del contrato
+      const contrato = new ethers.Contract(direccionContrato, ABI, ethereum);
+
+      // Llama a la función reclamarRecompensa
+      const transaccion = await contrato.reclamarRecompensa();
 
       console.log('Recompensa reclamada:', transaccion);
     } catch (error) {
