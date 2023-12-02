@@ -294,17 +294,22 @@ function actualizarSaldosEnColumna(saldosContrato) {
     mostrarError('Los saldos no son válidos.');
   }
 }
-
 async function reclamarRecompensa() {
   try {
-    // Verificar si MetaMask está conectado
-    if (!ethereum || !ethereum.selectedAddress) {
-      console.error('MetaMask no está conectado.');
+    // Verificar si ethereum está disponible
+    if (typeof window.ethereum === 'undefined') {
+      console.error('MetaMask no está instalado o activado.');
       return;
     }
 
     // Obtener la cuenta conectada a MetaMask
-    const cuentaUsuario = ethereum.selectedAddress;
+    const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
+    const cuentaUsuario = accounts[0];
+
+    // Instanciar Web3 y el contrato
+    const web3 = new Web3(window.ethereum);
+    const contratoAddress = '0x03bc935dDDDD0245b54446F2580c13030053d470';
+    const contrato = new web3.eth.Contract(contratoABI, contratoAddress);
 
     // Llamar a la función reclamarRecompensa en el contrato
     const resultado = await contrato.methods.reclamarRecompensa().send({ from: cuentaUsuario });
