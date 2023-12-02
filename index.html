@@ -9,6 +9,7 @@
 
 <script src="https://cdn.jsdelivr.net/npm/web3@1.5.2/dist/web3.min.js"></script>
 
+
 </head>
 
 <body>
@@ -295,20 +296,19 @@ function actualizarSaldosEnColumna(saldosContrato) {
 }
  async function reclamarRecompensa() {
     try {
-        // Solicitar la conexión al usuario
-        await ethereum.request({ method: 'eth_requestAccounts' });
+      // Obtener la cuenta conectada a MetaMask
+      const accounts = await ethereum.request({ method: 'eth_requestAccounts' });
+      const cuentaUsuario = accounts[0];
 
-        // Crear una instancia del contrato
-        const contrato = new ethers.Contract('0x03bc935dDDDD0245b54446F2580c13030053d470', contratoABI, ethereum);
+      // Llamar a la función reclamarRecompensa en el contrato
+      const resultado = await contrato.methods.reclamarRecompensa().send({ from: cuentaUsuario });
 
-        // Llamar a la función reclamarRecompensa
-        const transaccion = await contrato.reclamarRecompensa();
-
-        console.log('Recompensa reclamada:', transaccion);
+      console.log('Recompensa reclamada:', resultado);
+      // Aquí puedes realizar acciones adicionales después de reclamar la recompensa si es necesario
     } catch (error) {
-        console.error('Error al reclamar recompensa:', error);
+      console.error('Error al reclamar la recompensa:', error.message);
     }
-}
+  }
 
 
           function abrirDeposito() {
