@@ -438,12 +438,33 @@ function mostrarError(mensaje) {
   mensajeError.classList.remove('oculto');
 }
 
-function transferirEntreCajas() {
-    debugger;
-    console.log("Entrando en transferirEntreCajas");
-    const receiverAddress = document.getElementById('receiverAddress').value;
-    console.log("Receiver Address:", receiverAddress);
+async function transferirEntreCajas() {
+    try {
+        // Conectarse a MetaMask y obtener la dirección del usuario conectado
+        const accounts = await ethereum.request({ method: 'eth_requestAccounts' });
+        const userAddress = accounts[0];
+
+        // Obtener información del usuario (puedes personalizar esto según tus necesidades)
+        const receiverAddress = prompt("Ingrese la dirección del receptor:");
+        const tipoCaja = prompt("Ingrese el tipo de caja (por ejemplo, 'USDT', 'BTC', etc.):");
+        const cantidad = parseFloat(prompt("Ingrese la cantidad a transferir:"));
+
+        // Llamar a la función del contrato
+        const result = await contract.methods.transferirEntreCajas(userAddress, receiverAddress, tipoCaja, cantidad).send({ from: userAddress });
+
+        // Manejar el resultado
+        console.log("Transacción exitosa:", result);
+
+        // Puedes agregar acciones adicionales aquí, como actualizar la interfaz de usuario, etc.
+
+    } catch (error) {
+        console.error("Error al transferir entre cajas:", error);
+        // Manejar el error, por ejemplo, mostrar un mensaje al usuario
+    }
 }
+
+// Llamar a la función cuando se hace clic en el botón o según tus necesidades
+document.getElementById("transferirUSDT").addEventListener("click", transferirEntreCajas);
 
 
 function cerrarFormulario() {
