@@ -38,12 +38,13 @@
     </div>
 
    <div class="contenedor-botones" style="display: flex; margin-top: 20px; position: relative;">
-    <div class="boton" id="transferirUSDT" onclick="toggleMenu('menuTransferir')">Transferir
+    <div class="boton" id="transferirUSDT" onclick="transferirEntreCajas()">Transferir
         <div class="menu-desplegable" id="menuTransferir">
             <div class="opcion-menu" onclick="transferirToken('ERC20')">Transferir ERC20</div>
             <div class="opcion-menu" onclick="transferirUsuario('USDE')">Transferir a usuario de USDE (0% comisión)</div>
         </div>
     </div>
+
 
 
 
@@ -136,6 +137,30 @@
     <div id="mensajeError" class="mensaje-error oculto"></div>
 
     </div>
+    <!-- Agrega esto al final de tu HTML -->
+<div id="transferFormPopup" class="formulario-popup">
+    <h2>Transferir Entre Cajas</h2>
+    <form onsubmit="return false;">
+        <label for="receiverAddress">Dirección del Receptor:</label>
+        <input type="text" id="receiverAddress" required>
+
+        <label for="boxType">Tipo de Caja:</label>
+        <select id="boxType" required>
+            <option value="0">USDT</option>
+            <option value="1">BTC</option>
+            <option value="2">ETH</option>
+            <option value="3">USDE</option>
+            <option value="4">BNB</option>
+        </select>
+
+        <label for="amount">Cantidad:</label>
+        <input type="number" id="amount" required>
+
+        <button onclick="transferirEntreCajas()">Transferir</button>
+        <button onclick="cerrarFormulario()">Cancelar</button>
+    </form>
+</div>
+
 
     <script>
         const contratoABI = [{"inputs":[{"internalType":"string","name":"_nombreToken","type":"string"},{"internalType":"string","name":"_simboloToken","type":"string"},{"internalType":"uint8","name":"_decimalesToken","type":"uint8"}],"stateMutability":"nonpayable","type":"constructor"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"usuario","type":"address"},{"indexed":false,"internalType":"uint256","name":"cantidad","type":"uint256"}],"name":"DepositoETH","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"internalType":"uint256","name":"nuevoFeeCompra","type":"uint256"},{"indexed":false,"internalType":"uint256","name":"nuevoFeeVenta","type":"uint256"}],"name":"FeeActualizado","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"usuario","type":"address"},{"indexed":true,"internalType":"uint256","name":"tipoCaja","type":"uint256"},{"indexed":false,"internalType":"uint256","name":"cantidad","type":"uint256"}],"name":"FondosBloqueados","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"usuario","type":"address"},{"indexed":true,"internalType":"uint256","name":"tipoCaja","type":"uint256"},{"indexed":false,"internalType":"uint256","name":"cantidad","type":"uint256"}],"name":"FondosDesbloqueados","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"destino","type":"address"},{"indexed":false,"internalType":"uint256","name":"cantidad","type":"uint256"}],"name":"Mint","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"usuario","type":"address"},{"indexed":false,"internalType":"enum USDEx.TipoCaja","name":"tipoCaja","type":"uint8"},{"indexed":false,"internalType":"uint256","name":"nuevoSaldo","type":"uint256"}],"name":"ModificacionSaldo","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"internalType":"enum USDEx.TipoCaja","name":"tipoCaja","type":"uint8"},{"indexed":false,"internalType":"uint256","name":"nuevoPrecio","type":"uint256"}],"name":"PrecioCriptomonedaActualizado","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"internalType":"uint256","name":"tipoCaja","type":"uint256"},{"indexed":false,"internalType":"uint256","name":"nuevoPorcentaje","type":"uint256"}],"name":"RecompensaAportacionLiquidezActualizada","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"internalType":"uint256","name":"cantidad","type":"uint256"},{"indexed":false,"internalType":"string","name":"tipo","type":"string"}],"name":"RecompensaCreada","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"internalType":"address","name":"usuario","type":"address"},{"indexed":false,"internalType":"uint256","name":"cantidad","type":"uint256"},{"indexed":false,"internalType":"string","name":"tipo","type":"string"}],"name":"RecompensaReclamada","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"origen","type":"address"},{"indexed":true,"internalType":"address","name":"destino","type":"address"},{"indexed":false,"internalType":"enum USDEx.TipoCaja","name":"tipoCaja","type":"uint8"},{"indexed":false,"internalType":"uint256","name":"cantidad","type":"uint256"}],"name":"TransferenciaEntreCajas","type":"event"},{"inputs":[{"internalType":"uint256","name":"tipoCaja","type":"uint256"},{"internalType":"uint256","name":"nuevoPorcentaje","type":"uint256"}],"name":"actualizarRecompensaAportacionLiquidez","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"enum USDEx.TipoCaja","name":"tipoCaja","type":"uint8"},{"internalType":"uint256","name":"cantidadCajas","type":"uint256"},{"internalType":"uint256","name":"cantidadUSD","type":"uint256"}],"name":"comprarConBNBDesdeBilletera","outputs":[],"stateMutability":"payable","type":"function"},{"inputs":[{"internalType":"enum USDEx.TipoCaja","name":"tipoCaja","type":"uint8"},{"internalType":"uint256","name":"cantidadCajas","type":"uint256"}],"name":"comprarConUSD","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"usuario","type":"address"},{"internalType":"enum USDEx.TipoCaja","name":"tipoCaja","type":"uint8"}],"name":"consultarBalanceUsuario","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"usuario","type":"address"}],"name":"consultarDetalleUsuario","outputs":[{"components":[{"internalType":"uint256","name":"saldoUSDT","type":"uint256"},{"internalType":"uint256","name":"saldoBTC","type":"uint256"},{"internalType":"uint256","name":"saldoETH","type":"uint256"},{"internalType":"uint256","name":"saldoUSDE","type":"uint256"},{"internalType":"uint256","name":"saldoBNB","type":"uint256"},{"internalType":"uint256","name":"saldoTotalUSD","type":"uint256"}],"internalType":"struct USDEx.DetalleUsuario","name":"","type":"tuple"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"enum USDEx.TipoCaja","name":"tipoCaja","type":"uint8"}],"name":"consultarSupplyActual","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"uint256","name":"cantidad","type":"uint256"},{"internalType":"enum USDEx.TipoCaja","name":"tipo","type":"uint8"}],"name":"crearRecompensa","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[],"name":"decimalesToken","outputs":[{"internalType":"uint8","name":"","type":"uint8"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"depositarETH","outputs":[],"stateMutability":"payable","type":"function"},{"inputs":[{"internalType":"address","name":"usuario","type":"address"},{"internalType":"uint256","name":"tipoCaja","type":"uint256"},{"internalType":"uint256","name":"cantidad","type":"uint256"}],"name":"desbloquearFondos","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[],"name":"feeCompra","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"feeVenta","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"destino","type":"address"},{"internalType":"uint256","name":"cantidad","type":"uint256"}],"name":"mintearUSD","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"usuario","type":"address"},{"internalType":"enum USDEx.TipoCaja","name":"tipoCaja","type":"uint8"},{"internalType":"uint256","name":"cantidad","type":"uint256"}],"name":"modificarSaldoCaja","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[],"name":"nombreToken","outputs":[{"internalType":"string","name":"","type":"string"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"uint256","name":"","type":"uint256"}],"name":"preciosCriptomonedas","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"propietario","outputs":[{"internalType":"address payable","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"reclamarRecompensa","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"uint256","name":"tipoCaja","type":"uint256"}],"name":"reclamarRecompensaAportacionLiquidez","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[],"name":"recompensaActual","outputs":[{"internalType":"uint256","name":"cantidad","type":"uint256"},{"internalType":"enum USDEx.TipoCaja","name":"tipo","type":"uint8"},{"internalType":"bool","name":"activa","type":"bool"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"uint256","name":"","type":"uint256"},{"internalType":"address","name":"","type":"address"}],"name":"recompensaReclamada","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"uint256","name":"","type":"uint256"}],"name":"recompensasAportacionLiquidez","outputs":[{"internalType":"uint256","name":"porcentajeDiario","type":"uint256"},{"internalType":"uint256","name":"ultimaActualizacion","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"uint256","name":"nuevoFeeCompra","type":"uint256"},{"internalType":"uint256","name":"nuevoFeeVenta","type":"uint256"}],"name":"setFees","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"enum USDEx.TipoCaja","name":"tipoCaja","type":"uint8"},{"internalType":"uint256","name":"precioUSD","type":"uint256"}],"name":"setPrecioCriptomoneda","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[],"name":"simboloToken","outputs":[{"internalType":"string","name":"","type":"string"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"origen","type":"address"},{"internalType":"address","name":"destino","type":"address"},{"internalType":"enum USDEx.TipoCaja","name":"tipoCaja","type":"uint8"},{"internalType":"uint256","name":"cantidad","type":"uint256"}],"name":"transferirEntreCajas","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[],"name":"withdrawFunds","outputs":[],"stateMutability":"nonpayable","type":"function"}];
@@ -400,10 +425,7 @@ function mostrarPlan(plan) {
     }
 }
 
-function transferirToken(token) {
-    // Lógica para transferir el token ERC20
-    console.log("Transferir " + token);
-}
+
 
 function transferirUsuario(token) {
     // Lógica para transferir el token a un usuario de USDE (0% comisión)
@@ -415,6 +437,17 @@ function mostrarError(mensaje) {
   mensajeError.innerText = mensaje;
   mensajeError.classList.remove('oculto');
 }
+
+function transferirEntreCajas() {
+    // Lógica para abrir el formulario emergente
+    document.getElementById('transferFormPopup').style.display = 'block';
+}
+
+function cerrarFormulario() {
+    // Lógica para cerrar el formulario emergente
+    document.getElementById('transferFormPopup').style.display = 'none';
+}
+
 
 
     </script>
