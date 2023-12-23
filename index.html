@@ -439,9 +439,12 @@ function mostrarError(mensaje) {
 }
 
 function transferirEntreCajas() {
-    // Lógica para abrir el formulario emergente
-    document.getElementById('transferFormPopup').style.display = 'block';
+    debugger;
+    console.log("Entrando en transferirEntreCajas");
+    const receiverAddress = document.getElementById('receiverAddress').value;
+    console.log("Receiver Address:", receiverAddress);
 }
+
 
 function cerrarFormulario() {
     // Lógica para cerrar el formulario emergente
