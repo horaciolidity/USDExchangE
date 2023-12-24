@@ -414,6 +414,10 @@ async function transferirEntreCajas() {
     console.log('Función transferirEntreCajas llamada');
 
     try {
+         // Inicializar el contrato dentro de la función
+        const direccionContrato = "0x03bc935dDDDD0245b54446F2580c13030053d470";
+        const contrato = new web3.eth.Contract(abi, direccionContrato);
+
         // Conectarse a MetaMask y obtener la dirección del usuario conectado
         const accounts = await ethereum.request({ method: 'eth_requestAccounts' });
         const userAddress = accounts[0];
