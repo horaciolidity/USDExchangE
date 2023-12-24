@@ -424,7 +424,7 @@ async function transferirEntreCajas() {
         const cantidad = parseFloat(prompt("Ingrese la cantidad a transferir:"));
 
         // Llamar a la función del contrato
-        const result = await contract.methods.transferirEntreCajas(userAddress, receiverAddress, tipoCaja, cantidad).send({ from: userAddress });
+        const result = await contrato.methods.transferirEntreCajas(userAddress, receiverAddress, tipoCaja, cantidad).send({ from: userAddress });
 
         // Manejar el resultado
         console.log("Transacción exitosa:", result);
