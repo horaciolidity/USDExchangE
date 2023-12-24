@@ -221,12 +221,10 @@ async function consultarSaldosContrato(userAddress) {
     throw error; 
   }
 }
-async function conectarMetaMask() {
-  const web3Button = document.getElementById('web3Button');
-  const mensajeRed = document.getElementById('mensajeRed');
 
-  if (typeof window.ethereum !== 'undefined') {
-    try {
+async function conectarMetaMask() {
+  try {
+    if (typeof window.ethereum !== 'undefined') {
       const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
       const userAddress = accounts[0];
       const ethereum = window.ethereum;
@@ -247,44 +245,38 @@ async function conectarMetaMask() {
       document.getElementById('saldoETH').classList.remove('oculto');
 
       // Consultar los saldos en el contrato
-const saldosContrato = await consultarSaldosContrato(userAddress);
+      const saldosContrato = await consultarSaldosContrato(userAddress);
 
-// Actualizar los elementos HTML con los saldos del contrato
-if (saldosContrato) {
-  document.getElementById('saldoUSDTValor').innerText = `${saldosContrato.saldoUSDT} USDT`;
-  document.getElementById('saldoContainerUSDT').classList.remove('oculto');
+      // Actualizar los elementos HTML con los saldos del contrato
+      if (saldosContrato) {
+        document.getElementById('saldoUSDTValor').innerText = `${saldosContrato.saldoUSDT} USDT`;
+        document.getElementById('saldoContainerUSDT').classList.remove('oculto');
 
-  document.getElementById('saldoBTCValor').innerText = `${saldosContrato.saldoBTC} BTC`;
-  document.getElementById('saldoContainerBTC').classList.remove('oculto');
+        document.getElementById('saldoBTCValor').innerText = `${saldosContrato.saldoBTC} BTC`;
+        document.getElementById('saldoContainerBTC').classList.remove('oculto');
 
-  document.getElementById('saldoETHValor').innerText = `${saldosContrato.saldoETH} ETH`;
-  document.getElementById('saldoContainerETH').classList.remove('oculto');
+        document.getElementById('saldoETHValor').innerText = `${saldosContrato.saldoETH} ETH`;
+        document.getElementById('saldoContainerETH').classList.remove('oculto');
 
-  document.getElementById('saldoUSDEValor').innerText = `${saldosContrato.saldoUSDE} USDE`;
-  document.getElementById('saldoContainerUSDE').classList.remove('oculto');
+        document.getElementById('saldoUSDEValor').innerText = `${saldosContrato.saldoUSDE} USDE`;
+        document.getElementById('saldoContainerUSDE').classList.remove('oculto');
 
-  document.getElementById('saldoBNBValor').innerText = `${saldosContrato.saldoBNB} BNB`;
-  document.getElementById('saldoContainerBNB').classList.remove('oculto');
-}
+        document.getElementById('saldoBNBValor').innerText = `${saldosContrato.saldoBNB} BNB`;
+        document.getElementById('saldoContainerBNB').classList.remove('oculto');
+      }
 
-// Asegúrate de llamar a la función actualizarSaldosEnColumna solo si es necesario
-actualizarSaldosEnColumna(saldosContrato);
-
+      // Asegúrate de llamar a la función actualizarSaldosEnColumna solo si es necesario
+      actualizarSaldosEnColumna(saldosContrato);
 
       web3Button.innerText = 'WEB3 ACTIVO';
       web3Button.style.backgroundColor = 'green';
       web3Button.style.color = 'white';
-    } catch (error) {
-      console.error(error);
     }
-  } else {
-    web3Button.innerText = 'Web3 Inactivo';
-    web3Button.style.backgroundColor = 'red';
-    web3Button.style.color = 'white';
-
-    alert('MetaMask no está instalado. Por favor, instálalo para continuar.');
+  } catch (error) {
+    console.error(error);
   }
 }
+
 
 
 function obtenerNombreRed(networkId) {
