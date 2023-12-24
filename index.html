@@ -419,7 +419,8 @@ async function transferirEntreCajas() {
     try {
         // Conectarse a MetaMask y obtener la dirección del usuario conectado
         const provider = await window.ethereum.enable();
-        const web3 = new Web3(provider);        const userAddress = accounts[0];
+        const web3 = new Web3(provider);
+        const userAddress = accounts[0];
 
         console.log('Dirección del usuario:', userAddress);
 
