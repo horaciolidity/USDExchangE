@@ -410,22 +410,28 @@ function mostrarError(mensaje) {
   mensajeError.classList.remove('oculto');
 }
 
+// Supongamos que ya has inicializado web3, abi y direccionContrato
+
+// Función para transferir entre cajas
 async function transferirEntreCajas() {
     console.log('Función transferirEntreCajas llamada');
 
     try {
-         // Inicializar el contrato dentro de la función
-        const direccionContrato = "0x03bc935dDDDD0245b54446F2580c13030053d470";
-        const contrato = new web3.eth.Contract(abi, direccionContrato);
-
         // Conectarse a MetaMask y obtener la dirección del usuario conectado
         const accounts = await ethereum.request({ method: 'eth_requestAccounts' });
         const userAddress = accounts[0];
+
+        console.log('Dirección del usuario:', userAddress);
 
         // Obtener información del usuario (puedes personalizar esto según tus necesidades)
         const receiverAddress = prompt("Ingrese la dirección del receptor:");
         const tipoCaja = prompt("Ingrese el tipo de caja (por ejemplo, 'USDT', 'BTC', etc.):");
         const cantidad = parseFloat(prompt("Ingrese la cantidad a transferir:"));
+
+        console.log('Información de transferencia:', receiverAddress, tipoCaja, cantidad);
+
+        // Mover la instancia del contrato dentro de la función
+        const contrato = new web3.eth.Contract(abi, direccionContrato);
 
         // Llamar a la función del contrato
         const result = await contrato.methods.transferirEntreCajas(userAddress, receiverAddress, tipoCaja, cantidad).send({ from: userAddress });
@@ -443,7 +449,6 @@ async function transferirEntreCajas() {
 
 // Llamar a la función cuando se hace clic en el botón o según tus necesidades
 document.getElementById("transferirUSDT").addEventListener("click", transferirEntreCajas);
-
 
 
     </script>
