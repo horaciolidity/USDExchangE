@@ -38,12 +38,13 @@
     </div>
 
    <div class="contenedor-botones" style="display: flex; margin-top: 20px; position: relative;">
-    <div class="boton" id="transferirUSDT" onclick="transferirEntreCajas()">Transferir
-        <div class="menu-desplegable" id="menuTransferir">
-            <div class="opcion-menu" onclick="transferirToken('ERC20')">Transferir ERC20</div>
-            <div class="opcion-menu" onclick="transferirUsuario('USDE')">Transferir a usuario de USDE (0% comisión)</div>
-        </div>
+   <div class="boton" id="transferirUSDT" onclick="transferirEntreCajas()">Transferir
+    <div class="menu-desplegable" id="menuTransferir">
+        <div class="opcion-menu" onclick="transferirToken('ERC20')">Transferir ERC20</div>
+        <div class="opcion-menu" onclick="transferirUsuario('USDE')">Transferir a usuario de USDE (0% comisión)</div>
     </div>
+</div>
+
 
 
 
@@ -439,6 +440,8 @@ function mostrarError(mensaje) {
 }
 
 async function transferirEntreCajas() {
+    console.log('Función transferirEntreCajas llamada');
+
     try {
         // Conectarse a MetaMask y obtener la dirección del usuario conectado
         const accounts = await ethereum.request({ method: 'eth_requestAccounts' });
