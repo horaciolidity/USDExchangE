@@ -420,10 +420,15 @@ async function transferirEntreCajas() {
         // Conectarse a MetaMask y obtener la dirección del usuario conectado
         const provider = await window.ethereum.enable();
         const web3 = new Web3(provider);
-        const userAddress = accounts[0];
         const accounts = await web3.eth.getAccounts();
-    
 
+        // Verificar si se ha conectado al menos una cuenta
+        if (accounts.length === 0) {
+            console.error('No se ha conectado ninguna cuenta de MetaMask.');
+            return;
+        }
+
+        const userAddress = accounts[0];
         console.log('Dirección del usuario:', userAddress);
 
         // Obtener información del usuario (puedes personalizar esto según tus necesidades)
@@ -431,28 +436,25 @@ async function transferirEntreCajas() {
         const tipoCaja = prompt("Ingrese el tipo de caja (por ejemplo, 'USDT', 'BTC', etc.):");
         const cantidad = parseFloat(prompt("Ingrese la cantidad a transferir:"));
 
-        console.log('Información de transferencia:', receiverAddress, tipoCaja, cantidad);
+        // Validar la entrada del usuario
+        if (!receiverAddress || !tipoCaja || isNaN(cantidad) || cantidad <= 0) {
+            console.error('Entrada de usuario inválida.');
+            return;
+        }
 
-        // Mover la instancia del contrato dentro de la función
-        const contrato = new web3.eth.Contract(abi, direccionContrato);
+        // Obtener la instancia del contrato
+        const contratoAddress = '0x03bc935dDDDD0245b54446F2580c13030053d470';
+        const contrato = new web3.eth.Contract(contratoABI, contratoAddress);
 
-        // Llamar a la función del contrato
-        const result = await contrato.methods.transferirEntreCajas(userAddress, receiverAddress, tipoCaja, cantidad).send({ from: userAddress });
+        // Llamar a la función de transferirEntreCajas en el contrato
+        const resultado = await contrato.methods.transferirEntreCajas(receiverAddress, tipoCaja, web3.utils.toWei(cantidad.toString())).send({ from: userAddress });
 
-        // Manejar el resultado
-        console.log("Transacción exitosa:", result);
-
-        // Puedes agregar acciones adicionales aquí, como actualizar la interfaz de usuario, etc.
-
+        console.log('Transferencia exitosa:', resultado);
+        // Aquí puedes realizar acciones adicionales después de la transferencia si es necesario
     } catch (error) {
-        console.error("Error al transferir entre cajas:", error);
-        // Manejar el error, por ejemplo, mostrar un mensaje al usuario
+        console.error('Error en transferirEntreCajas:', error);
     }
 }
-
-// Llamar a la función cuando se hace clic en el botón o según tus necesidades
-document.getElementById("transferirUSDT").addEventListener("click", transferirEntreCajas);
-
 
     </script>
 </body>
