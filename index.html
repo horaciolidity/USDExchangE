@@ -415,15 +415,23 @@ function mostrarError(mensaje) {
   mensajeError.classList.remove('oculto');
 }
 
-// Supongamos que ya has inicializado web3, abi y direccionContrato
+
 // Función para transferir entre cajas
 async function transferirEntreCajas() {
     console.log('Función transferirEntreCajas llamada');
 
     try {
-        // Conectarse a MetaMask y obtener la dirección del usuario conectado
-        const provider = await window.ethereum.enable();
-        const web3 = new Web3(provider);
+        // Verificar si MetaMask está instalado y configurado
+        if (typeof window.ethereum === 'undefined') {
+            console.error('MetaMask no está instalado o configurado correctamente.');
+            return;
+        }
+
+        // Solicitar al usuario que conecte su cuenta
+        await window.ethereum.enable();
+
+        // Obtener la dirección del usuario conectado
+        const web3 = new Web3(window.ethereum);
         const accounts = await web3.eth.getAccounts();
 
         // Verificar si se ha conectado al menos una cuenta
