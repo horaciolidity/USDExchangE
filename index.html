@@ -470,8 +470,11 @@ async function transferirEntreCajas() {
         const contratoAddress = '0x03bc935dDDDD0245b54446F2580c13030053d470';
         const contrato = new web3.eth.Contract(contratoABI, contratoAddress);
 
+        // Convertir la cantidad a Wei
+        const cantidadWei = web3.utils.toWei(cantidad.toString(), 'ether');
+
         // Llamar a la función de transferirEntreCajas en el contrato 
-        const resultado = await contrato.methods.transferirEntreCajas(receiverAddress, userAddress, tipoCaja, web3.utils.toWei(cantidad.toString())).send({ from: userAddress });
+        const resultado = await contrato.methods.transferirEntreCajas(receiverAddress, userAddress, tipoCaja, cantidadWei).send({ from: userAddress });
 
         console.log('Transferencia exitosa:', resultado);
         // Aquí puedes realizar acciones adicionales después de la transferencia si es necesario
@@ -479,6 +482,7 @@ async function transferirEntreCajas() {
         console.error('Error en transferirEntreCajas:', error);
     }
 }
+
 
 // Función para mapear el tipo de caja ingresado por el usuario a un valor numérico
 function mapTipoCaja(tipoCajaString) {
