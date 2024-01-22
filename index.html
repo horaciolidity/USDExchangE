@@ -446,7 +446,8 @@ async function transferirEntreCajas() {
         // Obtener información del usuario (puedes personalizar esto según tus necesidades)
         const receiverAddress = prompt("Ingrese la dirección del receptor:");
         const tipoCaja = prompt("Ingrese el tipo de caja (por ejemplo, 'USDT', 'BTC', etc.):");
-        const cantidad = parseFloat(prompt("Ingrese la cantidad a transferir:"));
+        const cantidadString = prompt("Ingrese la cantidad a transferir:");
+        const cantidad = parseFloat(cantidadString);
 
         // Validar la entrada del usuario
         if (!receiverAddress || !tipoCaja || isNaN(cantidad) || cantidad <= 0) {
