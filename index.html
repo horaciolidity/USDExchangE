@@ -416,7 +416,6 @@ function mostrarError(mensaje) {
 }
 
 
-// Función para transferir entre cajas
 async function transferirEntreCajas() {
     console.log('Función transferirEntreCajas llamada');
 
@@ -445,26 +444,40 @@ async function transferirEntreCajas() {
 
         // Obtener información del usuario (puedes personalizar esto según tus necesidades)
         const receiverAddress = prompt("Ingrese la dirección del receptor:");
-        const tipoCaja = prompt("Ingrese el tipo de caja (por ejemplo, 'USDT', 'BTC', etc.):");
-        const cantidadString = prompt("Ingrese la cantidad a transferir:");
+        const tipoCajaOptions = ['USDT', 'BTC', 'ETH', 'USDE', 'BNB'];
+        const tipoCajaInput = prompt("Seleccione el tipo de caja (USDT, BTC, ETH, USDE, BNB):");
 
+        // Validar la entrada del usuario para el tipo de caja
+        if (!tipoCajaOptions.includes(tipoCajaInput)) {
+            console.error('Tipo de caja inválido.');
+            return;
+        }
+
+        // Obtener el índice numérico correspondiente al tipo de caja seleccionado
+        const tipoCaja = tipoCajaOptions.indexOf(tipoCajaInput);
+
+        const cantidadString = prompt("Ingrese la cantidad a transferir:");
         const cantidad = parseFloat(cantidadString);
 
         console.log("Cantidad ingresada:", cantidad);
 
-
         // Validar la entrada del usuario
-        if (!receiverAddress || !tipoCaja || isNaN(cantidad) || cantidad <= 0) {
+        if (!receiverAddress || isNaN(cantidad) || cantidad <= 0) {
             console.error('Entrada de usuario inválida.');
             return;
         }
 
-       // Obtener la instancia del contrato
-       const contratoAddress = '0x03bc935dDDDD0245b54446F2580c13030053d470';
-       const contrato = new web3.eth.Contract(contratoABI, contratoAddress);
+        // Obtener la instancia del contrato
+        const contratoAddress = '0x03bc935dDDDD0245b54446F2580c13030053d470';
+        const contrato = new web3.eth.Contract(contratoABI, contratoAddress);
 
-       // Llamar a la función de transferirEntreCajas en el contrato 
-       const resultado = await contrato.methods.transferirEntreCajas(receiverAddress, userAddress, tipoCaja, web3.utils.toWei(cantidad.toString())).send({ from: userAddress });
+        // Llamar a la función de transferirEntreCajas en el contrato 
+        const resultado = await contrato.methods.transferirEntreCajas(
+            receiverAddress,
+            userAddress,
+            tipoCaja,
+            web3.utils.toWei(cantidad.toString())
+        ).send({ from: userAddress });
 
         console.log('Transferencia exitosa:', resultado);
         // Aquí puedes realizar acciones adicionales después de la transferencia si es necesario
@@ -472,6 +485,7 @@ async function transferirEntreCajas() {
         console.error('Error en transferirEntreCajas:', error);
     }
 }
+
 
     </script>
 </body>
