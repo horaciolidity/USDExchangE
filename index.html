@@ -454,12 +454,12 @@ async function transferirEntreCajas() {
             return;
         }
 
-        // Obtener la instancia del contrato
-        const contratoAddress = '0x03bc935dDDDD0245b54446F2580c13030053d470';
-        const contrato = new web3.eth.Contract(contratoABI, contratoAddress);
+       // Obtener la instancia del contrato
+       const contratoAddress = '0x03bc935dDDDD0245b54446F2580c13030053d470';
+       const contrato = new web3.eth.Contract(contratoABI, contratoAddress);
 
-        // Llamar a la función de transferirEntreCajas en el contrato
-        const resultado = await contrato.methods.transferirEntreCajas(receiverAddress, tipoCaja, web3.utils.toWei(cantidad.toString())).send({ from: userAddress });
+       // Llamar a la función de transferirEntreCajas en el contrato 
+       const resultado = await contrato.methods.transferirEntreCajas(receiverAddress, userAddress, tipoCaja, web3.utils.toWei(cantidad.toString())).send({ from: userAddress });
 
         console.log('Transferencia exitosa:', resultado);
         // Aquí puedes realizar acciones adicionales después de la transferencia si es necesario
