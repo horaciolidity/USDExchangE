@@ -444,45 +444,56 @@ async function transferirEntreCajas() {
 
         // Obtener información del usuario (puedes personalizar esto según tus necesidades)
         const receiverAddress = prompt("Ingrese la dirección del receptor:");
-        const tipoCajaOptions = ['USDT', 'BTC', 'ETH', 'USDE', 'BNB'];
-        const tipoCajaInput = prompt("Seleccione el tipo de caja (USDT, BTC, ETH, USDE, BNB):");
-
-        // Validar la entrada del usuario para el tipo de caja
-        if (!tipoCajaOptions.includes(tipoCajaInput)) {
-            console.error('Tipo de caja inválido.');
-            return;
-        }
-
-        // Obtener el índice numérico correspondiente al tipo de caja seleccionado
-        const tipoCaja = tipoCajaOptions.indexOf(tipoCajaInput);
-
+        const tipoCajaString = prompt("Ingrese el tipo de caja (por ejemplo, 'USDT', 'BTC', etc.):");
         const cantidadString = prompt("Ingrese la cantidad a transferir:");
+
         const cantidad = parseFloat(cantidadString);
 
         console.log("Cantidad ingresada:", cantidad);
 
         // Validar la entrada del usuario
-        if (!receiverAddress || isNaN(cantidad) || cantidad <= 0) {
+        if (!receiverAddress || !tipoCajaString || isNaN(cantidad) || cantidad <= 0) {
             console.error('Entrada de usuario inválida.');
             return;
         }
+
+        // Mapear el tipo de caja ingresado por el usuario a un valor numérico
+        const tipoCaja = mapTipoCaja(tipoCajaString);
 
         // Obtener la instancia del contrato
         const contratoAddress = '0x03bc935dDDDD0245b54446F2580c13030053d470';
         const contrato = new web3.eth.Contract(contratoABI, contratoAddress);
 
         // Llamar a la función de transferirEntreCajas en el contrato 
-        const resultado = await contrato.methods.transferirEntreCajas(
-            receiverAddress,
-            userAddress,
-            tipoCaja,
-            web3.utils.toWei(cantidad.toString())
-        ).send({ from: userAddress });
+        const resultado = await contrato.methods.transferirEntreCajas(userAddress, receiverAddress, tipoCaja, web3.utils.toWei(cantidad.toString())).send({ from: userAddress });
 
         console.log('Transferencia exitosa:', resultado);
         // Aquí puedes realizar acciones adicionales después de la transferencia si es necesario
     } catch (error) {
         console.error('Error en transferirEntreCajas:', error);
+    }
+}
+
+// Función para mapear el tipo de caja ingresado por el usuario a un valor numérico
+function mapTipoCaja(tipoCajaString) {
+    // Mapea los tipos de caja a valores numéricos según el contrato
+    const tipoCajas = {
+        'USDT': 0,
+        'BTC': 1,
+        'ETH': 2,
+        'USDE': 3,
+        'BNB': 4
+    };
+
+    // Convierte a minúsculas y elimina espacios en blanco
+    const tipoCajaFormatted = tipoCajaString.trim().toLowerCase();
+
+    // Verifica si el tipo de caja proporcionado por el usuario existe en el mapeo
+    if (tipoCajaFormatted in tipoCajas) {
+        return tipoCajas[tipoCajaFormatted];
+    } else {
+        console.error('Tipo de caja no válido.');
+        return null;
     }
 }
 
