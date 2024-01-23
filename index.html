@@ -31,7 +31,9 @@
         <button class="boton" id="comprarUSDT" onclick="mostrarMenu()">Comprar USDT</button>
     </div>
     <div class="menu-desplegable" id="menuDesplegable" style="margin-top: 20px;">
-        <div class="opcion-menu" onclick="comprarConBNBDesdeBilletera('tipoCajaValor', 'cantidadCajasValor', 'cantidadUSDValor')">Comprar con BNB</div>
+        <div class="opcion-menu" onclick="comprarCo<div class="menu-desplegable" id="menuDesplegable" style="display: none; margin-top: 20px;">
+        <div class="menu-desplegable" id="menuDesplegable" style="display: none; margin-top: 20px;">
+
         <label for="tipoCajaCompra">Seleccionar tipo de caja:</label>
         <select id="tipoCajaCompra">
             <option value="0">USD</option>
@@ -40,7 +42,7 @@
             <option value="3">BTC</option>
             <option value="4">USDE</option>
         </select>
-
+        </div>
         <label for="cantidadUSDCompra">Ingrese la cantidad en USD:</label>
         <input type="number" id="cantidadUSDCompra" placeholder="Cantidad en USD" />
         <button onclick="onClickComprarConBNB()">Comprar con BNB</button>
@@ -347,23 +349,31 @@ async function comprarConBNBDesdeBilletera(tipoCaja, cantidadCajas, cantidadUSD)
 }
 
 function onClickComprarConBNB() {
-  const tipoCajaCompraSelect = document.getElementById('tipoCajaCompra');
-  const cantidadUSDCompraInput = document.getElementById('cantidadUSDCompra');
+    const tipoCajaCompraSelect = document.getElementById('tipoCajaCompra');
+    const cantidadUSDCompraInput = document.getElementById('cantidadUSDCompra');
 
-  // Obtener los valores seleccionados
-  const tipoCajaCompra = parseInt(tipoCajaCompraSelect.value);
-  const cantidadUSDCompra = parseFloat(cantidadUSDCompraInput.value);
+    // Obtener los valores seleccionados
+    const tipoCajaCompra = parseInt(tipoCajaCompraSelect.value);
+    const cantidadUSDCompra = parseFloat(cantidadUSDCompraInput.value);
 
-  // Verificar si los valores son válidos
-  if (isNaN(tipoCajaCompra) || isNaN(cantidadUSDCompra) || cantidadUSDCompra <= 0) {
-    console.error('Valores no válidos.');
-    return;
-  }
+    // Verificar si los valores son válidos
+    if (isNaN(tipoCajaCompra) || isNaN(cantidadUSDCompra) || cantidadUSDCompra <= 0) {
+        console.error('Valores no válidos.');
+        return;
+    }
 
-  // Llamar a la función con los valores seleccionados
-  comprarConBNBDesdeBilletera(tipoCajaCompra, 0, cantidadUSDCompra);
+    // Llamar a la función con los valores seleccionados
+    if (tipoCajaCompra === 0) {
+        // Comprar USD
+        comprarConBNBDesdeBilletera(tipoCajaCompra, 0, cantidadUSDCompra);
+    } else {
+        // Comprar otras cajas
+        comprarConBNBDesdeBilletera(tipoCajaCompra, cantidadUSDCompra, 0);
+    }
 }
 
+
+ 
 
 
 
@@ -490,6 +500,32 @@ function mostrarError(mensaje) {
   mensajeError.innerText = mensaje;
   mensajeError.classList.remove('oculto');
 }
+function mostrarMenu() {
+    var botonComprarUSDT = document.getElementById("comprarUSDT");
+    var menuDesplegable = document.getElementById("menuDesplegable");
+
+    // Mostrar el menú solo si el usuario hace clic en "Comprar con BNB"
+    if (menuVisible && botonComprarUSDT.classList.contains("seleccionado")) {
+        var left = botonComprarUSDT.offsetLeft;
+        var top = botonComprarUSDT.offsetTop + botonComprarUSDT.offsetHeight + 5;
+        menuDesplegable.style.left = left + "px";
+        menuDesplegable.style.top = top + "px";
+
+        // Muestra el menú desplegable
+        menuDesplegable.style.display = "block";
+    } else {
+        menuDesplegable.style.display = "none";
+        menuVisible = false;
+    }
+}
+
+// Modificar el evento click del botón "Comprar con BNB"
+document.getElementById("comprarUSDT").addEventListener("click", function() {
+    // Marcar el botón como seleccionado
+    this.classList.add("seleccionado");
+    // Mostrar el menú
+    mostrarMenu();
+});
 
 async function transferirEntreCajas() {
     console.log('Función transferirEntreCajas llamada');
