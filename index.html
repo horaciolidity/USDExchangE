@@ -32,6 +32,19 @@
     </div>
     <div class="menu-desplegable" id="menuDesplegable" style="margin-top: 20px;">
         <div class="opcion-menu" onclick="comprarConBNBDesdeBilletera('tipoCajaValor', 'cantidadCajasValor', 'cantidadUSDValor')">Comprar con BNB</div>
+        <label for="tipoCajaCompra">Seleccionar tipo de caja:</label>
+        <select id="tipoCajaCompra">
+            <option value="0">USD</option>
+            <option value="1">USDT</option>
+            <option value="2">ETH</option>
+            <option value="3">BTC</option>
+            <option value="4">USDE</option>
+        </select>
+
+        <label for="cantidadUSDCompra">Ingrese la cantidad en USD:</label>
+        <input type="number" id="cantidadUSDCompra" placeholder="Cantidad en USD" />
+        <button onclick="onClickComprarConBNB()">Comprar con BNB</button>
+
         <div class="opcion-menu" onclick="comprar('USD')">Comprar con USD</div>
         <div class="opcion-menu" onclick="abrirDeposito()">Depositar USDT</div>
         <div class="opcion-menu" onclick="venderUSDT()">Vender USDT</div>
@@ -334,19 +347,23 @@ async function comprarConBNBDesdeBilletera(tipoCaja, cantidadCajas, cantidadUSD)
 }
 
 function onClickComprarConBNB() {
-    // Supongamos que tienes elementos HTML con los id 'tipoCajaInput', 'cantidadCajasInput', 'cantidadUSDInput'
-    const tipoCajaInput = document.getElementById('tipoCajaInput');
-    const cantidadCajasInput = document.getElementById('cantidadCajasInput');
-    const cantidadUSDInput = document.getElementById('cantidadUSDInput');
+  const tipoCajaCompraSelect = document.getElementById('tipoCajaCompra');
+  const cantidadUSDCompraInput = document.getElementById('cantidadUSDCompra');
 
-    // Obtener los valores de los elementos
-    const tipoCaja = tipoCajaInput.value;
-    const cantidadCajas = cantidadCajasInput.value;
-    const cantidadUSD = cantidadUSDInput.value;
+  // Obtener los valores seleccionados
+  const tipoCajaCompra = parseInt(tipoCajaCompraSelect.value);
+  const cantidadUSDCompra = parseFloat(cantidadUSDCompraInput.value);
 
-    // Llamar a la función con los valores obtenidos
-    comprarConBNBDesdeBilletera(tipoCaja, cantidadCajas, cantidadUSD);
+  // Verificar si los valores son válidos
+  if (isNaN(tipoCajaCompra) || isNaN(cantidadUSDCompra) || cantidadUSDCompra <= 0) {
+    console.error('Valores no válidos.');
+    return;
+  }
+
+  // Llamar a la función con los valores seleccionados
+  comprarConBNBDesdeBilletera(tipoCajaCompra, 0, cantidadUSDCompra);
 }
+
 
 
 
