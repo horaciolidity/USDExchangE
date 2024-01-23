@@ -31,7 +31,7 @@
         <button class="boton" id="comprarUSDT" onclick="mostrarMenu()">Comprar USDT</button>
     </div>
     <div class="menu-desplegable" id="menuDesplegable" style="margin-top: 20px;">
-        <div class="opcion-menu" onclick="comprar('ETH')">Comprar con ETH</div>
+        <div class="opcion-menu" onclick="comprarConBNB()">Comprar con BNB</div>
         <div class="opcion-menu" onclick="comprar('USD')">Comprar con USD</div>
         <div class="opcion-menu" onclick="abrirDeposito()">Depositar USDT</div>
         <div class="opcion-menu" onclick="venderUSDT()">Vender USDT</div>
@@ -294,6 +294,49 @@ function actualizarSaldosEnColumna(saldosContrato) {
 
   }
 }
+
+async function comprarConBNBDesdeBilletera(tipoCaja, cantidadCajas, cantidadUSD) {
+    try {
+        // Verificar si MetaMask está instalado y configurado
+        if (typeof window.ethereum === 'undefined') {
+            console.error('MetaMask no está instalado o configurado correctamente.');
+            return;
+        }
+
+        // Solicitar al usuario que conecte su cuenta
+        await window.ethereum.enable();
+
+        // Obtener la dirección del usuario conectado
+        const web3 = new Web3(window.ethereum);
+        const accounts = await web3.eth.getAccounts();
+
+        // Verificar si se ha conectado al menos una cuenta
+        if (accounts.length === 0) {
+            console.error('No se ha conectado ninguna cuenta de MetaMask.');
+            return;
+        }
+
+        const userAddress = accounts[0];
+        console.log('Dirección del usuario:', userAddress);
+
+        // Obtener la instancia del contrato
+        const contratoAddress = '0x03bc935dDDDD0245b54446F2580c13030053d470';
+        const contrato = new web3.eth.Contract(contratoABI, contratoAddress);
+
+        // Llamar a la función comprarConBNBDesdeBilletera en el contrato
+        const resultado = await contrato.methods.comprarConBNBDesdeBilletera(tipoCaja, cantidadCajas, cantidadUSD).send({ from: userAddress, value: cantidadUSD });
+
+        console.log('Compra exitosa:', resultado);
+        // Aquí puedes realizar acciones adicionales después de la compra si es necesario
+    } catch (error) {
+        console.error('Error en comprarConBNBDesdeBilletera:', error);
+    }
+}
+
+
+
+
+
 async function reclamarRecompensa() {
   try {
     // Verificar si ethereum está disponible
