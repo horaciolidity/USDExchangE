@@ -31,7 +31,7 @@
         <button class="boton" id="comprarUSDT" onclick="mostrarMenu()">Comprar USDT</button>
     </div>
     <div class="menu-desplegable" id="menuDesplegable" style="margin-top: 20px;">
-        <div class="opcion-menu" onclick="comprarConBNB()">Comprar con BNB</div>
+        <div class="opcion-menu" onclick="comprarConBNBDesdeBilletera('tipoCajaValor', 'cantidadCajasValor', 'cantidadUSDValor')">Comprar con BNB</div>
         <div class="opcion-menu" onclick="comprar('USD')">Comprar con USD</div>
         <div class="opcion-menu" onclick="abrirDeposito()">Depositar USDT</div>
         <div class="opcion-menu" onclick="venderUSDT()">Vender USDT</div>
@@ -334,9 +334,19 @@ async function comprarConBNBDesdeBilletera(tipoCaja, cantidadCajas, cantidadUSD)
 }
 
 function onClickComprarConBNB() {
-    // Suponiendo que este es el código que intenta llamar a la función
+    // Supongamos que tienes elementos HTML con los id 'tipoCajaInput', 'cantidadCajasInput', 'cantidadUSDInput'
+    const tipoCajaInput = document.getElementById('tipoCajaInput');
+    const cantidadCajasInput = document.getElementById('cantidadCajasInput');
+    const cantidadUSDInput = document.getElementById('cantidadUSDInput');
+
+    // Obtener los valores de los elementos
+    const tipoCaja = tipoCajaInput.value;
+    const cantidadCajas = cantidadCajasInput.value;
+    const cantidadUSD = cantidadUSDInput.value;
+
+    // Llamar a la función con los valores obtenidos
     comprarConBNBDesdeBilletera(tipoCaja, cantidadCajas, cantidadUSD);
-  }
+}
 
 
 
