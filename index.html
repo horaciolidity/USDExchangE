@@ -30,23 +30,21 @@
         <button class="boton" id="depositarUSD" onclick="abrirDeposito()">Depositar USD</button>
         <button class="boton" id="comprarUSDT" onclick="mostrarMenu()">Comprar USDT</button>
     </div>
-    <div class="menu-desplegable" id="menuDesplegable" style="margin-top: 20px;">
-        <div class="opcion-menu" onclick="comprarCo<div class="menu-desplegable" id="menuDesplegable" style="display: none; margin-top: 20px;">
+    <div class="menu-desplegable" id="menuDesplegable" style="display: none; margin-top: 20px;">
+                <label for="tipoCajaCompra">Seleccionar tipo de caja:</label>
+                <select id="tipoCajaCompra">
+                    <option value="0">USD</option>
+                    <option value="1">USDT</option>
+                    <option value="2">ETH</option>
+                    <option value="3">BTC</option>
+                    <option value="4">USDE</option>
+                </select>
 
-        <label for="tipoCajaCompra">Seleccionar tipo de caja:</label>
-        <select id="tipoCajaCompra">
-            <option value="0">USD</option>
-            <option value="1">USDT</option>
-            <option value="2">ETH</option>
-            <option value="3">BTC</option>
-            <option value="4">USDE</option>
-        </select>
-        
-        <label for="cantidadUSDCompra">Ingrese la cantidad en USD:</label>
-        <input type="number" id="cantidadUSDCompra" placeholder="Cantidad en USD" />
-        <button onclick="onClickComprarConBNB()">Comprar con BNB</button>
-
+                <label for="cantidadUSDCompra">Ingrese la cantidad en USD:</label>
+                <input type="number" id="cantidadUSDCompra" placeholder="Cantidad en USD" />
+                <button onclick="onClickComprarConBNB()">Comprar con BNB</button>
             </div>
+        </div>
     
 
         <div class="opcion-menu" onclick="comprar('USD')">Comprar con USD</div>
