@@ -274,14 +274,13 @@ function obtenerNombreRed(networkId) {
 function actualizarSaldosEnColumna(saldosContrato) {
   // Verificar que los saldos sean válidos
   if (saldosContrato) {
-        document.getElementById('saldoUSDValor').innerText = `${saldosContrato[5]} USD`;
+        document.getElementById('saldoUSDValor').innerText = `${saldosContrato.saldoTotalUSD} USD`;
         document.getElementById('saldoUSDTValor').innerText = `${saldosContrato.saldoUSDT} USDT`;
         document.getElementById('saldoBTCValor').innerText = `${saldosContrato.saldoBTC} BTC`;
         document.getElementById('saldoETHValor').innerText = `${saldosContrato.saldoETH} ETH`;
         document.getElementById('saldoUSDEValor').innerText = `${saldosContrato.saldoUSDE} USDE`;
         document.getElementById('saldoBNBValor').innerText = `${saldosContrato.saldoBNB} BNB`;
       
-        document.getElementById('saldoContainerUSD').classList.remove('oculto');
         document.getElementById('saldoContainerUSD').classList.remove('oculto');
         document.getElementById('saldoContainerUSDT').classList.remove('oculto');
         document.getElementById('saldoContainerBTC').classList.remove('oculto');
