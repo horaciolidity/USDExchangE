@@ -28,7 +28,7 @@
 <div class="saldo-container oculto" id="saldoContainerUSD" style=" flex-direction: column; align-items: center; text-align: center;">
     <div style="display: flex; justify-content: space-between; width: 100%;">
         <button class="boton" id="depositarUSD" onclick="abrirDeposito()">Depositar USD</button>
-        <button class="boton" id="comprarUSDT" onclick="mostrarMenu()">Comprar USDT</button>
+        <button class="boton" id="comprarUSDT" onclick="mostrarMenu('comprarUSDT')">Comprar USDT</button>
     <div class="menu-desplegable" id="menuDesplegable" style="display: none; margin-top: 20px;">
                 <label for="tipoCajaCompra">Seleccionar tipo de caja:</label>
                 <select id="tipoCajaCompra">
@@ -497,24 +497,26 @@ function mostrarError(mensaje) {
   mensajeError.innerText = mensaje;
   mensajeError.classList.remove('oculto');
 }
-function mostrarMenu() {
-    var botonComprarUSDT = document.getElementById("comprarUSDT");
-    var menuDesplegable = document.getElementById("menuDesplegable");
+    function mostrarMenu(idBoton) {
+        var botonComprarUSDT = document.getElementById(idBoton);
+        var menuDesplegable = document.getElementById("menuDesplegable");
 
-    // Mostrar el menú solo si el usuario hace clic en "Comprar con BNB"
-    if (menuVisible && botonComprarUSDT.classList.contains("seleccionado")) {
-        var left = botonComprarUSDT.offsetLeft;
-        var top = botonComprarUSDT.offsetTop + botonComprarUSDT.offsetHeight + 5;
-        menuDesplegable.style.left = left + "px";
-        menuDesplegable.style.top = top + "px";
+        if (menuVisible) {
+            menuDesplegable.style.display = "none";
+            menuVisible = false;
+        } else {
+            var left = botonComprarUSDT.offsetLeft;
+            var top = botonComprarUSDT.offsetTop + botonComprarUSDT.offsetHeight + 5;
+            menuDesplegable.style.left = left + "px";
+            menuDesplegable.style.top = top + "px";
 
-        // Muestra el menú desplegable
-        menuDesplegable.style.display = "block";
-    } else {
-        menuDesplegable.style.display = "none";
-        menuVisible = false;
+            // Muestra el menú desplegable
+            menuDesplegable.style.display = "block";
+            menuVisible = true;
+        }
     }
-}
+
+
 
 // Modificar el evento click del botón "Comprar con BNB"
 document.getElementById("comprarUSDT").addEventListener("click", function() {
