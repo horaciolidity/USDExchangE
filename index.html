@@ -28,8 +28,8 @@
 <div class="saldo-container oculto" id="saldoContainerUSD" style=" flex-direction: column; align-items: center; text-align: center;">
     <div style="display: flex; justify-content: space-between; width: 100%;">
         <button class="boton" id="depositarUSD" onclick="abrirDeposito()">Depositar USD</button>
-      <button class="boton" id="comprarUSDT" onclick="mostrarMenu('comprarUSDT')">Comprar USDT</button>
-    <div id="menuDesplegable" style="display: none; margin-top: 20px;">
+      <button class="boton" id="comprarUSDT" onclick="toggleMenu('menuDesplegable')">Comprar USDT</button>
+    <div id="menuDesplegable" style="display: none; margin-top: 20px; border: 1px solid #ccc; padding: 10px; position: absolute; background-color: white;">
         <label for="tipoCajaCompra">Seleccionar tipo de caja:</label>
         <select id="tipoCajaCompra">
             <option value="0">USD</option>
@@ -43,8 +43,7 @@
         <input type="number" id="cantidadUSDCompra" placeholder="Cantidad en USD" />
         <button onclick="onClickComprarConBNB()">Comprar con BNB</button>
     </div>
-    </div>
-
+</div>
         
 
     <div class="contenedor-botones" style="display: flex; margin-top: 20px; position: relative;">
