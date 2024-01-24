@@ -32,19 +32,20 @@
             </div>
 
     <div class="menu-desplegable" id="menuDesplegable" style="display: none; margin-top: 20px;">
-                <label for="tipoCajaCompra">Seleccionar tipo de caja:</label>
-                <select id="tipoCajaCompra">
-                    <option value="0">USD</option>
-                    <option value="1">USDT</option>
-                    <option value="2">ETH</option>
-                    <option value="3">BTC</option>
-                    <option value="4">USDE</option>
-                </select>
+    <label for="tipoCajaCompra">Seleccionar tipo de caja:</label>
+    <select id="tipoCajaCompra">
+        <option value="0">USD</option>
+        <option value="1">USDT</option>
+        <option value="2">ETH</option>
+        <option value="3">BTC</option>
+        <option value="4">USDE</option>
+    </select>
 
-                <label for="cantidadUSDCompra">Ingrese la cantidad en USD:</label>
-                <input type="number" id="cantidadUSDCompra" placeholder="Cantidad en USD" />
-                <button onclick="onClickComprarConBNB()">Comprar con BNB</button>
-    
+    <label for="cantidadUSDCompra">Ingrese la cantidad en USD:</label>
+    <input type="number" id="cantidadUSDCompra" placeholder="Cantidad en USD" />
+    <button onclick="onClickComprarConBNB()">Comprar con BNB</button>
+</div>
+
 
         <div class="opcion-menu" onclick="comprar('USD')">Comprar con USD</div>
         <div class="opcion-menu" onclick="abrirDeposito()">Depositar USDT</div>
@@ -338,8 +339,9 @@ async function comprarConBNBDesdeBilletera(tipoCaja, cantidadCajas, cantidadUSD)
         const contrato = new web3.eth.Contract(contratoABI, contratoAddress);
 
         // Llamar a la función comprarConBNBDesdeBilletera en el contrato
-        const resultado = await contrato.methods.comprarConBNBDesdeBilletera(tipoCaja, cantidadCajas, cantidadUSD).send({ from: userAddress, value: cantidadUSD });
-
+        const resultado = await contrato.methods
+                     .comprarConBNBDesdeBilletera(tipoCaja, cantidadCajas, cantidadUSD)
+                     .send({ from: userAddress, value: cantidadUSD });
         console.log('Compra exitosa:', resultado);
         // Aquí puedes realizar acciones adicionales después de la compra si es necesario
     } catch (error) {
@@ -351,25 +353,17 @@ function onClickComprarConBNB() {
     const tipoCajaCompraSelect = document.getElementById('tipoCajaCompra');
     const cantidadUSDCompraInput = document.getElementById('cantidadUSDCompra');
 
-    // Obtener los valores seleccionados
     const tipoCajaCompra = parseInt(tipoCajaCompraSelect.value);
     const cantidadUSDCompra = parseFloat(cantidadUSDCompraInput.value);
 
-    // Verificar si los valores son válidos
     if (isNaN(tipoCajaCompra) || isNaN(cantidadUSDCompra) || cantidadUSDCompra <= 0) {
         console.error('Valores no válidos.');
         return;
     }
 
-    // Llamar a la función con los valores seleccionados
-    if (tipoCajaCompra === 0) {
-        // Comprar USD
-        comprarConBNBDesdeBilletera(tipoCajaCompra, 0, cantidadUSDCompra);
-    } else {
-        // Comprar otras cajas
-        comprarConBNBDesdeBilletera(tipoCajaCompra, cantidadUSDCompra, 0);
-    }
+    comprarConBNBDesdeBilletera(tipoCajaCompra, 0, cantidadUSDCompra);
 }
+
 
 
  
