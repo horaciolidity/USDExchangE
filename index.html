@@ -28,25 +28,21 @@
 <div class="saldo-container oculto" id="saldoContainerUSD" style=" flex-direction: column; align-items: center; text-align: center;">
     <div style="display: flex; justify-content: space-between; width: 100%;">
         <button class="boton" id="depositarUSD" onclick="abrirDeposito()">Depositar USD</button>
-        <button class="boton" id="comprarUSDT" onclick="mostrarMenu('comprarUSDT')">Comprar USDT</button>
-            </div>
+      <button class="boton" id="comprarUSDT" onclick="mostrarMenu('comprarUSDT')">Comprar USDT</button>
+    <div id="menuDesplegable" style="display: none; margin-top: 20px;">
+        <label for="tipoCajaCompra">Seleccionar tipo de caja:</label>
+        <select id="tipoCajaCompra">
+            <option value="0">USD</option>
+            <option value="1">USDT</option>
+            <option value="2">ETH</option>
+            <option value="3">BTC</option>
+            <option value="4">USDE</option>
+        </select>
 
-   <div id="menuDesplegable" style="display: none; margin-top: 20px;">
-    <label for="tipoCajaCompra">Seleccionar tipo de caja:</label>
-    <select id="tipoCajaCompra">
-        <option value="0">USD</option>
-        <option value="1">USDT</option>
-        <option value="2">ETH</option>
-        <option value="3">BTC</option>
-        <option value="4">USDE</option>
-    </select>
-
-    <label for="cantidadUSDCompra">Ingrese la cantidad en USD:</label>
-    <input type="number" id="cantidadUSDCompra" placeholder="Cantidad en USD" />
-    <button onclick="onClickComprarConBNB()">Comprar con BNB</button>
-
-   </div>
-
+        <label for="cantidadUSDCompra">Ingrese la cantidad en USD:</label>
+        <input type="number" id="cantidadUSDCompra" placeholder="Cantidad en USD" />
+        <button onclick="onClickComprarConBNB()">Comprar con BNB</button>
+    </div>
 
         <div class="opcion-menu" onclick="comprar('USD')">Comprar con USD</div>
         <div class="opcion-menu" onclick="abrirDeposito()">Depositar USDT</div>
@@ -408,25 +404,19 @@ async function reclamarRecompensa() {
             window.open('https://usd-exchang-e.vercel.app/deposito.html', '_blank');
         }
 var menuVisible = false; 
-function mostrarMenu() {
-    var botonComprarUSDT = document.getElementById("comprarUSDT");
-    var menuDesplegable = document.getElementById("menuDesplegable");
 
-    if (menuVisible) {
-        menuDesplegable.style.display = "none";
-        menuVisible = false;
+        
+function mostrarMenu(idMenu) {
+    const menuDesplegable = document.getElementById('menuDesplegable');
+    
+    // Verifica si el botón presionado es "Comprar USDT" y muestra el menú correspondiente
+    if (idMenu === 'comprarUSDT') {
+        menuDesplegable.style.display = 'block';
     } else {
-        var left = botonComprarUSDT.offsetLeft;
-        var top = botonComprarUSDT.offsetTop + botonComprarUSDT.offsetHeight + 5;
-        menuDesplegable.style.left = left + "px";
-        menuDesplegable.style.top = top + "px";
-
-        // Muestra el menú desplegable
-        menuDesplegable.style.display = "block";
-        menuVisible = true;
+        // Oculta el menú en caso contrario
+        menuDesplegable.style.display = 'none';
     }
 }
-
 document.addEventListener("click", function(event) {
     var botonComprarUSDT = document.getElementById("comprarUSDT");
     var menuDesplegable = document.getElementById("menuDesplegable");
