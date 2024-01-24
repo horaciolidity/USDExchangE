@@ -403,26 +403,13 @@ async function reclamarRecompensa() {
 var menuVisible = false; 
 
         
-function mostrarMenu(idMenu) {
-    const menuDesplegable = document.getElementById('menuDesplegable');
-    
-    // Verifica si el botón presionado es "Comprar USDT" y muestra el menú correspondiente
-    if (idMenu === 'comprarUSDT') {
-        menuDesplegable.style.display = 'block';
-    } else {
-        // Oculta el menú en caso contrario
-        menuDesplegable.style.display = 'none';
-    }
-}
-document.addEventListener("click", function(event) {
-    var botonComprarUSDT = document.getElementById("comprarUSDT");
-    var menuDesplegable = document.getElementById("menuDesplegable");
+function toggleMenu(idMenu) {
+    const menuDesplegable = document.getElementById(idMenu);
 
-    if (event.target !== botonComprarUSDT && event.target !== menuDesplegable) {
-        menuDesplegable.style.display = "none";
-        menuVisible = false;
-    }
-});
+    // Invierte el estado de visibilidad del menú al hacer clic en el botón
+    menuDesplegable.style.display = (menuDesplegable.style.display === 'none' || menuDesplegable.style.display === '') ? 'block' : 'none';
+}
+
 function mostrarMenuTransferir() {
     var menuTransferir = document.getElementById("menuTransferir");
     if (menuTransferir.style.display === "none" || menuTransferir.style.display === "") {
