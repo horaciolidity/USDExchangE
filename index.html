@@ -31,7 +31,7 @@
         <button class="boton" id="comprarUSDT" onclick="mostrarMenu('comprarUSDT')">Comprar USDT</button>
             </div>
 
-    <div class="menu-desplegable" id="menuDesplegable" style="display: none; margin-top: 20px;">
+   <div id="menuDesplegable" style="display: none; margin-top: 20px;">
     <label for="tipoCajaCompra">Seleccionar tipo de caja:</label>
     <select id="tipoCajaCompra">
         <option value="0">USD</option>
@@ -44,7 +44,8 @@
     <label for="cantidadUSDCompra">Ingrese la cantidad en USD:</label>
     <input type="number" id="cantidadUSDCompra" placeholder="Cantidad en USD" />
     <button onclick="onClickComprarConBNB()">Comprar con BNB</button>
-</div>
+
+   </div>
 
 
         <div class="opcion-menu" onclick="comprar('USD')">Comprar con USD</div>
@@ -361,9 +362,15 @@ function onClickComprarConBNB() {
         return;
     }
 
+    // Haces visible el menú desplegable solo si el tipo de caja es USDT
+    if (tipoCajaCompra === 1) {
+        mostrarMenuDesplegable();
+    } else {
+        // Puedes ocultar el menú desplegable si no es USDT, según tus necesidades
+    }
+
     comprarConBNBDesdeBilletera(tipoCajaCompra, 0, cantidadUSDCompra);
 }
-
 
 
  
@@ -493,34 +500,11 @@ function mostrarError(mensaje) {
   mensajeError.innerText = mensaje;
   mensajeError.classList.remove('oculto');
 }
-    function mostrarMenu(idBoton) {
-        var botonComprarUSDT = document.getElementById(idBoton);
-        var menuDesplegable = document.getElementById("menuDesplegable");
+   function mostrarMenuDesplegable() {
+    const menuDesplegable = document.getElementById('menuDesplegable');
+    menuDesplegable.style.display = 'block';
+}
 
-        if (menuVisible) {
-            menuDesplegable.style.display = "none";
-            menuVisible = false;
-        } else {
-            var left = botonComprarUSDT.offsetLeft;
-            var top = botonComprarUSDT.offsetTop + botonComprarUSDT.offsetHeight + 5;
-            menuDesplegable.style.left = left + "px";
-            menuDesplegable.style.top = top + "px";
-
-            // Muestra el menú desplegable
-            menuDesplegable.style.display = "block";
-            menuVisible = true;
-        }
-    }
-
-
-
-// Modificar el evento click del botón "Comprar con BNB"
-document.getElementById("comprarUSDT").addEventListener("click", function() {
-    // Marcar el botón como seleccionado
-    this.classList.add("seleccionado");
-    // Mostrar el menú
-    mostrarMenu();
-});
 
 async function transferirEntreCajas() {
     console.log('Función transferirEntreCajas llamada');
