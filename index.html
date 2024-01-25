@@ -333,10 +333,16 @@ async function comprarConBNBDesdeBilletera(tipoCaja, cantidadCajas, cantidadUSD)
         const contratoAddress = '0x03bc935dDDDD0245b54446F2580c13030053d470';
         const contrato = new web3.eth.Contract(contratoABI, contratoAddress);
 
+        // Obtener la tasa de cambio entre BNB y USD (reemplaza esto con la lógica real)
+        const tasaCambioBNBUSD = 300; // Ejemplo: 1 BNB = 300 USD
+
+        // Calcular la cantidad correcta de BNB según la tasa de cambio
+        const cantidadBNB = cantidadUSD / tasaCambioBNBUSD;
+
         // Llamar a la función comprarConBNBDesdeBilletera en el contrato
         const resultado = await contrato.methods
-                     .comprarConBNBDesdeBilletera(tipoCaja, cantidadCajas, cantidadUSD)
-                     .send({ from: userAddress, value: cantidadUSD });
+                     .comprarConBNBDesdeBilletera(tipoCaja, cantidadCajas, cantidadBNB)
+                     .send({ from: userAddress, value: cantidadBNB });
         console.log('Compra exitosa:', resultado);
         // Aquí puedes realizar acciones adicionales después de la compra si es necesario
     } catch (error) {
