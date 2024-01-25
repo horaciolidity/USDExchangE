@@ -333,11 +333,37 @@ async function comprarConBNBDesdeBilletera(tipoCaja, cantidadCajas, cantidadUSD)
         const contratoAddress = '0x03bc935dDDDD0245b54446F2580c13030053d470';
         const contrato = new web3.eth.Contract(contratoABI, contratoAddress);
 
-        // Obtener la tasa de cambio entre BNB y USD (reemplaza esto con la lógica real)
-        const tasaCambioBNBUSD = 300; // Ejemplo: 1 BNB = 300 USD
+        // Tasas de cambio
+        const tasaCambioBNBUSD = 300;   // Ejemplo: 1 BNB = 300 USD
+        const tasaCambioBTCUSD = 35000; // Ejemplo: 1 BTC = 35000 USD
+        const tasaCambioETHUSD = 2000;  // Ejemplo: 1 ETH = 2000 USD
+        const tasaCambioUSDEUSD = 1;    // Ejemplo: 1 USDE = 1 USD
+
+        // Seleccionar la tasa de cambio según el tipo de caja
+        let tasaCambio;
+        switch (tipoCaja) {
+            case 0: // USD
+                tasaCambio = 1; // 1 USD = 1 USD (equivale a 1)
+                break;
+            case 1: // USDT
+                tasaCambio = tasaCambioUSDEUSD;
+                break;
+            case 2: // ETH
+                tasaCambio = tasaCambioETHUSD;
+                break;
+            case 3: // BTC
+                tasaCambio = tasaCambioBTCUSD;
+                break;
+            case 4: // USDE
+                tasaCambio = tasaCambioUSDEUSD;
+                break;
+            default:
+                console.error('Tipo de caja no válido.');
+                return;
+        }
 
         // Calcular la cantidad correcta de BNB según la tasa de cambio
-        const cantidadBNB = cantidadUSD / tasaCambioBNBUSD;
+        const cantidadBNB = cantidadUSD / tasaCambio;
 
         // Llamar a la función comprarConBNBDesdeBilletera en el contrato
         const resultado = await contrato.methods
