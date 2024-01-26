@@ -339,29 +339,23 @@ async function comprarConBNBDesdeBilletera(tipoCaja, cantidadCajas, cantidadUSD)
         const tasaCambioUSDEUSD = 1;    // Ejemplo: 1 USDE = 1 USD
 
         // Seleccionar la tasa de cambio según el tipo de caja
-        let tasaCambio;
+        let cantidadBNB;
         switch (tipoCaja) {
             case 0: // USD
             case 1: // USDT (asumiendo que USDT tiene la misma tasa que USD)
             case 4: // USDE
-                tasaCambio = 1; // 1 USD = 1 USD
+                cantidadBNB = cantidadUSD / tasaCambioBNBUSD;
                 break;
             case 2: // ETH
-                tasaCambio = tasaCambioETHUSD;
+                cantidadBNB = (cantidadUSD / tasaCambioETHUSD) * tasaCambioBNBUSD;
                 break;
             case 3: // BTC
-                tasaCambio = tasaCambioBTCUSD;
+                cantidadBNB = (cantidadUSD / tasaCambioBTCUSD) * tasaCambioBNBUSD;
                 break;
             default:
                 console.error('Tipo de caja no válido.');
                 return;
         }
-
-        // Calcular la cantidad equivalente en la criptomoneda elegida
-        const cantidadCripto = cantidadUSD / tasaCambio;
-
-        // Calcular la cantidad correcta de BNB según la tasa de cambio
-        const cantidadBNB = cantidadCripto * tasaCambioBNBUSD;
 
         // Redondear a un número manejable de decimales y convertir a Wei
         const cantidadBNBWei = web3.utils.toWei(cantidadBNB.toFixed(15), 'ether');
@@ -375,7 +369,6 @@ async function comprarConBNBDesdeBilletera(tipoCaja, cantidadCajas, cantidadUSD)
         console.error('Error en comprarConBNBDesdeBilletera:', error);
     }
 }
-
 function onClickComprarConBNB() {
     const tipoCajaCompraSelect = document.getElementById('tipoCajaCompra');
     const cantidadUSDCompraInput = document.getElementById('cantidadUSDCompra');
