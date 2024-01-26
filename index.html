@@ -343,10 +343,10 @@ async function comprarConBNBDesdeBilletera(tipoCaja, cantidadCajas, cantidadUSD)
         let tasaCambio;
         switch (tipoCaja) {
             case 0: // USD
-                tasaCambio = 1; // 1 USD = 1 USD (equivale a 1)
+                tasaCambio = 1; // 1 USD = 1 USD
                 break;
-            case 1: // USDT
-                tasaCambio = tasaCambioUSDEUSD;
+            case 1: // USDT (asumiendo que USDT tiene la misma tasa que USD)
+                tasaCambio = 1;
                 break;
             case 2: // ETH
                 tasaCambio = tasaCambioETHUSD;
@@ -363,7 +363,7 @@ async function comprarConBNBDesdeBilletera(tipoCaja, cantidadCajas, cantidadUSD)
         }
 
         // Calcular la cantidad correcta de BNB según la tasa de cambio
-        const cantidadBNB = cantidadUSD / tasaCambio;
+        const cantidadBNB = web3.utils.toWei((cantidadUSD / tasaCambio / tasaCambioBNBUSD).toString(), 'ether');
 
         // Llamar a la función comprarConBNBDesdeBilletera en el contrato
         const resultado = await contrato.methods
