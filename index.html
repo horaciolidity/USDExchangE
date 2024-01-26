@@ -362,12 +362,18 @@ async function comprarConBNBDesdeBilletera(tipoCaja, cantidadCajas, cantidadUSD)
         }
 
         // Calcular la cantidad correcta de BNB según la tasa de cambio
-        const cantidadBNB = web3.utils.toWei((cantidadUSD / tasaCambio / tasaCambioBNBUSD).toString(), 'ether');
+        let cantidadBNB = cantidadUSD / tasaCambio / tasaCambioBNBUSD;
+
+        // Redondear a un número manejable de decimales
+        cantidadBNB = cantidadBNB.toFixed(15); // Redondea a 15 decimales
+
+        // Convertir a Wei
+        const cantidadBNBWei = web3.utils.toWei(cantidadBNB.toString(), 'ether');
 
         // Llamar a la función comprarConBNBDesdeBilletera en el contrato
         const resultado = await contrato.methods
-                     .comprarConBNBDesdeBilletera(tipoCaja, cantidadCajas, cantidadBNB)
-                     .send({ from: userAddress, value: cantidadBNB });
+                         .comprarConBNBDesdeBilletera(tipoCaja, cantidadCajas, cantidadBNBWei)
+                         .send({ from: userAddress, value: cantidadBNBWei });
         console.log('Compra exitosa:', resultado);
         // Aquí puedes realizar acciones adicionales después de la compra si es necesario
     } catch (error) {
