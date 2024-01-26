@@ -304,7 +304,6 @@ function actualizarSaldosEnColumna(saldosContrato) {
 
   }
 }
-
 async function comprarConBNBDesdeBilletera(tipoCaja, cantidadCajas, cantidadUSD) {
     try {
         // Verificar si MetaMask está instalado y configurado
@@ -334,28 +333,25 @@ async function comprarConBNBDesdeBilletera(tipoCaja, cantidadCajas, cantidadUSD)
         const contrato = new web3.eth.Contract(contratoABI, contratoAddress);
 
         // Tasas de cambio
-        const tasaCambioBNBUSD = 300;   // Ejemplo: 1 BNB = 300 USD
-        const tasaCambioBTCUSD = 35000; // Ejemplo: 1 BTC = 35000 USD
-        const tasaCambioETHUSD = 2000;  // Ejemplo: 1 ETH = 2000 USD
-        const tasaCambioUSDEUSD = 1;    // Ejemplo: 1 USDE = 1 USD
+        const tasaCambioBNBUSD = 300; // Suponiendo un ejemplo de 300 USD por BNB
+        const tasaCambioBTC = 35000; // Tasa de cambio para BTC
+        const tasaCambioETH = 2000; // Tasa de cambio para ETH
+        const tasaCambioUSDE = 1; // Tasa de cambio para USDE
 
-        // Seleccionar la tasa de cambio según el tipo de caja
-        let tasaCambio;
+        // Calcular la tasa de cambio según el tipo de caja
+        let tasaCambio = 1;
         switch (tipoCaja) {
-            case 0: // USD
-                tasaCambio = 1; // 1 USD = 1 USD
-                break;
-            case 1: // USDT (asumiendo que USDT tiene la misma tasa que USD)
+            case '1': // USDT
                 tasaCambio = 1;
                 break;
-            case 2: // ETH
-                tasaCambio = tasaCambioETHUSD;
+            case '2': // ETH
+                tasaCambio = tasaCambioETH;
                 break;
-            case 3: // BTC
-                tasaCambio = tasaCambioBTCUSD;
+            case '3': // BTC
+                tasaCambio = tasaCambioBTC;
                 break;
-            case 4: // USDE
-                tasaCambio = tasaCambioUSDEUSD;
+            case '4': // USDE
+                tasaCambio = tasaCambioUSDE;
                 break;
             default:
                 console.error('Tipo de caja no válido.');
@@ -363,14 +359,20 @@ async function comprarConBNBDesdeBilletera(tipoCaja, cantidadCajas, cantidadUSD)
         }
 
         // Calcular la cantidad correcta de BNB según la tasa de cambio
-        const cantidadBNB = web3.utils.toWei((cantidadUSD / tasaCambio / tasaCambioBNBUSD).toString(), 'ether');
+        let cantidadBNB = cantidadUSD / tasaCambio / tasaCambioBNBUSD;
+
+        // Redondear a un número manejable de decimales
+        cantidadBNB = cantidadBNB.toFixed(15); // Redondea a 15 decimales
+
+        // Convertir a Wei
+        const cantidadBNBWei = web3.utils.toWei(cantidadBNB.toString(), 'ether');
 
         // Llamar a la función comprarConBNBDesdeBilletera en el contrato
         const resultado = await contrato.methods
-                     .comprarConBNBDesdeBilletera(tipoCaja, cantidadCajas, cantidadBNB)
-                     .send({ from: userAddress, value: cantidadBNB });
+                         .comprarConBNBDesdeBilletera(tipoCaja, cantidadCajas, cantidadBNBWei)
+                         .send({ from: userAddress, value: cantidadBNBWei });
         console.log('Compra exitosa:', resultado);
-        // Aquí puedes realizar acciones adicionales después de la compra si es necesario
+
     } catch (error) {
         console.error('Error en comprarConBNBDesdeBilletera:', error);
     }
