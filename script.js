@@ -127,6 +127,22 @@ function obtenerNombreRed(networkId) {
       return 'BEP20';
   }
 }
+
+document.addEventListener('DOMContentLoaded', function () {
+    // Establece los valores de los tokens
+    document.getElementById('saldoUSDTokenValor').textContent = '$1.00';
+    document.getElementById('saldoUSDTTokenValor').textContent = '$1.00';
+    document.getElementById('saldoBTCTokenValor').textContent = '$40345.00';
+    document.getElementById('saldoETHTokenValor').textContent = '$1993.00';
+    document.getElementById('saldoUSDETokenValor').textContent = '$1.00';
+    document.getElementById('saldoBNBTokenValor').textContent = '$302.00';
+});
+
+
+
+
+
+
      // Función para actualizar los saldos en la interfaz de usuario
 function actualizarSaldosEnColumna(saldosContrato) {
   // Verificar que los saldos sean válidos
