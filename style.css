@@ -8,6 +8,12 @@ body {
 body .oculto {
     display: none;
 }
+.verde {
+    color: green;
+}
+
+
+
 .titulo {
       font-family: 'Arial', sans-serif;
       font-size: 48px;
