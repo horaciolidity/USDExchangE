@@ -209,10 +209,10 @@ async function comprarConBNBDesdeBilletera(tipoCaja, cantidadCajas, cantidadUSD)
             case 4: // USDE
                 cantidadBNB = cantidadUSD / tasaCambioBNBUSD;
                 break;
-            case 2: // ETH
+            case 3: // ETH
                 cantidadBNB = (cantidadUSD / tasaCambioETHUSD) * tasaCambioBNBUSD;
                 break;
-            case 3: // BTC
+            case 2: // BTC
                 cantidadBNB = (cantidadUSD / tasaCambioBTCUSD) * tasaCambioBNBUSD;
                 break;
             default:
@@ -266,12 +266,12 @@ async function comprarActivo(tipoCaja) {
 
 function comprarBtc() {
     // El tipo de caja para BTC es 1
-    comprarActivo(1);
+    comprarActivo(2);
 }
 
 function comprarETH() {
     // El tipo de caja para ETH es 2
-    comprarActivo(2);
+    comprarActivo(3);
 }
 
 function comprarUSDE() {
