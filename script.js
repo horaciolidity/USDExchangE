@@ -255,6 +255,29 @@ function onClickComprarConBNB() {
 }
 
 
+async function comprarActivo(tipoCaja) {
+    const cantidadUSD = prompt("Ingrese la cantidad en USD que desea invertir:");
+    if (cantidadUSD !== null && cantidadUSD !== "" && !isNaN(cantidadUSD) && Number(cantidadUSD) > 0) {
+        await comprarConBNBDesdeBilletera(tipoCaja, 1, Number(cantidadUSD)); // Asume 1 caja por simplicidad
+    } else {
+        alert("Por favor, introduzca una cantidad válida.");
+    }
+}
+
+function comprarBtc() {
+    // El tipo de caja para BTC es 1
+    comprarActivo(1);
+}
+
+function comprarETH() {
+    // El tipo de caja para ETH es 2
+    comprarActivo(2);
+}
+
+function comprarUSDE() {
+    // El tipo de caja para USDE es 4
+    comprarActivo(4);
+}
  
 
 
