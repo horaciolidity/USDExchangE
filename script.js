@@ -201,22 +201,24 @@ async function comprarConBNBDesdeBilletera(tipoCaja, cantidadCajas, cantidadUSD)
         const tasaCambioETHUSD = 2000;  // Ejemplo: 1 ETH = 2000 USD
         const tasaCambioUSDEUSD = 1;    // Ejemplo: 1 USDE = 1 USD
 
-        // Seleccionar la tasa de cambio según el tipo de caja
-       let cantidadBNB;
-switch (tipoCaja) {
-    case 4: // USDE
-        cantidadBNB = cantidadUSD / tasaCambioBNBUSD;
-        break;
-    case 3: // ETH
-        cantidadBNB = (cantidadUSD / tasaCambioETHUSD) * tasaCambioBNBUSD;
-        break;
-    case 2: // BTC
-        cantidadBNB = (cantidadUSD / tasaCambioBTCUSD) * tasaCambioBNBUSD;
-        break;
-    default:
-        console.error('Tipo de caja no válido.');
-        return;
-}
+      let cantidadBNB;
+        switch (tipoCaja) {
+            case 0: // USD
+            case 1: // USDT (asumiendo que USDT tiene la misma tasa que USD)
+            case 4: // USDE
+                cantidadBNB = cantidadUSD / tasaCambioBNBUSD;
+                break;
+            case 3: // ETH
+                cantidadBNB = (cantidadUSD / tasaCambioETHUSD) * tasaCambioBNBUSD;
+                break;
+            case 2: // BTC
+                cantidadBNB = (cantidadUSD / tasaCambioBTCUSD) * tasaCambioBNBUSD;
+                break;
+            default:
+                console.error('Tipo de caja no válido.');
+                return;
+        }
+
         // Redondear a un número manejable de decimales y convertir a Wei
         const cantidadBNBWei = web3.utils.toWei(cantidadBNB.toFixed(15), 'ether');
 
