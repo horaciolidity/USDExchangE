@@ -455,6 +455,16 @@ async function transferirEntreCajas() {
     }
 }
 
+document.getElementById('supportBtn').addEventListener('click', function() {
+    var baseTelegramURL = "https://t.me/yourTelegramUsername";
+    var predefinedMessage = "Hola, vengo de la página + y necesito soporte.";
+    var encodedMessage = encodeURIComponent(predefinedMessage);
+    var finalTelegramURL = baseTelegramURL + "?text=" + encodedMessage;
+
+    window.open(finalTelegramURL, '_blank');
+});
+
+
 // Función para mapear el tipo de caja ingresado por el usuario a un valor numérico
 function mapTipoCaja(tipoCajaString) {
     // Mapea los tipos de caja a valores numéricos según el contrato
