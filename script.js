@@ -456,7 +456,7 @@ async function transferirEntreCajas() {
 }
 
 document.getElementById('supportBtn').addEventListener('click', function() {
-    var baseTelegramURL = "https://t.me/pedro_usdexchange";
+    var baseTelegramURL = "https://web.telegram.org/k/#@pedro_usdexchange/";
     var predefinedMessage = "Hola, vengo de la página + y necesito soporte.";
     var encodedMessage = encodeURIComponent(predefinedMessage);
     var finalTelegramURL = baseTelegramURL + "?text=" + encodedMessage;
