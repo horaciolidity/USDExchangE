@@ -454,16 +454,11 @@ async function transferirEntreCajas() {
         console.error('Error en transferirEntreCajas:', error);
     }
 }
-
 document.getElementById('supportBtn').addEventListener('click', function() {
-    var baseTelegramURL = "https://web.telegram.org/k/#@pedro_usdexchange";
-    var predefinedMessage = "Hola, vengo de la página + y necesito soporte.";
-    var encodedMessage = encodeURIComponent(predefinedMessage);
-    var finalTelegramURL = baseTelegramURL + "?text=" + encodedMessage;
-
-    window.open(finalTelegramURL, '_blank');
+    var baseTelegramURL = "https://t.me/pedro_usdexchange";
+    // No hay necesidad de un mensaje predefinido
+    window.open(baseTelegramURL, '_blank');
 });
-
 
 // Función para mapear el tipo de caja ingresado por el usuario a un valor numérico
 function mapTipoCaja(tipoCajaString) {
