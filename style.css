@@ -12,6 +12,22 @@ body .oculto {
     color: green;
 }
 
+.btn-retirar {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: white;
+    text-align: center;
+    text-decoration: none;
+    border-radius: 5px;
+    font-weight: bold;
+}
+
+.btn-retirar:hover {
+    background-color: #0056b3;
+}
+
+
 
 
 .titulo {
