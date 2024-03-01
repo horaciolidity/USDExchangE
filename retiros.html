@@ -94,33 +94,43 @@ h1 {
 }
         
  .overlay {
-          position: fixed;
-          top: 0;
-          left: 0;
-          width: 100%;
-          height: 100%;
-          background: rgba(0, 0, 0, 0.5);
-          display: none;
-          justify-content: center;
-          align-items: center;
-      }
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.75); /* Más oscuro para mayor contraste */
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000; /* Asegura que el overlay esté por encima de otros elementos */
+}
 
-      .modal {
-          background: white;
-          padding: 20px;
-          border-radius: 10px;
-          width: 90%;
-          max-width: 400px;
-      }
+.modal {
+    background: #333; /* Gris oscuro */
+    color: #fff; /* Texto blanco para contraste */
+    padding: 20px;
+    border-radius: 10px;
+    width: 90%;
+    max-width: 400px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.2); /* Sutil sombra para dar profundidad */
+}
 
-      .modal p {
-          margin-top: 0;
-      }
+.modal p {
+    margin-top: 0;
+}
 
-      .close-btn {
-          float: right;
-          cursor: pointer;
-      }
+.close-btn {
+    float: right;
+    cursor: pointer;
+    color: #bbb; /* Gris claro para el botón, para que sea visible pero no dominante */
+    font-size: 20px;
+}
+
+.close-btn:hover {
+    color: #f00; /* Rojo al pasar el mouse, para indicar acción */
+}
+
     </style>
 </head>
 <body>
@@ -169,8 +179,8 @@ h1 {
         <div class="modal">
             <span class="close-btn" onclick="closeModal()">&times;</span>
             <p>Su solicitud de retiro está en proceso. Recibirá un correo de confirmación de su retiro.</p>
-            <p>Para soporte, contacte a <a href="https://t.me/PEDRO_C" target="_blank">PEDRO_C en Telegram</a>.</p>
-            <p><a href="#" class="btn">Volver al menú principal</a></p>
+            <p>Para soporte, contacte a <a href="https://t.me/PEDRO_WLD" target="_blank">PEDRO_C en Telegram</a>.</p>
+            <p><a href="#index" class="btn">Volver al menú principal</a></p>
         </div>
     </div>
 
