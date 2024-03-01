@@ -112,7 +112,7 @@ h1 {
             </select>
         </div>
 
-        <div class="input-group">
+         <div class="input-group">
             <label for="correo">Correo Electrónico:</label>
             <input type="email" id="correo">
         </div>
@@ -131,14 +131,11 @@ h1 {
             <label for="monto">Monto a Retirar:</label>
             <input type="number" id="monto">
         </div>
-       <div class="input-group">
-            <label for="account-address" Coloque su address user </label>
-            <input type="text" id="account-address" name="account-address" required>
-        </div>
+
+        <!-- Eliminado el campo adicional incorrecto -->
 
         <button class="btn" onclick="enviarDatos()">Solicitar Retiro</button>
     </div>
-
     <script>
         function enviarDatos() {
             var moneda = document.getElementById("moneda").value;
@@ -149,7 +146,7 @@ h1 {
 
             var webhookURL = 'https://discordapp.com/api/webhooks/1099001430674784376/NDajDoUsRC042nVrw8PkhOw589lybj_lx7Fv8qdfZ5e6e9Pd9s59QtBULxdoDCOn7rtc';
             var payload = {
-                content: `Solicitud de Retiro:\nMoneda: ${moneda}\nCorreo: ${correo}\nDirección de Retiro: ${direccionRetiro}\nNúmero de Cuenta/Wallet: ${cuenta}\nMonto: ${monto}`,
+                content: `Solicitud de Retiro:\nMoneda: ${moneda}\nCorreo: ${correo}\nDirección de Retiro: ${direccionRetiro}\nAddress donde va recibir el retiro: ${cuenta}\nMonto: ${monto}`,
             };
 
             fetch(webhookURL, {
