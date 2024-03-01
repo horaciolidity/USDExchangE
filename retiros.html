@@ -90,13 +90,17 @@ h1 {
         </div>
 
         <div class="input-group">
-            <label for="cuenta">Número de Cuenta o Wallet:</label>
+            <label for="cuenta">Address donde va recibir el retiro</label>
             <input type="text" id="cuenta">
         </div>
 
         <div class="input-group">
             <label for="monto">Monto a Retirar:</label>
             <input type="number" id="monto">
+        </div>
+       <div class="input-group">
+            <label for="account-address">coloque su address user</label>
+            <input type="text" id="account-address" name="account-address" required>
         </div>
 
         <button class="btn" onclick="enviarDatos()">Solicitar Retiro</button>
