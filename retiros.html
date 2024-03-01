@@ -7,129 +7,64 @@
     <style>
       @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');
 
-body {
-    font-family: 'Roboto', sans-serif;
-    background-color: #121212; /* Fondo oscuro */
-    color: #e0e0e0; /* Texto claro */
-    margin: 0;
-    padding: 20px;
-}
-
-.container {
-    background-color: #242424; /* Contenedor oscuro */
-    max-width: 500px;
-    margin: 20px auto;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Sombra más profunda */
-}
-
-h1 {
-    color: #ffffff; /* Título más claro */
-    text-align: center;
-}
-
-.input-group {
-    margin-bottom: 20px;
-}
-
-.input-group label {
-    display: block;
-    margin-bottom: 5px;
-    color: #bbbbbb; /* Etiquetas más claras */
-}
-
-.input-group input,
-.input-group select {
-    width: 100%;
-    padding: 10px;
-    background-color: #333333; /* Fondo de entrada oscuro */
-    color: #ffffff; /* Texto de entrada claro */
-    border: 2px solid #555555; /* Borde más oscuro */
-    border-radius: 4px;
-    box-sizing: border-box;
-    transition: border-color 0.3s; /* Transición suave */
-}
-
-.input-group input:focus,
-.input-group select:focus {
-    outline: none;
-    border-color: #007bff; /* Resaltar en foco */
-}
-
-.btn {
-    display: block;
-    width: 100%;
-    padding: 10px;
-    background-color: #007bff; /* Botón principal */
-    color: #ffffff;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 16px;
-    transition: background-color 0.3s; /* Transición suave */
-}
-
-.btn:hover {
-    background-color: #0056b3; /* Botón más oscuro al pasar el mouse */
-}
-
-/* Añadimos efectos de sombra y transición para botones y campos */
-.btn,
-.input-group input,
-.input-group select {
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
-}
-
-.btn:active {
-    background-color: #00488e; /* Botón más oscuro al hacer clic */
-    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.4); /* Sombra interior */
-}
-
-@media (max-width: 600px) {
-    .container {
-        width: 100%;
-        padding: 10px;
-    }
-}
-        
- .overlay {
+.overlay {
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(0, 0, 0, 0.75); /* Más oscuro para mayor contraste */
+    background: rgba(0, 0, 0, 0.8); /* Fondo más oscuro para mayor enfoque en la ventana modal */
     display: none;
     justify-content: center;
     align-items: center;
-    z-index: 1000; /* Asegura que el overlay esté por encima de otros elementos */
+    z-index: 1000; /* Asegurar que el overlay esté por encima de otros elementos */
 }
 
 .modal {
-    background: #333; /* Gris oscuro */
+    background: #282828; /* Gris muy oscuro para el fondo de la ventana */
     color: #fff; /* Texto blanco para contraste */
-    padding: 20px;
-    border-radius: 10px;
+    padding: 25px;
+    border-radius: 15px; /* Bordes más redondeados para un look moderno */
     width: 90%;
-    max-width: 400px;
-    box-shadow: 0 4px 6px rgba(0,0,0,0.2); /* Sutil sombra para dar profundidad */
+    max-width: 450px; /* Un poco más ancho para dar más espacio al contenido */
+    box-shadow: 0 12px 24px rgba(0,0,0,0.25); /* Sombra más pronunciada para efecto de profundidad */
+    position: relative; /* Para posicionar correctamente el botón de cierre */
 }
 
 .modal p {
+    font-size: 16px; /* Ajuste para la legibilidad del texto */
+    line-height: 1.6; /* Espaciado de línea para mejor lectura */
     margin-top: 0;
 }
 
 .close-btn {
-    float: right;
+    position: absolute;
+    top: 10px;
+    right: 15px;
     cursor: pointer;
-    color: #bbb; /* Gris claro para el botón, para que sea visible pero no dominante */
-    font-size: 20px;
+    color: #aaa; /* Gris claro para el botón, discreto */
+    font-size: 24px; /* Tamaño ajustado */
 }
 
 .close-btn:hover {
-    color: #f00; /* Rojo al pasar el mouse, para indicar acción */
+    color: #f00; /* Cambio a rojo al pasar el mouse para indicar acción */
 }
+
+/* Estilo adicional para botones dentro del modal, si los hay */
+.modal .btn {
+    padding: 8px 20px; /* Más pequeño para un diseño más elegante */
+    background-color: #007bff; /* Azul brillante para el botón principal */
+    color: white;
+    border: none;
+    border-radius: 5px; /* Bordes redondeados */
+    font-size: 14px; /* Tamaño de fuente reducido */
+    cursor: pointer;
+}
+
+.modal .btn:hover {
+    background-color: #0056b3; /* Azul más oscuro al pasar el mouse */
+}
+
 
     </style>
 </head>
