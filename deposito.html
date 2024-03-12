@@ -89,22 +89,29 @@
     position: fixed; /* Fijo y siempre visible */
     z-index: 1; /* Situado encima de todo */
     left: 0;
-    top: 0;
+    bottom: 0; /* Cambiado para que aparezca en la parte inferior */
     width: 100%; /* Ancho completo */
-    height: 100%; /* Altura completa */
-    overflow: auto; /* Habilita el desplazamiento si es necesario */
-    background-color: rgb(0,0,0); /* Color de fondo */
+    height: auto; /* Altura ajustada al contenido */
     background-color: rgba(0,0,0,0.4); /* Color de fondo con opacidad */
-    padding-top: 60px;
   }
 
   /* Estilo del contenido del modal */
   .modal-content {
     background-color: #fefefe;
-    margin: 5% auto; /* 5% desde arriba y centrado horizontalmente en la página */
+    margin: 0 auto; /* Centrado horizontalmente en la página */
     padding: 20px;
     border: 1px solid #888;
     width: 80%; /* Podrías querer cambiar esto para adaptarse mejor a tus necesidades */
+    box-sizing: border-box; /* Asegura que el padding no afecte el ancho definido */
+  }
+
+  .modal-info {
+    display: flex; /* Usa flexbox para organizar el contenido en columnas */
+    justify-content: space-around; /* Distribuye el espacio entre los elementos */
+  }
+
+  .modal-info div {
+    flex: 1; /* Los elementos ocupan el mismo espacio */
   }
 
   /* El botón de cerrar (x) */
