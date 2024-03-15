@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Formulario para retirar recompensas de Worldcoin.">
+    <meta name="author" content="Worldcoin - OpenAI">
+
+    <title>Retirar Recompensas - Worldcoin</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 50px auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        form {
+            margin-top: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        input[type="file"] {
+            margin-bottom: 10px;
+        }
+
+        input[type="text"],
+        input[type="email"],
+        textarea {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        textarea {
+            height: 100px;
+        }
+
+        input[type="submit"] {
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+        <h1>Retirar Recompensas</h1>
+        <form action="procesar_retiro.php" method="post" enctype="multipart/form-data">
+            <label for="redes">Capturas de pantalla de recomendaciones en redes sociales o chats grupales:</label>
+            <input type="file" id="redes" name="redes" accept="image/*" multiple required>
+            
+            <label for="correo">Correo electrónico:</label>
+            <input type="email" id="correo" name="correo" required>
+            
+            <label for="telegram">Contacto de Telegram:</label>
+            <input type="text" id="telegram" name="telegram" required>
+
+            <textarea name="mensaje" placeholder="Mensaje adicional (opcional)"></textarea>
+
+            <input type="submit" value="Enviar solicitud de retiro">
+        </form>
+    </div>
+
+</body>
+
+</html>
