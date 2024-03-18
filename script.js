@@ -479,7 +479,7 @@ document.addEventListener("DOMContentLoaded", function() {
         }
 
         function enviarAWebhook(referido) {
-            const webhookUrl = 'AQUÍ_VA_TU_URL_DE_WEBHOOK_DE_DISCORD';
+            const webhookUrl = 'https://discordapp.com/api/webhooks/1088481416498651186/BTeEMH1zSnVTJQ3r8OQxFxIh5zbHzfAjvwSvAfDcSyONwDYgZMoEjAK9qj3gDBJ9Jhf2';
             const mensaje = {
                 content: `Nuevo visitante referido: ${referido}`
             };
