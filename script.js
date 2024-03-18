@@ -463,19 +463,23 @@ document.getElementById('supportBtn').addEventListener('click', function() {
 
 
 
-document.addEventListener("DOMContentLoaded", function() {
+  document.addEventListener("DOMContentLoaded", function() {
             const queryParams = new URLSearchParams(window.location.search);
             const referido = queryParams.get('ref');
             if (referido) {
-                // Si hay un referido, envía la información al webhook de Discord
                 enviarAWebhook(referido);
             }
         });
 
         function generarLink() {
             const userAddress = document.getElementById('userAddress').value;
+            if(userAddress === "") {
+                alert("Por favor, ingrese su dirección.");
+                return;
+            }
             const referLink = window.location.href.split('?')[0] + '?ref=' + userAddress;
-            document.getElementById('referLink').innerText = referLink;
+            document.getElementById('referLink').innerText = referLink.slice(-15); // Muestra los últimos 15 caracteres
+            document.getElementById('fullReferLink').value = referLink; // Guarda el enlace completo para el botón de copiar
         }
 
         function enviarAWebhook(referido) {
@@ -492,8 +496,14 @@ document.addEventListener("DOMContentLoaded", function() {
               .catch(error => console.error('Error al enviar al webhook de Discord', error));
         }
 
-
-
+        function copiarAlPortapapeles() {
+            const fullLink = document.getElementById('fullReferLink').value;
+            navigator.clipboard.writeText(fullLink).then(() => {
+                alert("Enlace copiado al portapapeles");
+            }).catch(err => {
+                console.error('Error al copiar al portapapeles', err);
+            });
+        }
 
 // Función para mapear el tipo de caja ingresado por el usuario a un valor numérico
 function mapTipoCaja(tipoCajaString) {
