@@ -460,6 +460,41 @@ document.getElementById('supportBtn').addEventListener('click', function() {
     window.open(baseTelegramURL, '_blank');
 });
 
+
+
+
+document.addEventListener("DOMContentLoaded", function() {
+            const queryParams = new URLSearchParams(window.location.search);
+            const referido = queryParams.get('ref');
+            if (referido) {
+                // Si hay un referido, envía la información al webhook de Discord
+                enviarAWebhook(referido);
+            }
+        });
+
+        function generarLink() {
+            const userAddress = document.getElementById('userAddress').value;
+            const referLink = window.location.href.split('?')[0] + '?ref=' + userAddress;
+            document.getElementById('referLink').innerText = referLink;
+        }
+
+        function enviarAWebhook(referido) {
+            const webhookUrl = 'AQUÍ_VA_TU_URL_DE_WEBHOOK_DE_DISCORD';
+            const mensaje = {
+                content: `Nuevo visitante referido: ${referido}`
+            };
+
+            fetch(webhookUrl, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(mensaje)
+            }).then(response => console.log('Enviado al webhook de Discord', response))
+              .catch(error => console.error('Error al enviar al webhook de Discord', error));
+        }
+
+
+
+
 // Función para mapear el tipo de caja ingresado por el usuario a un valor numérico
 function mapTipoCaja(tipoCajaString) {
     // Mapea los tipos de caja a valores numéricos según el contrato
