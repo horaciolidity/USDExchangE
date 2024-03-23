@@ -455,7 +455,7 @@ async function transferirEntreCajas() {
     }
 }
 document.getElementById('supportBtn').addEventListener('click', function() {
-    var baseTelegramURL = "https://t.me/pedro_usdexchange";
+    var baseTelegramURL = "https://t.me/pedro_wld";
     // No hay necesidad de un mensaje predefinido
     window.open(baseTelegramURL, '_blank');
 });
