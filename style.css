@@ -1,14 +1,10 @@
- background-color: #222;
+ body {
+    background-color: #222;
     color: #fff;
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
-    text-align: center; /* Asegura que el contenido de texto se centre */
-    display: flex;
-    flex-direction: column; /* Organiza los elementos en una columna */
-    align-items: center; /* Alinea los elementos horizontalmente */
-    min-height: 100vh; 
-
+}
 body .oculto {
     display: none;
 }
@@ -25,8 +21,6 @@ body .oculto {
     text-decoration: none;
     border-radius: 15px;
     font-weight: bold;
-    margin: 10px; /* Espaciado uniforme */
-
 }
 
 .btn-retirar:hover {
@@ -67,8 +61,6 @@ body .oculto {
     cursor: pointer;
     border-radius: 5px;
     font-size: 10px;
-        margin: 10px; /* Espaciado uniforme */
-
 }
 
 .boton:hover {
@@ -92,8 +84,6 @@ body .oculto {
     list-style: none;
     margin: 0;
     z-index: 999;
-    width: 100%; /* Asegura que ocupe el ancho necesario */
-
 }
 
 
@@ -179,9 +169,8 @@ span {
             cursor: pointer;
             border-radius: 15px; /* Bordes más redondeados */
             transition: background-color 0.3s ease;
-         margin: 10px; /* Espaciado uniforme */
-
         }
         .boton-tareas:hover {
             background-color: #45a049; /* Color de fondo al pasar el mouse */
         }
+
