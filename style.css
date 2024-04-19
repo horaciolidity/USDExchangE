@@ -1,9 +1,9 @@
 body {
-    background-color: #f0f2f5; /* Fondo más claro para un aspecto más limpio */
-    color: #333; /* Texto más oscuro para contraste */
-    font-family: 'Roboto', sans-serif; /* Fuente más moderna y legible */
+    background-color: #222;
+    color: #fff;
+    font-family: Arial, sans-serif;
     margin: 0;
-    padding: 20px; /* Padding para no pegar contenido a los bordes */
+    padding: 0;
 }
 body .oculto {
     display: none;
@@ -13,18 +13,14 @@ body .oculto {
 }
 
 .btn-retirar {
-    background-color: #007bff; /* Color principal */
-    color: white;
     display: inline-block;
     padding: 10px 20px;
-    margin: 5px;
-    border-radius: 8px; /* Bordes redondeados */
-    font-size: 16px; /* Tamaño de texto unificado */
-    cursor: pointer;
-    transition: background-color 0.3s ease; /* Transición suave */
-    border: none; /* Sin bordes */
+    background-color: #EA170A;
+    color: white;
     text-align: center;
     text-decoration: none;
+    border-radius: 15px;
+    font-weight: bold;
 }
 
 .btn-retirar:hover {
@@ -57,17 +53,14 @@ body .oculto {
     }
 
 .boton {
-    background-color: #0056b3;
-    display: inline-block;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
     padding: 10px 20px;
     margin: 5px;
-    border-radius: 8px; 
-    font-size: 16px; /* Tamaño de texto unificado */
     cursor: pointer;
-    transition: background-color 0.3s ease; /* Transición suave */
-    border: none; /* Sin bordes */
-    text-align: center;
-    text-decoration: none;
+    border-radius: 5px;
+    font-size: 10px;
 }
 
 .boton:hover {
@@ -164,18 +157,18 @@ span {
     animation: titilar 1s infinite alternate; 
 }
  .boton-tareas {
-    background-color: #4CAF50; /* Verde para otros botones */
-    color: white;
-    display: inline-block;
-    padding: 10px 20px;
-    margin: 5px;
-    border-radius: 8px; /* Bordes redondeados */
-    font-size: 16px; /* Tamaño de texto unificado */
-    cursor: pointer;
-    transition: background-color 0.3s ease; /* Transición suave */
-    border: none; /* Sin bordes */
-    text-align: center;
-    text-decoration: none;
+            background-color: #4CAF50; /* Color de fondo */
+            border: none;
+            color: white;
+            padding: 10px 20px; /* Tamaño más pequeño */
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 14px; /* Tamaño de texto más pequeño */
+            margin: 4px 2px;
+            cursor: pointer;
+            border-radius: 15px; /* Bordes más redondeados */
+            transition: background-color 0.3s ease;
         }
         .boton-tareas:hover {
             background-color: #45a049; /* Color de fondo al pasar el mouse */
