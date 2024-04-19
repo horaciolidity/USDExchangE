@@ -1,96 +1,187 @@
-body {
-    background-color: #222;
+ background-color: #222;
     color: #fff;
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
-    text-align: center; /* Centra el contenido textual */
-}
+    text-align: center; /* Asegura que el contenido de texto se centre */
+    display: flex;
+    flex-direction: column; /* Organiza los elementos en una columna */
+    align-items: center; /* Alinea los elementos horizontalmente */
+    min-height: 100vh; 
 
+body .oculto {
+    display: none;
+}
 .verde {
     color: green;
 }
 
-.btn-retirar, .boton, .boton-tareas {
+.btn-retirar {
     display: inline-block;
     padding: 10px 20px;
+    background-color: #EA170A;
     color: white;
     text-align: center;
     text-decoration: none;
     border-radius: 15px;
     font-weight: bold;
-    cursor: pointer;
     margin: 10px; /* Espaciado uniforme */
+
 }
 
-.btn-retirar {
-    background-color: #EA170A;
-}
-
-.btn-retirar:hover, .boton:hover, .boton-tareas:hover {
+.btn-retirar:hover {
     background-color: #0056b3;
 }
 
-.boton, .boton-tareas {
-    background-color: #007bff;
-    border-radius: 5px; /* Consistencia en bordes redondeados */
-}
 
-.boton-tareas {
-    background-color: #4CAF50;
-}
 
-.boton-tareas:hover {
-    background-color: #45a049;
-}
 
 .titulo {
-    font-size: 48px;
-    font-weight: bold;
-    text-transform: uppercase;
-    margin: 20px 0; /* Ajuste de márgenes */
+      font-family: 'Arial', sans-serif;
+      font-size: 48px;
+      font-weight: bold;
+      text-transform: uppercase;
+      position: relative;
+      margin-bottom: 20px;
+    }
+
+    .titulo .mayusculas {
+      color: #FFD700;
+    }
+
+    .titulo .minusculas {
+      color: #00FFFF;
+    }
+
+    .titulo:hover .mayusculas,
+    .titulo:hover .minusculas {
+      text-shadow: 0 0 10px #FFD700, 0 0 10px #00FFFF;
+    }
+
+.boton {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    margin: 5px;
+    cursor: pointer;
+    border-radius: 5px;
+    font-size: 10px;
+        margin: 10px; /* Espaciado uniforme */
+
 }
 
-.titulo .mayusculas, .titulo .minusculas {
-    display: block; /* Hace que cada parte del título sea una línea */
+.boton:hover {
+    background-color: #0056b3;
 }
 
-.mensaje-error {
-    color: #ff3333; 
-    margin-top: 10px;
+.oculto {
+    display: none;
 }
 
-#saldoETH {
-    font-size: 86px;
-    margin: 30px 0; /* Aumenta el espacio superior e inferior */
-}
-
-.estado-indicador {
-    width: 10px;
-    height: 10px;
-    border-radius: 50%;
-    position: absolute;
-    right: 50%; /* Centrado horizontal */
-    transform: translateX(50%) translateY(-50%); /* Ajuste fino del centrado */
-    animation: titilar 1s infinite alternate; 
-}
-
-@keyframes titilar {
-    0% { opacity: 0; }
-    100% { opacity: 1; }
-}
-
-/* Centrar contenido dentro de contenedores específicos si es necesario */
-.saldo-container, .menu-desplegable, .opcion-menu {
-    text-align: center;
-}
 
 .menu-desplegable {
-    left: 50%;
-    transform: translateX(-50%); /* Centra el menú desplegable */
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background-color: black; 
+    color: white;
+    border: 1px solid #ccc;
+    padding: 10px;
+    list-style: none;
+    margin: 0;
+    z-index: 999;
+    width: 100%; /* Asegura que ocupe el ancho necesario */
+
 }
+
+
 
 .opcion-menu {
     cursor: pointer;
     margin: 5px 0;
 }
+  
+
+
+.saldo-container span {
+    margin-left: 5px;
+}
+
+.mensaje-error {
+    color: #ff6262;
+    margin-top: 10px;
+}
+
+.activo {
+  background-color: green;
+  color: white;
+}
+
+
+.inactivo {
+    background-color: #dc3545;
+}
+#saldoETH {
+    font-size: 86px; 
+    text-align: center; 
+    margin-top: 30px; 
+    font-weight: bold; 
+    color: #fff; 
+}
+.activo .estado-indicador {
+    background-color: #00cc00; 
+}
+
+.inactivo .estado-indicador {
+    background-color: #ff3333; 
+}
+
+@keyframes titilar {
+    0% {
+        opacity: 0; 
+    }
+    100% {
+        opacity: 1; 
+    }
+}
+
+
+span {
+    color: #ffcc00;
+}
+        .mensaje-error {
+    color: #ff3333; 
+    margin-top: 10px;
+}
+.estado-indicador {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    opacity: 0; 
+    animation: titilar 1s infinite alternate; 
+}
+ .boton-tareas {
+            background-color: #4CAF50; /* Color de fondo */
+            border: none;
+            color: white;
+            padding: 10px 20px; /* Tamaño más pequeño */
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 14px; /* Tamaño de texto más pequeño */
+            margin: 4px 2px;
+            cursor: pointer;
+            border-radius: 15px; /* Bordes más redondeados */
+            transition: background-color 0.3s ease;
+         margin: 10px; /* Espaciado uniforme */
+
+        }
+        .boton-tareas:hover {
+            background-color: #45a049; /* Color de fondo al pasar el mouse */
+        }
