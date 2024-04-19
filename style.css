@@ -1,99 +1,151 @@
-/* Estilos base */
 body {
-    background-color: #1a1a2e; /* Un fondo oscuro moderno */
-    color: #ffffff;
-    font-family: 'Roboto', sans-serif; /* Tipografía más moderna */
+    background-color: #222;
+    color: #fff;
+    font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
+}
+body .oculto {
+    display: none;
+}
+.verde {
+    color: green;
+}
+
+.btn-retirar {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #EA170A;
+    color: white;
+    text-align: center;
+    text-decoration: none;
+    border-radius: 15px;
+    font-weight: bold;
+}
+
+.btn-retirar:hover {
+    background-color: #0056b3;
+}
+
+
+
+
+.titulo {
+      font-family: 'Arial', sans-serif;
+      font-size: 48px;
+      font-weight: bold;
+      text-transform: uppercase;
+      position: relative;
+      margin-bottom: 20px;
+    }
+
+    .titulo .mayusculas {
+      color: #FFD700;
+    }
+
+    .titulo .minusculas {
+      color: #00FFFF;
+    }
+
+    .titulo:hover .mayusculas,
+    .titulo:hover .minusculas {
+      text-shadow: 0 0 10px #FFD700, 0 0 10px #00FFFF;
+    }
+
+.boton {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    margin: 5px;
+    cursor: pointer;
+    border-radius: 5px;
+    font-size: 10px;
+}
+
+.boton:hover {
+    background-color: #0056b3;
 }
 
 .oculto {
     display: none;
 }
 
-/* Títulos y textos */
-.titulo {
-    font-family: 'Roboto', sans-serif;
-    font-size: 24px; /* Más apropiado para dashboards */
-    font-weight: bold;
-    color: #e1e1e1; /* Color más suave */
-    margin-bottom: 20px;
-    text-transform: none; /* Quitamos el uppercase */
-}
 
-.titulo .mayusculas, .titulo .minusculas {
-    color: #ffbe0b; /* Un amarillo que resalta pero no agobia */
-}
-
-.titulo:hover .mayusculas, .titulo:hover .minusculas {
-    text-shadow: 0 0 8px #ffbe0b;
-}
-
-/* Botones y acciones */
-.btn-retirar, .boton, .boton-tareas {
-    padding: 12px 24px;
-    margin: 5px;
-    border-radius: 8px;
-    font-size: 16px;
-    cursor: pointer;
-    text-align: center;
-    text-decoration: none;
-    transition: background-color 0.2s ease;
-}
-
-.btn-retirar {
-    background-color: #0f3460; /* Azul oscuro para seriedad */
-    color: white;
-}
-
-.btn-retirar:hover {
-    background-color: #16213e; /* Un azul aún más oscuro al hover */
-}
-
-.boton, .boton-tareas {
-    background-color: #05dfd7; /* Un cian claro que da un toque tecnológico */
-    color: #1a1a2e; /* Contraste con el fondo oscuro */
-}
-
-.boton:hover, .boton-tareas:hover {
-    background-color: #03989e; /* Oscurecimiento al pasar el mouse */
-}
-
-/* Contenedores y secciones */
 .menu-desplegable {
-    background-color: #0f3460; /* Fondo oscuro para el menú */
-    color: #ffffff;
-    border: 1px solid #ccc;
-    padding: 10px;
-    list-style: none;
+    display: none;
     position: absolute;
     top: 100%;
     left: 0;
+    background-color: black; 
+    color: white;
+    border: 1px solid #ccc;
+    padding: 10px;
+    list-style: none;
+    margin: 0;
     z-index: 999;
 }
 
+
+
 .opcion-menu {
-    margin: 5px 0;
     cursor: pointer;
+    margin: 5px 0;
+}
+  
+
+
+.saldo-container span {
+    margin-left: 5px;
 }
 
-/* Estados y mensajes de error */
 .mensaje-error {
-    color: #e63946; /* Un rojo más visible */
+    color: #ff6262;
     margin-top: 10px;
 }
 
 .activo {
-    background-color: #4caf50; /* Verde estándar para 'activo' */
-    color: white;
+  background-color: green;
+  color: white;
 }
+
 
 .inactivo {
-    background-color: #f44336; /* Rojo estándar para 'inactivo' */
+    background-color: #dc3545;
+}
+#saldoETH {
+    font-size: 86px; 
+    text-align: center; 
+    margin-top: 30px; 
+    font-weight: bold; 
+    color: #fff; 
+}
+.activo .estado-indicador {
+    background-color: #00cc00; 
 }
 
+.inactivo .estado-indicador {
+    background-color: #ff3333; 
+}
+
+@keyframes titilar {
+    0% {
+        opacity: 0; 
+    }
+    100% {
+        opacity: 1; 
+    }
+}
+
+
+span {
+    color: #ffcc00;
+}
+        .mensaje-error {
+    color: #ff3333; 
+    margin-top: 10px;
+}
 .estado-indicador {
-    background-color: transparent;
     width: 10px;
     height: 10px;
     border-radius: 50%;
@@ -101,11 +153,23 @@ body {
     right: 10px;
     top: 50%;
     transform: translateY(-50%);
-    animation: titilar 1s infinite alternate;
+    opacity: 0; 
+    animation: titilar 1s infinite alternate; 
 }
-
-/* Keyframes para animación de indicador */
-@keyframes titilar {
-    0% { opacity: 0; }
-    100% { opacity: 1; }
-}
+ .boton-tareas {
+            background-color: #4CAF50; /* Color de fondo */
+            border: none;
+            color: white;
+            padding: 10px 20px; /* Tamaño más pequeño */
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 14px; /* Tamaño de texto más pequeño */
+            margin: 4px 2px;
+            cursor: pointer;
+            border-radius: 15px; /* Bordes más redondeados */
+            transition: background-color 0.3s ease;
+        }
+        .boton-tareas:hover {
+            background-color: #45a049; /* Color de fondo al pasar el mouse */
+        }
