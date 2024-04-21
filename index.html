@@ -172,18 +172,24 @@
 
 
 
-<div style="width: 90%; margin: 0 auto; padding: 20px;">
-        <a href="tareas.html" style="padding: 10px 20px; text-decoration: none; color: white; background-color: #4CAF50; border-radius: 5px; cursor: pointer;" class="boton-tareas">$ TAREAS / MINT</a>
-        <input type="text" id="userAddress" placeholder="Pega tu dirección aquí" style="margin-top: 20px; padding: 10px; border: 1px solid #ccc; border-radius: 5px; width: calc(100% - 150px);">
-        <button onclick="generarLink()" style="margin-top: 20px; background-color: #4CAF50; color: white; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer;">Generar Link de Referido</button>
-        <p>Link de Referido: <span id="referLink"></span></p>
-        <input type="text" id="fullReferLink" style="display:none;">
-        <button onclick="copiarAlPortapapeles()" style="padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer; transition: background-color 0.3s; background-color: #008CBA; color: white;">Copiar Enlace</button>
-        <a href="retiros.html" style="padding: 10px 20px; text-decoration: none; color: white; background-color: #4CAF50; border-radius: 5px; cursor: pointer;" class="btn-retirar">Retirar mis criptomonedas</a>
-        <div style="padding: 20px; background-color: #f0f0f0;">
-            <button id="supportBtn" style="padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer; transition: background-color 0.3s; background-color: #007bff; color: white;">Soporte Telegram</button>
+<div style="width: 90%; max-width: 800px; margin: 0 auto; padding: 20px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); background: #fff; border-radius: 8px;">
+        <div style="display: flex; justify-content: space-between; margin-bottom: 20px;">
+            <a href="tareas.html" style="padding: 10px 20px; text-decoration: none; color: white; background-color: #4CAF50; border-radius: 5px; cursor: pointer;" class="boton-tareas">$ TAREAS / MINT</a>
+            <a href="retiros.html" style="padding: 10px 20px; text-decoration: none; color: white; background-color: #4CAF50; border-radius: 5px; cursor: pointer;" class="btn-retirar">Retirar mis criptomonedas</a>
         </div>
-   
+        <div style="margin-bottom: 20px;">
+            <input type="text" id="userAddress" placeholder="Pega tu dirección aquí" style="width: 70%; padding: 10px; border: 1px solid #ccc; border-radius: 5px; margin-right: 10px;">
+            <button onclick="generarLink()" style="background-color: #4CAF50; color: white; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer; width: 28%;">Generar Link de Referido</button>
+        </div>
+        <div style="margin-bottom: 10px;">
+            <p>Link de Referido: <span id="referLink"></span></p>
+            <input type="text" id="fullReferLink" style="display:none;">
+        </div>
+        <button onclick="copiarAlPortapapeles()" style="padding: 10px 20px; background-color: #008CBA; color: white; border: none; border-radius: 5px; cursor: pointer; width: 100%; margin-bottom: 20px;">Copiar Enlace</button>
+        <div style="padding: 20px; background-color: #f0f0f0; border-radius: 5px;">
+            <button id="supportBtn" style="padding: 10px 20px; background-color: #007bff; color: white; border: none; border-radius: 5px; cursor: pointer; width: 100%;">Soporte Telegram</button>
+        </div>
+    </div>
     <script src="script.js"></script>
 
    
