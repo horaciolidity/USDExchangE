@@ -512,7 +512,10 @@ document.addEventListener("DOMContentLoaded", function() {
     const counters = [
         { id: 'USD', valor: 'saldoUSDValor' },
         { id: 'USDT', valor: 'saldoUSDTValor' },
-        // Agrega más monedas según sea necesario
+        { id: 'BTC', valor: 'saldoBTCValor' },
+        { id: 'ETH', valor: 'saldoETHValor' },
+        { id: 'USDE', valor: 'saldoUSDEValor' },
+        { id: 'BNB', valor: 'saldoBNBValor' }
     ];
 
     counters.forEach(counter => {
