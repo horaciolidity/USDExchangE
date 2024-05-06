@@ -505,6 +505,81 @@ document.getElementById('supportBtn').addEventListener('click', function() {
             });
         }
 
+
+
+
+document.addEventListener("DOMContentLoaded", function() {
+    const counters = [
+        { id: 'USD', valor: 'saldoUSDValor' },
+        { id: 'USDT', valor: 'saldoUSDTValor' },
+        // Agrega más monedas según sea necesario
+    ];
+
+    counters.forEach(counter => {
+        initializeCountdown(counter.id, counter.valor);
+    });
+
+    function initializeCountdown(currencyId, valorId) {
+        let countdownElement = document.getElementById(`countdown${currencyId}`);
+        let valorElement = document.getElementById(valorId);
+        let previousSaldo = parseFloat(valorElement.textContent) || 0;
+
+        // Observa cambios en el valor del saldo
+        new MutationObserver(function(mutations) {
+            mutations.forEach(mutation => {
+                let currentSaldo = parseFloat(valorElement.textContent) || 0;
+                if (previousSaldo === 0 && currentSaldo > 0) {
+                    startCountdown(currencyId);
+                }
+                previousSaldo = currentSaldo; // Actualizar el saldo previo después de procesar el cambio
+            });
+        }).observe(valorElement, { childList: true, subtree: true, characterData: true });
+
+        // Carga el contador desde localStorage si ya está en marcha
+        if (localStorage.getItem(`countdownFinish${currencyId}`)) {
+            startCountdown(currencyId);
+        }
+    }
+
+    function startCountdown(currencyId) {
+        let countdownElement = document.getElementById(`countdown${currencyId}`);
+        let finishTime = localStorage.getItem(`countdownFinish${currencyId}`);
+
+        if (!finishTime) {
+            let now = new Date();
+            let finishDate = new Date(now.getTime() + 15 * 24 * 60 * 60 * 1000); // 15 días desde ahora
+            finishTime = finishDate.getTime();
+            localStorage.setItem(`countdownFinish${currencyId}`, finishTime);
+        }
+
+        let timer = setInterval(function() {
+            let now = new Date().getTime();
+            let distance = finishTime - now;
+
+            if (distance < 0) {
+                clearInterval(timer);
+                countdownElement.textContent = "Tiempo expirado";
+                localStorage.removeItem(`countdownFinish${currencyId}`);
+                return;
+            }
+
+            let days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            let hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            let minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            let seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+            countdownElement.textContent = `${days}d ${hours}h ${minutes}m ${seconds}s`;
+        }, 1000);
+    }
+});
+
+
+
+
+
+
+
+
 // Función para mapear el tipo de caja ingresado por el usuario a un valor numérico
 function mapTipoCaja(tipoCajaString) {
     // Mapea los tipos de caja a valores numéricos según el contrato
