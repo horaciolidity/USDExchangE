@@ -23,6 +23,7 @@ body .oculto {
     font-weight: bold;
 }
 
+
 .banner {
     width: 100%;
     overflow: hidden;
@@ -31,9 +32,10 @@ body .oculto {
     padding: 10px 0;
     position: fixed;
     bottom: 0;
+    box-shadow: 0 -2px 5px rgba(0,0,0,0.5);
 }
 
-.ticker {
+.ticker-wrapper {
     display: flex;
     white-space: nowrap;
     animation: ticker 20s linear infinite;
@@ -41,17 +43,17 @@ body .oculto {
 
 .crypto-container {
     display: flex;
-    white-space: nowrap;
 }
 
 .crypto {
     display: flex;
     justify-content: space-between;
     margin-right: 50px;
+    padding: 0 10px;
 }
 
 .crypto div {
-    margin: 0 10px;
+    margin: 0 5px;
 }
 
 @keyframes ticker {
@@ -62,7 +64,6 @@ body .oculto {
         transform: translateX(-100%);
     }
 }
-
 
 .btn-retirar:hover {
     background-color: #0056b3;
