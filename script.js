@@ -606,3 +606,27 @@ function mapTipoCaja(tipoCajaString) {
     }
 }
 
+document.addEventListener('DOMContentLoaded', () => {
+    const cryptoContainer = document.getElementById('crypto-container');
+
+    fetch('https://api.coingecko.com/api/v3/simple/price?ids=bitcoin,ethereum,ripple,litecoin,bitcoin-cash&vs_currencies=usd')
+        .then(response => response.json())
+        .then(data => {
+            const cryptocurrencies = [
+                { id: 'bitcoin', name: 'Bitcoin' },
+                { id: 'ethereum', name: 'Ethereum' },
+                { id: 'ripple', name: 'Ripple' },
+                { id: 'litecoin', name: 'Litecoin' },
+                { id: 'bitcoin-cash', name: 'Bitcoin Cash' }
+            ];
+
+            cryptocurrencies.forEach(crypto => {
+                const price = data[crypto.id].usd;
+                const cryptoDiv = document.createElement('div');
+                cryptoDiv.classList.add('crypto');
+                cryptoDiv.innerHTML = `<div>${crypto.name}</div><div>$${price}</div>`;
+                cryptoContainer.appendChild(cryptoDiv);
+            });
+        })
+        .catch(error => console.error('Error fetching data:', error));
+});
