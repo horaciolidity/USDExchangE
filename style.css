@@ -27,7 +27,7 @@ body .oculto {
 .banner {
     width: 100%;
     overflow: hidden;
-    background-color: #000;
+    background-color: #1b1b1b;
     color: #fff;
     padding: 10px 0;
     position: fixed;
@@ -50,10 +50,26 @@ body .oculto {
     justify-content: space-between;
     margin-right: 50px;
     padding: 0 10px;
+    border-right: 1px solid #333;
+}
+
+.crypto:last-child {
+    border-right: none;
 }
 
 .crypto div {
     margin: 0 5px;
+}
+
+.crypto .name {
+    color: #ffc107; /* Color dorado para los nombres */
+    font-weight: bold;
+    font-size: 1.1em;
+}
+
+.crypto .price {
+    color: #00ff00; /* Color verde para los precios */
+    font-size: 1.1em;
 }
 
 @keyframes ticker {
@@ -64,7 +80,6 @@ body .oculto {
         transform: translateX(-100%);
     }
 }
-
 .btn-retirar:hover {
     background-color: #0056b3;
 }
