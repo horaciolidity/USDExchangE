@@ -23,6 +23,16 @@ body .oculto {
     font-weight: bold;
 }
 
+ .crypto {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+        }
+        .crypto div {
+            margin: 5px;
+        }
+
+
 .btn-retirar:hover {
     background-color: #0056b3;
 }
