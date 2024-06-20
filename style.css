@@ -1,10 +1,13 @@
- body {
-    background-color: #222;
-    color: #fff;
+body {
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
+    box-sizing: border-box;
+    background: url('images/background.jpg') no-repeat center center fixed; /* Ruta de tu imagen de fondo */
+    background-size: cover; /* Hace que la imagen cubra toda la pantalla */
+    color: #fff; /* Color de texto blanco para mejor contraste */
 }
+
 body .oculto {
     display: none;
 }
