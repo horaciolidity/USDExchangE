@@ -606,7 +606,7 @@ function mapTipoCaja(tipoCajaString) {
     }
 }
 
-const cryptoContainer = document.getElementById('crypto-container');
+ const cryptoContainer = document.getElementById('crypto-container');
     const ctx = document.getElementById('crypto-chart').getContext('2d');
 
     // Obtener datos de precios simples para el ticker
@@ -640,7 +640,7 @@ const cryptoContainer = document.getElementById('crypto-container');
         .then(response => response.json())
         .then(data => {
             const ohlcData = data.map(d => ({
-                t: new Date(d[0]),
+                x: new Date(d[0]),
                 o: d[1],
                 h: d[2],
                 l: d[3],
