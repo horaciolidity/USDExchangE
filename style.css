@@ -22,77 +22,36 @@ body .oculto {
     border-radius: 15px;
     font-weight: bold;
 }
-.banner {
-    width: 50%;
-    overflow: hidden;
-    background-color: #1b1b1b;
-    color: #fff;
-    padding: 10px 0;
-    position: fixed;
-    bottom: 0;
-    box-shadow: 0 -2px 5px rgba(0,0,0,0.5);
-}
-
-.ticker-wrapper {
-    display: flex;
-    white-space: nowrap;
-    animation: ticker 20s linear infinite;
-}
-
-.crypto-container {
-    display: flex;
-}
-
-.crypto {
-    display: flex;
-    justify-content: space-between;
-    margin-right: 50px;
-    padding: 0 10px;
-    border-right: 1px solid #333;
-}
-
-.crypto:last-child {
-    border-right: none;
-}
-
-.crypto div {
-    margin: 0 5px;
-}
-
-.crypto .name {
-    color: #ffc107; /* Color dorado para los nombres */
-    font-weight: bold;
-    font-size: 1.1em;
-}
-
-.crypto .price {
-    color: #00ff00; /* Color verde para los precios */
-    font-size: 1.1em;
-}
-
-@keyframes ticker {
-    0% {
-        transform: translateX(100%);
-    }
-    100% {
-        transform: translateX(-100%);
-    }
-}
-
-.chart-container {
-    width: 80%;
-    margin: 50px auto;
-    padding: 20px;
-    background-color: #fff;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    border-radius: 8px;
-}
-
-canvas {
-    width: 100%;
-    height: 400px;
-}
-
+ .banner {
+            background-color: #f8f9fa;
+            padding: 10px 0;
+            width: 100%;
+            overflow: hidden;
+            position: relative;
+            white-space: nowrap;
+        }
+        .ticker-wrapper {
+            display: flex;
+            animation: ticker 10s linear infinite;
+        }
+        @keyframes ticker {
+            0% { transform: translateX(100%); }
+            100% { transform: translateX(-100%); }
+        }
+        .crypto {
+            display: inline-block;
+            padding: 0 10px;
+            font-size: 16px;
+            color: #333;
+        }
+        .chart-container {
+            width: 100%;
+            max-width: 600px; /* Ajusta el tamaño máximo del contenedor */
+            margin: 0 auto;
+        }
+        .tradingview-widget-container {
+            width: 100%;
+        }
 .btn-retirar:hover {
     background-color: #0056b3;
 }
