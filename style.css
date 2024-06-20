@@ -23,7 +23,7 @@ body .oculto {
     font-weight: bold;
 }
 
- .banner {
+.banner {
             width: 100%;
             overflow: hidden;
             background-color: #1b1b1b;
@@ -71,33 +71,38 @@ body .oculto {
                 transform: translateX(-100%);
             }
         }
-        .chart-container {
-            width: 80%;
+        .chart-card {
+            width: 90%;
+            max-width: 400px;
             margin: 50px auto;
             padding: 20px;
             background-color: #fff;
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
             border-radius: 8px;
         }
+        .tradingview-widget-container {
+            width: 100%;
+        }
+        .tradingview-widget-container iframe {
+            width: 100% !important;
+            height: 300px !important; /* Ajusta la altura del gráfico */
+        }
         @media (max-width: 768px) {
-            .chart-container {
-                width: 90%;
+            .chart-card {
+                width: 100%;
                 margin: 20px auto;
             }
-            .tradingview-widget-container {
-                width: 100%;
-            }
             .tradingview-widget-container iframe {
-                height: 300px; /* Reduce the height for smaller screens */
+                height: 250px !important; /* Reduce la altura para pantallas más pequeñas */
             }
         }
         @media (max-width: 480px) {
-            .chart-container {
+            .chart-card {
                 width: 100%;
                 margin: 10px auto;
             }
             .tradingview-widget-container iframe {
-                height: 250px; /* Further reduce the height for very small screens */
+                height: 200px !important; /* Reduce aún más la altura para pantallas muy pequeñas */
             }
         }
 .btn-retirar:hover {
