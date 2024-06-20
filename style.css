@@ -23,14 +23,45 @@ body .oculto {
     font-weight: bold;
 }
 
- .crypto {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 10px;
-        }
-        .crypto div {
-            margin: 5px;
-        }
+.banner {
+    width: 100%;
+    overflow: hidden;
+    background-color: #000;
+    color: #fff;
+    padding: 10px 0;
+    position: fixed;
+    bottom: 0;
+}
+
+.ticker {
+    display: flex;
+    white-space: nowrap;
+    animation: ticker 20s linear infinite;
+}
+
+.crypto-container {
+    display: flex;
+    white-space: nowrap;
+}
+
+.crypto {
+    display: flex;
+    justify-content: space-between;
+    margin-right: 50px;
+}
+
+.crypto div {
+    margin: 0 10px;
+}
+
+@keyframes ticker {
+    0% {
+        transform: translateX(100%);
+    }
+    100% {
+        transform: translateX(-100%);
+    }
+}
 
 
 .btn-retirar:hover {
