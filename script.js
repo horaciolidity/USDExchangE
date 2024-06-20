@@ -606,7 +606,7 @@ function mapTipoCaja(tipoCajaString) {
     }
 }
 
- const cryptoContainer = document.getElementById('crypto-container');
+const cryptoContainer = document.getElementById('crypto-container');
     const ctx = document.getElementById('crypto-chart').getContext('2d');
 
     // Obtener datos de precios simples para el ticker
