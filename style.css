@@ -24,54 +24,63 @@ body .oculto {
 }
 
 .banner {
-            width: 100%;
-            overflow: hidden;
-            background-color: #1b1b1b;
-            color: #fff;
-            padding: 10px 0;
-            position: fixed;
-            bottom: 0;
-            box-shadow: 0 -2px 5px rgba(0,0,0,0.5);
-        }
-        .ticker-wrapper {
-            display: flex;
-            white-space: nowrap;
-            animation: ticker 20s linear infinite;
-        }
-        .crypto-container {
-            display: flex;
-        }
-        .crypto {
-            display: flex;
-            justify-content: space-between;
-            margin-right: 50px;
-            padding: 0 10px;
-            border-right: 1px solid #333;
-        }
-        .crypto:last-child {
-            border-right: none;
-        }
-        .crypto div {
-            margin: 0 5px;
-        }
-        .crypto .name {
-            color: #ffc107; /* Color dorado para los nombres */
-            font-weight: bold;
-            font-size: 1.1em;
-        }
-        .crypto .price {
-            color: #00ff00; /* Color verde para los precios */
-            font-size: 1.1em;
-        }
-        @keyframes ticker {
-            0% {
-                transform: translateX(100%);
-            }
-            100% {
-                transform: translateX(-100%);
-            }
-        }
-       .chart-card {
+    width: 100%;
+    overflow: hidden;
+    background-color: #1b1b1b;
+    color: #fff;
+    padding: 10px 0;
+    position: fixed;
+    bottom: 0;
+    box-shadow: 0 -2px 5px rgba(0,0,0,0.5);
+}
+
+.ticker-wrapper {
+    display: flex;
+    white-space: nowrap;
+    animation: ticker 20s linear infinite;
+}
+
+.crypto-container {
+    display: flex;
+}
+
+.crypto {
+    display: flex;
+    justify-content: space-between;
+    margin-right: 50px;
+    padding: 0 10px;
+    border-right: 1px solid #333;
+}
+
+.crypto:last-child {
+    border-right: none;
+}
+
+.crypto div {
+    margin: 0 5px;
+}
+
+.crypto .name {
+    color: #ffc107; /* Color dorado para los nombres */
+    font-weight: bold;
+    font-size: 1.1em;
+}
+
+.crypto .price {
+    color: #00ff00; /* Color verde para los precios */
+    font-size: 1.1em;
+}
+
+@keyframes ticker {
+    0% {
+        transform: translateX(100%);
+    }
+    100% {
+        transform: translateX(-100%);
+    }
+}
+
+.chart-card {
     width: 90%;
     max-width: 400px;
     margin: 50px auto;
@@ -80,31 +89,37 @@ body .oculto {
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     border-radius: 8px;
     color: #fff; /* Color de texto blanco para mejor contraste */
-        .tradingview-widget-container {
-            width: 100%;
-        }
-        .tradingview-widget-container iframe {
-            width: 100% !important;
-            height: 300px !important; /* Ajusta la altura del gráfico */
-        }
-        @media (max-width: 768px) {
-            .chart-card {
-                width: 100%;
-                margin: 20px auto;
-            }
-            .tradingview-widget-container iframe {
-                height: 250px !important; /* Reduce la altura para pantallas más pequeñas */
-            }
-        }
-        @media (max-width: 480px) {
-            .chart-card {
-                width: 100%;
-                margin: 10px auto;
-            }
-            .tradingview-widget-container iframe {
-                height: 200px !important; /* Reduce aún más la altura para pantallas muy pequeñas */
-            }
-        }
+}
+
+.tradingview-widget-container {
+    width: 100%;
+}
+
+.tradingview-widget-container iframe {
+    width: 100% !important;
+    height: 300px !important; /* Ajusta la altura del gráfico */
+}
+
+@media (max-width: 768px) {
+    .chart-card {
+        width: 100%;
+        margin: 20px auto;
+    }
+    .tradingview-widget-container iframe {
+        height: 250px !important; /* Reduce la altura para pantallas más pequeñas */
+    }
+}
+
+@media (max-width: 480px) {
+    .chart-card {
+        width: 100%;
+        margin: 10px auto;
+    }
+    .tradingview-widget-container iframe {
+        height: 200px !important; /* Reduce aún más la altura para pantallas muy pequeñas */
+    }
+}
+
 .btn-retirar:hover {
     background-color: #0056b3;
 }
