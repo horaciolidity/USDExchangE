@@ -71,15 +71,15 @@ body .oculto {
                 transform: translateX(-100%);
             }
         }
-        .chart-card {
-            width: 90%;
-            max-width: 400px;
-            margin: 50px auto;
-            padding: 20px;
-            background-color: #fff;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-            border-radius: 8px;
-        }
+       .chart-card {
+    width: 90%;
+    max-width: 400px;
+    margin: 50px auto;
+    padding: 20px;
+    background-color: rgba(0, 0, 0, 0.7); /* Fondo oscuro y semitransparente */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    color: #fff; /* Color de texto blanco para mejor contraste */
         .tradingview-widget-container {
             width: 100%;
         }
