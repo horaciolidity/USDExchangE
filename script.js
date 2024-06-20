@@ -606,7 +606,6 @@ function mapTipoCaja(tipoCajaString) {
     }
 }
 
-document.addEventListener('DOMContentLoaded', () => {
     const cryptoContainer = document.getElementById('crypto-container');
 
     fetch('https://api.coingecko.com/api/v3/simple/price?ids=bitcoin,ethereum,ripple,litecoin,bitcoin-cash&vs_currencies=usd')
@@ -629,4 +628,3 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         })
         .catch(error => console.error('Error fetching data:', error));
-});
