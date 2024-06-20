@@ -22,7 +22,7 @@ body .oculto {
     border-radius: 15px;
     font-weight: bold;
 }
- .banner {
+.banner {
             background-color: #f8f9fa;
             padding: 10px 0;
             width: 100%;
@@ -46,11 +46,16 @@ body .oculto {
         }
         .chart-container {
             width: 100%;
-            max-width: 600px; /* Ajusta el tamaño máximo del contenedor */
-            margin: 0 auto;
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
         }
         .tradingview-widget-container {
-            width: 100%;
+            width: 30%; /* Ajusta el ancho del gráfico al 30% del contenedor */
+            min-width: 300px; /* Establece un ancho mínimo para el gráfico */
+        }
+        .tradingview-widget-container iframe {
+            width: 100% !important;
         }
 .btn-retirar:hover {
     background-color: #0056b3;
