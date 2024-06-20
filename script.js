@@ -606,9 +606,10 @@ function mapTipoCaja(tipoCajaString) {
     }
 }
 
-const cryptoContainer = document.getElementById('crypto-container');
+ const cryptoContainer = document.getElementById('crypto-container');
     const ctx = document.getElementById('crypto-chart').getContext('2d');
 
+    // Obtener datos de precios simples para el ticker
     fetch('https://api.coingecko.com/api/v3/simple/price?ids=bitcoin,ethereum,ripple,litecoin,bitcoin-cash&vs_currencies=usd')
         .then(response => response.json())
         .then(data => {
@@ -620,14 +621,8 @@ const cryptoContainer = document.getElementById('crypto-container');
                 { id: 'bitcoin-cash', name: 'Bitcoin Cash' }
             ];
 
-            const labels = [];
-            const prices = [];
-
             cryptocurrencies.forEach(crypto => {
                 const price = data[crypto.id].usd;
-                labels.push(crypto.name);
-                prices.push(price);
-
                 const cryptoDiv = document.createElement('div');
                 cryptoDiv.classList.add('crypto');
                 cryptoDiv.innerHTML = `<div class="name">${crypto.name}</div><div class="price">$${price}</div>`;
@@ -637,29 +632,46 @@ const cryptoContainer = document.getElementById('crypto-container');
             // Clone the content to make the ticker continuous
             const clone = cryptoContainer.cloneNode(true);
             cryptoContainer.parentNode.appendChild(clone);
+        })
+        .catch(error => console.error('Error fetching data:', error));
 
-            // Create chart
+    // Obtener datos históricos para el gráfico de velas japonesas
+    fetch('https://api.coingecko.com/api/v3/coins/bitcoin/ohlc?vs_currency=usd&days=7')
+        .then(response => response.json())
+        .then(data => {
+            const ohlcData = data.map(d => ({
+                t: new Date(d[0]),
+                o: d[1],
+                h: d[2],
+                l: d[3],
+                c: d[4]
+            }));
+
+            // Crear gráfico de velas japonesas
             new Chart(ctx, {
-                type: 'line',
+                type: 'candlestick',
                 data: {
-                    labels: labels,
                     datasets: [{
-                        label: 'Precio en USD',
-                        data: prices,
+                        label: 'BTC/USD',
+                        data: ohlcData,
                         borderColor: 'rgba(75, 192, 192, 1)',
                         backgroundColor: 'rgba(75, 192, 192, 0.2)',
-                        borderWidth: 1,
-                        fill: true,
                     }]
                 },
                 options: {
                     responsive: true,
                     scales: {
                         x: {
-                            beginAtZero: true,
+                            type: 'time',
+                            time: {
+                                unit: 'day'
+                            },
+                            ticks: {
+                                source: 'data'
+                            }
                         },
                         y: {
-                            beginAtZero: true,
+                            beginAtZero: false
                         }
                     }
                 }
