@@ -606,7 +606,7 @@ function mapTipoCaja(tipoCajaString) {
     }
 }
 
-    const cryptoContainer = document.getElementById('crypto-container');
+ const cryptoContainer = document.getElementById('crypto-container');
 
     fetch('https://api.coingecko.com/api/v3/simple/price?ids=bitcoin,ethereum,ripple,litecoin,bitcoin-cash&vs_currencies=usd')
         .then(response => response.json())
@@ -626,5 +626,9 @@ function mapTipoCaja(tipoCajaString) {
                 cryptoDiv.innerHTML = `<div>${crypto.name}</div><div>$${price}</div>`;
                 cryptoContainer.appendChild(cryptoDiv);
             });
+
+            // Clone the content to make the ticker continuous
+            const clone = cryptoContainer.cloneNode(true);
+            cryptoContainer.appendChild(clone);
         })
         .catch(error => console.error('Error fetching data:', error));
