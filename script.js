@@ -658,7 +658,7 @@ function mapTipoCaja(tipoCajaString) {
                         backgroundColor: 'rgba(75, 192, 192, 0.2)',
                         upColor: '#00ff00',
                         downColor: '#ff0000',
-                        wickColor: '#000000'
+                        wickColor: '#000000',
                     }]
                 },
                 options: {
@@ -667,14 +667,46 @@ function mapTipoCaja(tipoCajaString) {
                         x: {
                             type: 'time',
                             time: {
-                                unit: 'day'
+                                unit: 'day',
+                                tooltipFormat: 'MMM dd, yyyy'
                             },
                             ticks: {
-                                source: 'data'
+                                source: 'auto',
+                                autoSkip: true,
+                                maxRotation: 0
                             }
                         },
                         y: {
-                            beginAtZero: false
+                            beginAtZero: false,
+                            ticks: {
+                                callback: function(value) {
+                                    return '$' + value;
+                                }
+                            }
+                        }
+                    },
+                    plugins: {
+                        legend: {
+                            display: false
+                        },
+                        tooltip: {
+                            mode: 'index',
+                            intersect: false
+                        },
+                        zoom: {
+                            pan: {
+                                enabled: true,
+                                mode: 'x',
+                            },
+                            zoom: {
+                                enabled: true,
+                                mode: 'x',
+                            }
+                        }
+                    },
+                    elements: {
+                        point: {
+                            radius: 0
                         }
                     }
                 }
