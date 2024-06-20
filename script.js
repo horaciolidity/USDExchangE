@@ -656,6 +656,9 @@ function mapTipoCaja(tipoCajaString) {
                         data: ohlcData,
                         borderColor: 'rgba(75, 192, 192, 1)',
                         backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                        upColor: '#00ff00',
+                        downColor: '#ff0000',
+                        wickColor: '#000000'
                     }]
                 },
                 options: {
