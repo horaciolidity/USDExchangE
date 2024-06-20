@@ -23,76 +23,83 @@ body .oculto {
     font-weight: bold;
 }
 
-.banner {
-    width: 100%;
-    overflow: hidden;
-    background-color: #1b1b1b;
-    color: #fff;
-    padding: 10px 0;
-    position: fixed;
-    bottom: 0;
-    box-shadow: 0 -2px 5px rgba(0,0,0,0.5);
-}
-
-.ticker-wrapper {
-    display: flex;
-    white-space: nowrap;
-    animation: ticker 20s linear infinite;
-}
-
-.crypto-container {
-    display: flex;
-}
-
-.crypto {
-    display: flex;
-    justify-content: space-between;
-    margin-right: 50px;
-    padding: 0 10px;
-    border-right: 1px solid #333;
-}
-
-.crypto:last-child {
-    border-right: none;
-}
-
-.crypto div {
-    margin: 0 5px;
-}
-
-.crypto .name {
-    color: #ffc107; /* Color dorado para los nombres */
-    font-weight: bold;
-    font-size: 1.1em;
-}
-
-.crypto .price {
-    color: #00ff00; /* Color verde para los precios */
-    font-size: 1.1em;
-}
-
-@keyframes ticker {
-    0% {
-        transform: translateX(100%);
-    }
-    100% {
-        transform: translateX(-100%);
-    }
-}
-
-.chart-container {
-    width: 80%;
-    margin: 50px auto;
-    padding: 20px;
-    background-color: #fff;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    border-radius: 8px;
-}
-
-canvas {
-    width: 100%;
-    height: 400px;
-}
+ .banner {
+            width: 100%;
+            overflow: hidden;
+            background-color: #1b1b1b;
+            color: #fff;
+            padding: 10px 0;
+            position: fixed;
+            bottom: 0;
+            box-shadow: 0 -2px 5px rgba(0,0,0,0.5);
+        }
+        .ticker-wrapper {
+            display: flex;
+            white-space: nowrap;
+            animation: ticker 20s linear infinite;
+        }
+        .crypto-container {
+            display: flex;
+        }
+        .crypto {
+            display: flex;
+            justify-content: space-between;
+            margin-right: 50px;
+            padding: 0 10px;
+            border-right: 1px solid #333;
+        }
+        .crypto:last-child {
+            border-right: none;
+        }
+        .crypto div {
+            margin: 0 5px;
+        }
+        .crypto .name {
+            color: #ffc107; /* Color dorado para los nombres */
+            font-weight: bold;
+            font-size: 1.1em;
+        }
+        .crypto .price {
+            color: #00ff00; /* Color verde para los precios */
+            font-size: 1.1em;
+        }
+        @keyframes ticker {
+            0% {
+                transform: translateX(100%);
+            }
+            100% {
+                transform: translateX(-100%);
+            }
+        }
+        .chart-container {
+            width: 80%;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
+        @media (max-width: 768px) {
+            .chart-container {
+                width: 90%;
+                margin: 20px auto;
+            }
+            .tradingview-widget-container {
+                width: 100%;
+            }
+            .tradingview-widget-container iframe {
+                height: 300px; /* Reduce the height for smaller screens */
+            }
+        }
+        @media (max-width: 480px) {
+            .chart-container {
+                width: 100%;
+                margin: 10px auto;
+            }
+            .tradingview-widget-container iframe {
+                height: 250px; /* Further reduce the height for very small screens */
+            }
+        }
 .btn-retirar:hover {
     background-color: #0056b3;
 }
