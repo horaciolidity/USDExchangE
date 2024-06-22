@@ -20,10 +20,7 @@
     
 <script src="https://cdn.jsdelivr.net/npm/web3@1.5.2/dist/web3.min.js"></script>
       <link rel="stylesheet" href="styles.css">
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chartjs-chart-financial"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns"></script>
-    <script src="https://cdn.jsdelivr.net/npm/date-fns@2.16.1"></script>
+   
 
  
 
@@ -50,51 +47,68 @@
   <div class="saldo-container oculto" id="saldoContainerUSD" style=" flex-direction: column; align-items: center; text-align: center;">
     <div style="display: flex; justify-content: center; width: 100%;">
 
-    <button class="boton" id="depositarUSD" onclick="abrirDeposito()">Depositar</button>
-      <button class="boton" id="comprarUSDT" onclick="toggleMenu('menuDesplegable')">Comprar</button>
-    <div id="menuDesplegable" style="display: none; position: absolute; background: linear-gradient(to right, #4e54c8, #8f94fb); box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); border: 1px solid #ccc; padding: 10px; width: 200px; z-index: 99; border-radius: 10px;">
-        <label for="tipoCajaCompra" style="color: #fff;">Seleccionar Cryptocurrency</label>
-        <select id="tipoCajaCompra" style="width: 100%; border-radius: 5px;">
-            <option value="0">USD</option>
-            <option value="1">USDT</option>
-            <option value="2">ETH</option>
-            <option value="3">BTC</option>
-            <option value="4">USDE</option>
-        </select>
-
-        <label for="cantidadUSDCompra" style="color: #fff; margin-top: 10px;">Ingrese la cantidad en USD:</label>
-        <input type="number" id="cantidadUSDCompra" placeholder="Cantidad en USD" style="width: calc(100% - 20px); margin-bottom: 10px; border-radius: 5px; padding: 5px; box-sizing: border-box;" />
-        <button onclick="onClickComprarConBNB()" style="width: 100%; border-radius: 5px; padding: 8px; box-sizing: border-box; background-color: #fff; color: #4e54c8; cursor: pointer;">Comprar con BNB</button>
-    </div>
-</div>
-
-        
-
-   <div class="contenedor-botones" style="display: flex; justify-content: center; margin-top: 3px; position: relative; align-items: center; text-align: center;">
-    <div class="boton" id="transferirUSDT" onclick="handleTransferirClick()">Transferir
-        <div class="menu-desplegable" id="menuTransferir">
-            <div class="opcion-menu" onclick="transferirToken('ERC20')">Transferir ERC20</div>
-            <div class="opcion-menu" onclick="transferirUsuario('USDE')">Transferir a usuario de USDE (0% comisión)</div>
+   <div class="dashboard">
+        <h2>Generar Orden</h2>
+        <div class="orden">
+            <label for="tipoOrden">Tipo de Orden:</label>
+            <select id="tipoOrden">
+                <option value="market">Market</option>
+                <option value="limit">Limit</option>
+                <option value="stop-limit">Stop-Limit</option>
+            </select>
         </div>
-    </div>
-
-
-
-
-
-
-       <div class="boton" id="btnInversiones" onclick="toggleInversionesMenu()" style="position: relative; color: white;">
-    INVERSIONES
-    <div class="menu-desplegable" id="menuInversiones" style="display: none; position: absolute; top: 100%; left: 0; background-color: #333; border: 1px solid #ccc; padding: 10px; list-style: none; margin: 0;">
-        <div class="opcion-menu" onclick="comprarBtc('BTC')">Comprar BTC >> APY 45,1 %</div>
-        <div class="opcion-menu" onclick="comprarETH('ETH')">Comprar ETH >> APY 67,6 %</div>
-        <div class="opcion-menu" onclick="comprarUSDE('ETH')">Comprar USDE >> APY 87,2 %</div>
-    </div>
-</div>
-
-<div class="boton" id="btnRewards" onclick="reclamarRecompensa()">REWARDS 
-            <div class="menu-desplegable" id="menuRewards" style="display: none; position: absolute; top: 100%; left: 0;background-color: #ffffff; border: 1px solid #ccc; padding: 10px; list-style: none; margin: 0;">
-               
+        <div class="orden">
+            <label for="crypto">Cryptocurrency:</label>
+            <select id="crypto">
+                <option value="BTC">BTC</option>
+                <option value="ETH">ETH</option>
+                <option value="USDT">USDT</option>
+                <option value="USDE">USDE</option>
+            </select>
+        </div>
+        <div class="orden">
+            <label for="cantidad">Cantidad:</label>
+            <input type="number" id="cantidad" placeholder="Cantidad" />
+        </div>
+        <div class="orden">
+            <label for="precio">Precio:</label>
+            <input type="number" id="precio" placeholder="Precio" />
+        </div>
+        <div>
+            <button class="boton" id="crearOrden" onclick="crearOrden()">Crear Orden</button>
+        </div>
+        <div>
+            <button class="boton" id="depositarUSD" onclick="abrirDeposito()">Depositar</button>
+            <button class="boton" id="comprarUSDT" onclick="toggleMenu('menuDesplegable')">Comprar</button>
+            <div id="menuDesplegable" class="menu-desplegable">
+                <label for="tipoCajaCompra">Seleccionar Cryptocurrency</label>
+                <select id="tipoCajaCompra">
+                    <option value="0">USD</option>
+                    <option value="1">USDT</option>
+                    <option value="2">ETH</option>
+                    <option value="3">BTC</option>
+                    <option value="4">USDE</option>
+                </select>
+                <label for="cantidadUSDCompra">Ingrese la cantidad en USD:</label>
+                <input type="number" id="cantidadUSDCompra" placeholder="Cantidad en USD"/>
+                <button onclick="onClickComprarConBNB()" class="boton">Comprar con BNB</button>
+            </div>
+        </div>
+        <div class="contenedor-botones">
+            <div class="boton" id="transferirUSDT" onclick="toggleMenu('menuTransferir')">Transferir</div>
+            <div id="menuTransferir" class="menu-desplegable">
+                <div class="opcion-menu" onclick="transferirToken('ERC20')">Transferir ERC20</div>
+                <div class="opcion-menu" onclick="transferirUsuario('USDE')">Transferir a usuario de USDE (0% comisión)</div>
+            </div>
+            <div class="boton" id="btnInversiones" onclick="toggleMenu('menuInversiones')">INVERSIONES</div>
+            <div id="menuInversiones" class="menu-desplegable">
+                <div class="opcion-menu" onclick="comprarBtc('BTC')">Comprar BTC >> APY 45,1 %</div>
+                <div class="opcion-menu" onclick="comprarETH('ETH')">Comprar ETH >> APY 67,6 %</div>
+                <div class="opcion-menu" onclick="comprarUSDE('ETH')">Comprar USDE >> APY 87,2 %</div>
+            </div>
+            <div class="boton" id="btnRewards" onclick="toggleMenu('menuRewards')">REWARDS</div>
+            <div id="menuRewards" class="menu-desplegable">
+                <!-- Aquí puedes agregar opciones de recompensas -->
             </div>
         </div>
     </div>
