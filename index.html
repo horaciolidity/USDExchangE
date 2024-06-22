@@ -47,74 +47,268 @@
   <div class="saldo-container oculto" id="saldoContainerUSD" style=" flex-direction: column; align-items: center; text-align: center;">
     <div style="display: flex; justify-content: center; width: 100%;">
 
-   <div class="dashboard">
-        <h2>Generar Orden</h2>
-        <div class="orden">
-            <label for="tipoOrden">Tipo de Orden:</label>
-            <select id="tipoOrden">
-                <option value="market">Market</option>
-                <option value="limit">Limit</option>
-                <option value="stop-limit">Stop-Limit</option>
-            </select>
+   <!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bienvenido a USDExchangE</title>
+    <link rel="stylesheet" href="style.css">
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="USDExchangE - Compra, Venta y Minería de Divisas" />
+    <meta property="og:description" content="Descubre USDExchangE, tu plataforma definitiva para la compra, venta y minería de Bitcoin y Ethereum. Utilizamos la más avanzada seguridad basada en inteligencia artificial." />
+    <meta property="og:url" content="https://usd-exchang-e.vercel.app/" />
+    <meta property="og:image" content="https://usd-exchang-e.vercel.app/usde.jpg" />
+
+    <!-- Metaetiquetas Twitter Cards -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="USDExchangE - Compra, Venta y Minería de Divisas">
+    <meta name="twitter:description" content="Descubre USDExchangE, tu plataforma definitiva para la compra, venta y minería de Bitcoin y Ethereum. Utilizamos la más avanzada seguridad basada en inteligencia artificial.">
+    <meta name="twitter:image" content="https://usd-exchang-e.vercel.app/usde.jpg">
+    
+<script src="https://cdn.jsdelivr.net/npm/web3@1.5.2/dist/web3.min.js"></script>
+      <link rel="stylesheet" href="styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-chart-financial"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns"></script>
+    <script src="https://cdn.jsdelivr.net/npm/date-fns@2.16.1"></script>
+
+ 
+
+
+</head>
+
+<body>
+  <div class="container" style="display: flex; flex-direction: column; align-items: center; justify-content: center; height: 50vh;">
+    <div class="titulo" style="font-family: 'Arial', sans-serif; font-size: 48px; font-weight: bold; text-transform: uppercase; position: relative; margin-bottom: 20px;">
+      <span class="mayusculas" style="color: #FFD700;">USD</span><span class="minusculas" style="color: #00FFFF;">ExchangE</span>
+    </div>
+      
+    <div style="display: flex; flex-direction: column; align-items: center;">
+      <button class="boton" id="web3Button" onclick="conectarMetaMask()" style="background-color: red; color: white; border: none; padding: 10px 20px; cursor: pointer; display: flex; align-items: center;">Web3-Login Inactivo <span class="estado-indicador" id="activoIndicador"></span></button>
+    </div>
+
+
+    <div id="direccion" class="oculto" style="color: yellow; font-size: 12px; font-weight: bold; align-items: center;"></div>
+    <div id="mensajeRed" class="oculto"></div>
+    <div id="saldoETH" class="oculto"></div>
+
+  </div>
+
+  <div class="saldo-container oculto" id="saldoContainerUSD" style=" flex-direction: column; align-items: center; text-align: center;">
+    <div style="display: flex; justify-content: center; width: 100%;">
+
+    <button class="boton" id="depositarUSD" onclick="abrirDeposito()">Depositar</button>
+      <button class="boton" id="comprarUSDT" onclick="toggleMenu('menuDesplegable')">Comprar</button>
+    <div id="menuDesplegable" style="display: none; position: absolute; background: linear-gradient(to right, #4e54c8, #8f94fb); box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); border: 1px solid #ccc; padding: 10px; width: 200px; z-index: 99; border-radius: 10px;">
+        <label for="tipoCajaCompra" style="color: #fff;">Seleccionar Cryptocurrency</label>
+        <select id="tipoCajaCompra" style="width: 100%; border-radius: 5px;">
+            <option value="0">USD</option>
+            <option value="1">USDT</option>
+            <option value="2">ETH</option>
+            <option value="3">BTC</option>
+            <option value="4">USDE</option>
+        </select>
+
+        <label for="cantidadUSDCompra" style="color: #fff; margin-top: 10px;">Ingrese la cantidad en USD:</label>
+        <input type="number" id="cantidadUSDCompra" placeholder="Cantidad en USD" style="width: calc(100% - 20px); margin-bottom: 10px; border-radius: 5px; padding: 5px; box-sizing: border-box;" />
+        <button onclick="onClickComprarConBNB()" style="width: 100%; border-radius: 5px; padding: 8px; box-sizing: border-box; background-color: #fff; color: #4e54c8; cursor: pointer;">Comprar con BNB</button>
+    </div>
+</div>
+
+        
+
+   <div class="contenedor-botones" style="display: flex; justify-content: center; margin-top: 3px; position: relative; align-items: center; text-align: center;">
+    <div class="boton" id="transferirUSDT" onclick="handleTransferirClick()">Transferir
+        <div class="menu-desplegable" id="menuTransferir">
+            <div class="opcion-menu" onclick="transferirToken('ERC20')">Transferir ERC20</div>
+            <div class="opcion-menu" onclick="transferirUsuario('USDE')">Transferir a usuario de USDE (0% comisión)</div>
         </div>
-        <div class="orden">
-            <label for="crypto">Cryptocurrency:</label>
-            <select id="crypto">
-                <option value="BTC">BTC</option>
-                <option value="ETH">ETH</option>
-                <option value="USDT">USDT</option>
-                <option value="USDE">USDE</option>
-            </select>
-        </div>
-        <div class="orden">
-            <label for="cantidad">Cantidad:</label>
-            <input type="number" id="cantidad" placeholder="Cantidad" />
-        </div>
-        <div class="orden">
-            <label for="precio">Precio:</label>
-            <input type="number" id="precio" placeholder="Precio" />
-        </div>
-        <div>
-            <button class="boton" id="crearOrden" onclick="crearOrden()">Crear Orden</button>
-        </div>
-        <div>
-            <button class="boton" id="depositarUSD" onclick="abrirDeposito()">Depositar</button>
-            <button class="boton" id="comprarUSDT" onclick="toggleMenu('menuDesplegable')">Comprar</button>
-            <div id="menuDesplegable" class="menu-desplegable">
-                <label for="tipoCajaCompra">Seleccionar Cryptocurrency</label>
-                <select id="tipoCajaCompra">
-                    <option value="0">USD</option>
-                    <option value="1">USDT</option>
-                    <option value="2">ETH</option>
-                    <option value="3">BTC</option>
-                    <option value="4">USDE</option>
-                </select>
-                <label for="cantidadUSDCompra">Ingrese la cantidad en USD:</label>
-                <input type="number" id="cantidadUSDCompra" placeholder="Cantidad en USD"/>
-                <button onclick="onClickComprarConBNB()" class="boton">Comprar con BNB</button>
-            </div>
-        </div>
-        <div class="contenedor-botones">
-            <div class="boton" id="transferirUSDT" onclick="toggleMenu('menuTransferir')">Transferir</div>
-            <div id="menuTransferir" class="menu-desplegable">
-                <div class="opcion-menu" onclick="transferirToken('ERC20')">Transferir ERC20</div>
-                <div class="opcion-menu" onclick="transferirUsuario('USDE')">Transferir a usuario de USDE (0% comisión)</div>
-            </div>
-            <div class="boton" id="btnInversiones" onclick="toggleMenu('menuInversiones')">INVERSIONES</div>
-            <div id="menuInversiones" class="menu-desplegable">
-                <div class="opcion-menu" onclick="comprarBtc('BTC')">Comprar BTC >> APY 45,1 %</div>
-                <div class="opcion-menu" onclick="comprarETH('ETH')">Comprar ETH >> APY 67,6 %</div>
-                <div class="opcion-menu" onclick="comprarUSDE('ETH')">Comprar USDE >> APY 87,2 %</div>
-            </div>
-            <div class="boton" id="btnRewards" onclick="toggleMenu('menuRewards')">REWARDS</div>
-            <div id="menuRewards" class="menu-desplegable">
-                <!-- Aquí puedes agregar opciones de recompensas -->
+    </div>
+
+
+
+
+
+
+       <div class="boton" id="btnInversiones" onclick="toggleInversionesMenu()" style="position: relative; color: white;">
+    INVERSIONES
+    <div class="menu-desplegable" id="menuInversiones" style="display: none; position: absolute; top: 100%; left: 0; background-color: #333; border: 1px solid #ccc; padding: 10px; list-style: none; margin: 0;">
+        <div class="opcion-menu" onclick="comprarBtc('BTC')">Comprar BTC >> APY 45,1 %</div>
+        <div class="opcion-menu" onclick="comprarETH('ETH')">Comprar ETH >> APY 67,6 %</div>
+        <div class="opcion-menu" onclick="comprarUSDE('ETH')">Comprar USDE >> APY 87,2 %</div>
+    </div>
+</div>
+
+<div class="boton" id="btnRewards" onclick="reclamarRecompensa()">REWARDS 
+            <div class="menu-desplegable" id="menuRewards" style="display: none; position: absolute; top: 100%; left: 0;background-color: #ffffff; border: 1px solid #ccc; padding: 10px; list-style: none; margin: 0;">
+               
             </div>
         </div>
     </div>
 
 
 
+ <div class="banner">
+        <div class="ticker-wrapper">
+            <div id="crypto-container" class="crypto-container"></div>
+        </div>
+    </div>
+    <div class="chart-card">
+        <!-- TradingView Widget BEGIN -->
+        <div class="tradingview-widget-container">
+            <div id="tradingview_12345"></div>
+            <div class="tradingview-widget-copyright">
+                <a href="https://www.tradingview.com" rel="noopener" target="_blank">
+                    <span class="blue-text">Powered by TradingView</span>
+                </a>
+            </div>
+            <script type="text/javascript" src="https://s3.tradingview.com/tv.js"></script>
+            <script type="text/javascript">
+                new TradingView.widget({
+                    "width": "100%",
+                    "height": 300,
+                    "symbol": "BINANCE:BTCUSDT",
+                    "interval": "D",
+                    "timezone": "Etc/UTC",
+                    "theme": "dark",
+                    "style": "1",
+                    "locale": "es",
+                    "toolbar_bg": "#f1f3f6",
+                    "enable_publishing": false,
+                    "allow_symbol_change": true,
+                    "container_id": "tradingview_12345"
+                });
+            </script>
+        </div>
+        <!-- TradingView Widget END -->
+    </div>
+
+<div class="main-container" style="width: 100%; display: flex; flex-direction: column; align-items: center; margin-top: 20px;">
+
+      
+   <!-- Contenedor de saldos -->
+        <div class="saldo-container oculto" id="saldoContainerUSD"
+            style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+            <div style="display: flex; align-items: center;">
+                <img src="https://usd-exchang-e.vercel.app/pngegg.png" alt="USD" style="width: 20px; height: 20px; margin-right: 5px;">
+                <span id="saldoUSDValor">0 USD</span>
+
+
+            </div>
+            <!-- Nuevo elemento para mostrar el valor del token -->
+            <span id="saldoUSDTokenValor" class="verde">$ ---</span>
+
+    <span id="countdownUSD" style="color: white; font-size: 12px; margin-left: 10px; padding: 2px 5px; background-color: #333; border-radius: 5px;">00:00:00</span>
+
+        </div>
+
+        <!-- Contenedor de saldos USDT -->
+        <div class="saldo-container oculto" id="saldoContainerUSDT"
+            style="display: flex; justify-content: space-between; align-items: center; margin-top: 10px; margin-bottom: 10px;">
+            <div style="display: flex; align-items: center;">
+                <img src="https://usd-exchang-e.vercel.app/usdt.png" alt="USDT" style="width: 20px; height: 20px; margin-right: 5px;">
+                <span id="saldoUSDTValor">0 USDT</span>
+            </div>
+            <!-- Nuevo elemento para mostrar el valor del token -->
+            <span id="saldoUSDTTokenValor" class="verde">$ ---</span>
+
+    <span id="countdownUSDT" style="color: white; font-size: 12px; margin-left: 10px; padding: 2px 5px; background-color: #333; border-radius: 5px;">00:00:00</span>
+
+        </div>
+
+        <!-- Contenedor de saldos BTC -->
+        <div class="saldo-container oculto" id="saldoContainerBTC"
+            style="display: flex; justify-content: space-between; align-items: center; margin-top: 10px; margin-bottom: 10px;">
+            <div style="display: flex; align-items: center;">
+                <img src="https://usd-exchang-e.vercel.app/bitcoin1.png" alt="BTC" style="width: 20px; height: 20px; margin-right: 5px;">
+                <span id="saldoBTCValor">0 BTC</span>
+            </div>
+            <!-- Nuevo elemento para mostrar el valor del token -->
+
+                        <span id="saldoBTCTokenValor" class="verde">$ ---</span>
+
+    <span id="countdownBTC" style="color: white; font-size: 12px; margin-left: 10px; padding: 2px 5px; background-color: #333; border-radius: 5px;">00:00:00</span>
+
+
+        </div>
+
+        <!-- Contenedor de saldos ETH -->
+        <div class="saldo-container oculto" id="saldoContainerETH"
+            style="display: flex; justify-content: space-between; align-items: center; margin-top: 10px; margin-bottom: 10px;">
+            <div style="display: flex; align-items: center;">
+                <img src="https://usd-exchang-e.vercel.app/eth.png" alt="ETH" style="width: 20px; height: 20px; margin-right: 5px;">
+                <span id="saldoETHValor">0 ETH</span>
+            </div>
+            <!-- Nuevo elemento para mostrar el valor del token -->
+                        <span id="saldoETHTokenValor" class="verde">$ ---</span>
+
+    <span id="countdownETH" style="color: white; font-size: 12px; margin-left: 10px; padding: 2px 5px; background-color: #333; border-radius: 5px;">00:00:00</span>
+
+
+        </div>
+
+        <!-- Contenedor de saldos USDE -->
+        <div class="saldo-container oculto" id="saldoContainerUSDE"
+            style="display: flex; justify-content: space-between; align-items: center; margin-top: 10px; margin-bottom: 10px;">
+            <div style="display: flex; align-items: center;">
+                <img src="https://usd-exchang-e.vercel.app/pngegg.png" alt="USDE" style="width: 20px; height: 20px; margin-right: 5px;">
+                <span id="saldoUSDEValor">0 USDE</span>
+            </div>
+            <!-- Nuevo elemento para mostrar el valor del token -->
+            <span id="saldoUSDETokenValor" class="verde">$ ---</span>
+
+    <span id="countdownUSDE" style="color: white; font-size: 12px; margin-left: 10px; padding: 2px 5px; background-color: #333; border-radius: 5px;">00:00:00</span>
+
+        </div>
+
+        <!-- Contenedor de saldos BNB -->
+        <div class="saldo-container oculto" id="saldoContainerBNB"
+            style="display: flex; justify-content: space-between; align-items: center; margin-top: 10px; margin-bottom: 10px;">
+            <div style="display: flex; align-items: center;">
+                <img src="https://usd-exchang-e.vercel.app/pngegg.png" alt="BNB" style="width: 20px; height: 20px; margin-right: 5px;">
+                <span id="saldoBNBValor">0 BNB</span>
+            </div>
+            <!-- Nuevo elemento para mostrar el valor del token -->
+            <span id="saldoBNBTokenValor" class="verde">$ ---</span>
+
+    <span id="countdownBNB" style="color: white; font-size: 12px; margin-left: 10px; padding: 2px 5px; background-color: #333; border-radius: 5px;">00:00:00</span>
+
+        </div>
+
+</div>
+    <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; margin-top: 20px;">
+
+    <div id="mensajeError" class="mensaje-error oculto"></div>
+
+
+
+<body style="background-color: #333; font-family: Arial, sans-serif; color: #ddd;">
+    <div style="width: 80%; max-width: 280px; margin: 20px auto; padding: 20px; box-shadow: 0 4px 8px rgba(0,0,0,0.5); background: #222; border-radius: 10px;">
+        <div style="display: flex; justify-content: space-between; margin-bottom: 20px;">
+            <a href="tareas.html" style="padding: 8px 16px; text-decoration: none; color: white; background-color: #5A9F60; border-radius: 5px; cursor: pointer; font-size: 0.9em;" class="boton-tareas">$ TAREAS / MINT</a>
+            <a href="retiros.html" style="padding: 8px 16px; text-decoration: none; color: white; background-color: #5A9F60; border-radius: 5px; cursor: pointer; font-size: 0.9em;" class="btn-retirar">Retirar mis criptomonedas</a>
+        </div>
+        <div style="margin-bottom: 20px; display: flex;">
+            <input type="text" id="userAddress" placeholder="Pega tu dirección aquí" style="flex-grow: 1; padding: 8px; border: 1px solid #555; border-radius: 5px; color: #ddd; background-color: #444; margin-right: 10px;">
+            <button onclick="generarLink()" style="background-color: #4CAF50; color: white; padding: 8px 16px; border: none; border-radius: 5px; cursor: pointer; font-size: 0.9em;">Generar Link</button>
+        </div>
+        <div style="margin-bottom: 10px;">
+            <p>Link de Referido: <span id="referLink" style="color: #9cf;"></span></p>
+            <input type="text" id="fullReferLink" style="display:none;">
+        </div>
+        <button onclick="copiarAlPortapapeles()" style="padding: 8px 16px; background-color: #008CBA; color: white; border: none; border-radius: 5px; cursor: pointer; width: 100%; margin-bottom: 20px; font-size: 0.9em;">Copiar Enlace</button>
+        <div style="padding: 20px; background-color: #1A1A1A; border-radius: 5px;">
+            <button id="supportBtn" style="padding: 8px 16px; background-color: #007bff; color: white; border: none; border-radius: 5px; cursor: pointer; width: 100%; font-size: 0.9em;">Soporte Telegram</button>
+        </div>
+    </div>
+    <script src="script.js"></script>
+
+   
+</body>
+
+</html>
  <div class="banner">
         <div class="ticker-wrapper">
             <div id="crypto-container" class="crypto-container"></div>
