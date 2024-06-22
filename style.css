@@ -275,16 +275,18 @@ span {
         }
 
 
- .video-popup {
+.video-popup {
             display: none;
             position: fixed;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
             background: rgba(0, 0, 0, 0.8);
-            padding: 20px;
+            padding: 10px;
             border-radius: 10px;
             z-index: 1000;
+            max-width: 400px; /* Ajustar el tamaño máximo del popup */
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
         }
         .video-popup video {
             width: 100%;
