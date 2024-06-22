@@ -275,5 +275,30 @@ span {
         }
 
 
-
+ .video-popup {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(0, 0, 0, 0.8);
+            padding: 20px;
+            border-radius: 10px;
+            z-index: 1000;
+        }
+        .video-popup video {
+            width: 100%;
+            border-radius: 10px;
+        }
+        .video-popup .close-btn {
+            background: red;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            cursor: pointer;
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            border-radius: 5px;
+        }
 
