@@ -725,3 +725,63 @@ function mapTipoCaja(tipoCajaString) {
             });
         })
         .catch(error => console.error('Error fetching data:', error));
+
+
+ async function fetchTokenData() {
+            const contractAddress = document.getElementById('contractAddress').value;
+
+            if (!contractAddress) {
+                alert("Please enter a contract address.");
+                return;
+            }
+
+            try {
+                // API call to get token data (example with CoinGecko, adjust based on your API choice)
+                const response = await axios.get(`https://api.coingecko.com/api/v3/coins/ethereum/contract/${contractAddress}`);
+                const tokenData = response.data.market_data;
+
+                // Prepare data for the chart
+                const labels = tokenData.sparkline_7d.price.map((_, index) => index);
+                const prices = tokenData.sparkline_7d.price;
+
+                // Create chart
+                const ctx = document.getElementById('tokenChart').getContext('2d');
+                new Chart(ctx, {
+                    type: 'line',
+                    data: {
+                        labels: labels,
+                        datasets: [{
+                            label: 'Price in USD',
+                            data: prices,
+                            borderColor: 'rgba(75, 192, 192, 1)',
+                            borderWidth: 1,
+                            fill: false
+                        }]
+                    },
+                    options: {
+                        scales: {
+                            x: {
+                                display: true,
+                                title: {
+                                    display: true,
+                                    text: 'Time'
+                                }
+                            },
+                            y: {
+                                display: true,
+                                title: {
+                                    display: true,
+                                    text: 'Price (USD)'
+                                }
+                            }
+                        }
+                    }
+                });
+
+            } catch (error) {
+                console.error("Error fetching token data: ", error);
+                alert("Failed to fetch token data. Please check the contract address and try again.");
+            }
+        }
+
+
