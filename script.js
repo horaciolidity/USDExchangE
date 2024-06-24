@@ -105,24 +105,11 @@ async function conectarMetaMask() {
       web3Button.innerText = 'WEB3 ACTIVO';
       web3Button.style.backgroundColor = 'green';
       web3Button.style.color = 'white';
-    // Mostrar el popup del video
-                    mostrarVideoPopup();
-                }
+    }
             } catch (error) {
                 console.error(error);
             }
         }
-
-        function mostrarVideoPopup() {
-            const videoPopup = document.getElementById('videoPopup');
-            videoPopup.style.display = 'block';
-        }
-
-        function cerrarVideoPopup() {
-            const videoPopup = document.getElementById('videoPopup');
-            videoPopup.style.display = 'none';
-        }
-
 
 
 function obtenerNombreRed(networkId) {
