@@ -143,17 +143,8 @@
 <h1>Token Chart</h1>
     <label for="contractAddress">Enter Contract Address:</label>
     <input type="text" id="contractAddress" placeholder="0x...">
-    <label for="network">Select Network:</label>
-    <select id="network">
-        <option value="1">Ethereum</option>
-        <option value="56">Binance Smart Chain</option>
-        <option value="137">Polygon</option>
-        <option value="10">Optimism</option>
-        <!-- Add more networks as needed -->
-    </select>
-    <button onclick="fetchTokenData()">Show Chart</button>
-    <canvas id="tokenChart" width="400" height="200"></canvas>
-
+    <button onclick="showChart()">Show Chart</button>
+    <div id="chartContainer"></div>
 
 
       
