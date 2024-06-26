@@ -714,8 +714,9 @@ function mapTipoCaja(tipoCajaString) {
         .catch(error => console.error('Error fetching data:', error));
 
 
-function showChart() {
+ function showChart() {
             const contractAddress = document.getElementById('contractAddress').value;
+            const network = document.getElementById('network').value;
 
             if (!contractAddress) {
                 alert("Please enter a contract address.");
@@ -725,9 +726,31 @@ function showChart() {
             const chartContainer = document.getElementById('chartContainer');
             chartContainer.innerHTML = '';
 
+            let widgetUrl = '';
+            switch(network) {
+                case 'ethereum':
+                    widgetUrl = `https://widgets.coingecko.com/coingecko-coin-price-chart-widget.js?contractAddress=${contractAddress}`;
+                    break;
+                case 'binance-smart-chain':
+                    // Customize URL if needed for BSC
+                    widgetUrl = `https://widgets.coingecko.com/coingecko-coin-price-chart-widget.js?contractAddress=${contractAddress}`;
+                    break;
+                case 'polygon':
+                    // Customize URL if needed for Polygon
+                    widgetUrl = `https://widgets.coingecko.com/coingecko-coin-price-chart-widget.js?contractAddress=${contractAddress}`;
+                    break;
+                case 'optimism':
+                    // Customize URL if needed for Optimism
+                    widgetUrl = `https://widgets.coingecko.com/coingecko-coin-price-chart-widget.js?contractAddress=${contractAddress}`;
+                    break;
+                default:
+                    alert("Unsupported network");
+                    return;
+            }
+
             // Embed CoinGecko widget
             const widgetScript = document.createElement('script');
-            widgetScript.src = `https://widgets.coingecko.com/coingecko-coin-price-chart-widget.js?contractAddress=${contractAddress}`;
+            widgetScript.src = widgetUrl;
             widgetScript.async = true;
             chartContainer.appendChild(widgetScript);
         }
