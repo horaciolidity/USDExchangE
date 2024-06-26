@@ -716,6 +716,7 @@ function mapTipoCaja(tipoCajaString) {
 
  async function fetchTokenData() {
             const contractAddress = document.getElementById('contractAddress').value;
+            const network = document.getElementById('network').value;
 
             if (!contractAddress) {
                 alert("Please enter a contract address.");
@@ -723,13 +724,14 @@ function mapTipoCaja(tipoCajaString) {
             }
 
             try {
-                // API call to get token data (example with CoinGecko, adjust based on your API choice)
-                const response = await axios.get(`https://api.coingecko.com/api/v3/coins/ethereum/contract/${contractAddress}`);
-                const tokenData = response.data.market_data;
+                // API call to get token data from Covalent
+                const apiKey = 'YOUR_COVALENT_API_KEY'; // Replace with your Covalent API key
+                const response = await axios.get(`https://api.covalenthq.com/v1/${network}/address/${contractAddress}/balances_v2/?key=${apiKey}`);
+                const tokenData = response.data.data.items[0];
 
                 // Prepare data for the chart
-                const labels = tokenData.sparkline_7d.price.map((_, index) => index);
-                const prices = tokenData.sparkline_7d.price;
+                const labels = tokenData.holdings.map((holding, index) => new Date(holding.timestamp).toLocaleDateString());
+                const prices = tokenData.holdings.map(holding => holding.close);
 
                 // Create chart
                 const ctx = document.getElementById('tokenChart').getContext('2d');
@@ -770,5 +772,3 @@ function mapTipoCaja(tipoCajaString) {
                 alert("Failed to fetch token data. Please check the contract address and try again.");
             }
         }
-
-
