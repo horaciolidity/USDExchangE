@@ -3,117 +3,28 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Buscador de Contratos</title>
+    <title>Integración con PancakeSwap</title>
     <style>
+        /* Estilos personalizados si es necesario */
         body {
             font-family: Arial, sans-serif;
             background-color: #f0f0f0;
             margin: 0;
             padding: 0;
         }
-
-        .container {
-            width: 80%;
-            margin: 50px auto;
-            background-color: #fff;
-            padding: 20px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            border-radius: 8px;
-        }
-
-        h1, h2 {
-            text-align: center;
-            color: #333;
-        }
-
-        input[type="text"] {
-            width: calc(100% - 22px);
-            padding: 10px;
-            margin: 10px 0;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-        }
-
-        button {
-            width: 100%;
-            padding: 10px;
-            background-color: #007bff;
-            border: none;
-            color: #fff;
-            font-size: 16px;
-            border-radius: 4px;
-            cursor: pointer;
-        }
-
-        button:hover {
-            background-color: #0056b3;
-        }
-
-        .hidden {
-            display: none;
-        }
-
-        #myChart {
-            width: 100%;
-            height: 400px;
-            margin-top: 20px;
-        }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>Buscador de Contratos</h1>
-        <input type="text" id="contractAddress" placeholder="Ingrese la dirección del contrato">
-        <button onclick="buscarContrato()">Buscar</button>
-        <div id="contractDetails" class="hidden">
-            <h2>Detalles del Contrato</h2>
-            <pre id="details"></pre>
-        </div>
-        <canvas id="myChart" class="hidden"></canvas>
+        <h1>Widget de PancakeSwap</h1>
+        <!-- Aquí colocarás el código del widget de PancakeSwap -->
+        <!-- Ejemplo básico: -->
+        <iframe src="https://pancakeswap.finance/widget/token/0x0E09FaBB73Bd3Ade0a17ECC321fD13a19e81cE82" 
+                width="100%" height="600" 
+                frameBorder="0" 
+                scrolling="no" 
+                style="overflow:hidden;">
+        </iframe>
     </div>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script>
-        async function buscarContrato() {
-            const address = document.getElementById('contractAddress').value;
-            if (!address) {
-                alert('Por favor, ingrese una dirección de contrato.');
-                return;
-            }
-
-            // Ocultar elementos
-            document.getElementById('contractDetails').classList.add('hidden');
-            document.getElementById('myChart').classList.add('hidden');
-
-            // Mostrar detalles del contrato (simulación de datos)
-            const detalles = `Detalles del contrato en la dirección: ${address}\n\nSimulación de datos...`;
-            document.getElementById('details').innerText = detalles;
-            document.getElementById('contractDetails').classList.remove('hidden');
-
-            // Mostrar gráfico (simulación de datos)
-            const ctx = document.getElementById('myChart').getContext('2d');
-            const myChart = new Chart(ctx, {
-                type: 'line',
-                data: {
-                    labels: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio'],
-                    datasets: [{
-                        label: 'Simulación de Datos',
-                        data: [12, 19, 3, 5, 2, 3, 7],
-                        borderColor: 'rgba(75, 192, 192, 1)',
-                        borderWidth: 1
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    scales: {
-                        y: {
-                            beginAtZero: true
-                        }
-                    }
-                }
-            });
-
-            document.getElementById('myChart').classList.remove('hidden');
-        }
-    </script>
 </body>
 </html>
