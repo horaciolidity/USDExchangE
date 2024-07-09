@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Explorador de Contratos con PancakeSwap</title>
+    <title>Explorador de Contratos</title>
     <style>
         /* Estilos personalizados */
         body {
@@ -44,20 +44,23 @@
         button:hover {
             background-color: #0056b3;
         }
-        iframe {
+        #chartContainer {
             width: 100%;
-            height: 600px;
-            border: none;
+            height: 400px;
             margin-top: 20px;
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>Explorador de Contratos con PancakeSwap</h1>
+        <h1>Explorador de Contratos</h1>
         <input type="text" id="contractAddress" placeholder="Ingrese la dirección del contrato">
         <button onclick="buscarContrato()">Buscar</button>
-        <iframe id="pancakeWidget" src="" frameborder="0"></iframe>
+        <div id="chartContainer"></div>
+        <div id="contractDetails" style="display:none;">
+            <h2>Detalles del Contrato</h2>
+            <pre id="details"></pre>
+        </div>
     </div>
 
     <script>
@@ -68,10 +71,41 @@
                 return;
             }
 
-            // Actualizar el src del iframe con la URL específica del explorador de contrato y swap de PancakeSwap
-            const pancakeWidget = document.getElementById('pancakeWidget');
-            pancakeWidget.src = `https://pancakeswap.finance/address/${address}swap`;
+            // Simulación de datos de gráfico (sustituir con datos reales)
+            const data = {
+                labels: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio'],
+                datasets: [{
+                    label: 'Precio del Token',
+                    data: [50, 60, 55, 70, 65, 80],
+                    backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                    borderColor: 'rgba(75, 192, 192, 1)',
+                    borderWidth: 1
+                }]
+            };
+
+            // Actualizar el gráfico usando QuickChart
+            const chartContainer = document.getElementById('chartContainer');
+            chartContainer.innerHTML = ''; // Limpiar el contenedor anterior
+            const chart = new Chart(chartContainer, {
+                type: 'line',
+                data: data,
+                options: {
+                    responsive: true,
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    }
+                }
+            });
+
+            // Mostrar detalles del contrato (simulado)
+            const detalles = `Dirección del Contrato: ${address}\nNombre del Contrato: MiToken`;
+            document.getElementById('details').innerText = detalles;
+            document.getElementById('contractDetails').style.display = 'block';
         }
     </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </body>
 </html>
