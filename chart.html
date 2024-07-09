@@ -68,9 +68,9 @@
                 return;
             }
 
-            // Actualizar el src del iframe con la URL del widget de PancakeSwap para la dirección del contrato
+            // Actualizar el src del iframe con la URL específica del explorador de contrato y swap de PancakeSwap
             const pancakeWidget = document.getElementById('pancakeWidget');
-            pancakeWidget.src = `https://pancakeswap.finance/widget/token/${address}`;
+            pancakeWidget.src = `https://pancakeswap.finance/address/${address}#swap`;
         }
     </script>
 </body>
