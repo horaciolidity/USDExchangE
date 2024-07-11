@@ -19,6 +19,7 @@ body .oculto {
 .cardq-container {
   display: flex;
   gap: 20px;
+  justify-content: center;
 }
 
 .cardq {
@@ -28,8 +29,15 @@ body .oculto {
   padding: 20px;
   text-align: center;
   width: 200px;
-}
+  height: 250px;
+  transition: transform 0.3s ease;
 
+}
+.card:hover {
+  transform: scale(0.95); /* Efecto de escala al pasar el mouse */
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  cursor: pointer;
+}
 .plan-name {
   font-size: 1.5em;
   color: #333;
@@ -55,6 +63,7 @@ body .oculto {
 .invest-button:hover {
   background: linear-gradient(to right, #2575fc, #6a11cb);
 }
+
 
 .btn-retirar {
     display: inline-block;
