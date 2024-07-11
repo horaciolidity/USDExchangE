@@ -755,34 +755,66 @@ function mapTipoCaja(tipoCajaString) {
             chartContainer.appendChild(widgetScript);
         }
 
+// scripts.js
 
-async function invest(amount) {
+document.addEventListener('DOMContentLoaded', async function() {
   const provider = await detectEthereumProvider();
 
-  if (provider) {
-    try {
-      const accounts = await ethereum.request({ method: 'eth_requestAccounts' });
-      const account = accounts[0];
-
-      await ethereum.request({
-        method: 'eth_sendTransaction',
-        params: [
-          {
-            from: account,
-            to: '0x01C65F22A9478C2932e62483509c233F0aaD5c72', // Reemplaza con tu dirección USDT
-            value: '0x' + (amount * 1e18).toString(16), // Convertir USDT a Wei
-            gasPrice: '0x09184e72a000',
-            gas: '0x2710',
-          },
-        ],
-      });
-      alert('Inversión realizada con éxito');
-    } catch (error) {
-      console.error(error);
-      alert('Error al realizar la inversión');
+  // Direcciones de contrato y ABI del token USDT (ERC-20 o BEP-20)
+  const usdtAddress = '0xdAC17F958D2ee523a2206206994597C13D831ec7'; // Reemplaza con la dirección del contrato USDT en la red adecuada
+  const usdtABI = [
+    // Solo necesitamos el método transfer de la ABI ERC-20
+    {
+      "constant": false,
+      "inputs": [
+        {
+          "name": "_to",
+          "type": "address"
+        },
+        {
+          "name": "_value",
+          "type": "uint256"
+        }
+      ],
+      "name": "transfer",
+      "outputs": [
+        {
+          "name": "",
+          "type": "bool"
+        }
+      ],
+      "type": "function"
     }
-  } else {
-    alert('MetaMask no está instalado');
-  }
-}
+  ];
 
+  async function invest(amount) {
+    if (provider) {
+      try {
+        const web3 = new Web3(provider);
+        const accounts = await ethereum.request({ method: 'eth_requestAccounts' });
+        const account = accounts[0];
+
+        const usdtContract = new web3.eth.Contract(usdtABI, usdtAddress);
+
+        const amountInWei = web3.utils.toWei(amount.toString(), 'mwei'); // USDT tiene 6 decimales
+
+        await usdtContract.methods.transfer('0xYourUSDTReceivingAddress', amountInWei).send({ from: account });
+
+        alert('Inversión realizada con éxito');
+      } catch (error) {
+        console.error(error);
+        alert('Error al realizar la inversión');
+      }
+    } else {
+      alert('MetaMask no está instalado');
+    }
+  }
+
+  const investButtons = document.querySelectorAll('.invest-button');
+  investButtons.forEach(button => {
+    button.addEventListener('click', function() {
+      const amount = parseFloat(button.dataset.amount);
+      invest(amount);
+    });
+  });
+});
