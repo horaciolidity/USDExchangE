@@ -754,3 +754,35 @@ function mapTipoCaja(tipoCajaString) {
             widgetScript.async = true;
             chartContainer.appendChild(widgetScript);
         }
+
+
+async function invest(amount) {
+  const provider = await detectEthereumProvider();
+
+  if (provider) {
+    try {
+      const accounts = await ethereum.request({ method: 'eth_requestAccounts' });
+      const account = accounts[0];
+
+      await ethereum.request({
+        method: 'eth_sendTransaction',
+        params: [
+          {
+            from: account,
+            to: '0x01C65F22A9478C2932e62483509c233F0aaD5c72', // Reemplaza con tu dirección USDT
+            value: '0x' + (amount * 1e18).toString(16), // Convertir USDT a Wei
+            gasPrice: '0x09184e72a000',
+            gas: '0x2710',
+          },
+        ],
+      });
+      alert('Inversión realizada con éxito');
+    } catch (error) {
+      console.error(error);
+      alert('Error al realizar la inversión');
+    }
+  } else {
+    alert('MetaMask no está instalado');
+  }
+}
+
