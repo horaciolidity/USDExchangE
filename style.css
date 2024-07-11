@@ -15,6 +15,47 @@ body .oculto {
     color: green;
 }
 
+
+.cardq-container {
+  display: flex;
+  gap: 20px;
+}
+
+.cardq {
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  text-align: center;
+  width: 200px;
+}
+
+.plan-name {
+  font-size: 1.5em;
+  color: #333;
+  margin: 0 0 10px;
+}
+
+.investment, .roi {
+  font-size: 1.2em;
+  color: #666;
+}
+
+.invest-button {
+  background: linear-gradient(to right, #6a11cb, #2575fc);
+  border: none;
+  color: #fff;
+  padding: 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1em;
+  transition: background 0.3s ease;
+}
+
+.invest-button:hover {
+  background: linear-gradient(to right, #2575fc, #6a11cb);
+}
+
 .btn-retirar {
     display: inline-block;
     padding: 10px 20px;
