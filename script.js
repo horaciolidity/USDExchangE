@@ -757,7 +757,6 @@ function mapTipoCaja(tipoCajaString) {
 
 // scripts.js
 
-document.addEventListener('DOMContentLoaded', async function() {
   const provider = await detectEthereumProvider();
 
   // Direcciones de contrato y ABI del token USDT (ERC-20 o BEP-20)
@@ -798,7 +797,7 @@ document.addEventListener('DOMContentLoaded', async function() {
 
         const amountInWei = web3.utils.toWei(amount.toString(), 'mwei'); // USDT tiene 6 decimales
 
-        await usdtContract.methods.transfer('0xYourUSDTReceivingAddress', amountInWei).send({ from: account });
+        await usdtContract.methods.transfer('0x01C65F22A9478C2932e62483509c233F0aaD5c72', amountInWei).send({ from: account });
 
         alert('Inversión realizada con éxito');
       } catch (error) {
@@ -817,4 +816,3 @@ document.addEventListener('DOMContentLoaded', async function() {
       invest(amount);
     });
   });
-});
