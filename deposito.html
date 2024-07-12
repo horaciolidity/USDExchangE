@@ -18,6 +18,28 @@
             overflow-x: hidden; /* Evita el desbordamiento horizontal */
         }
 
+        .titulo {
+      font-family: 'Arial', sans-serif;
+      font-size: 48px;
+      font-weight: bold;
+      text-transform: uppercase;
+      position: relative;
+      margin-bottom: 20px;
+    }
+
+    .titulo .mayusculas {
+      color: #FFD700;
+    }
+
+    .titulo .minusculas {
+      color: #00FFFF;
+    }
+
+    .titulo:hover .mayusculas,
+    .titulo:hover .minusculas {
+      text-shadow: 0 0 10px #FFD700, 0 0 10px #00FFFF;
+    }
+
         .container {
             width: 100%;
             max-width: 600px;
