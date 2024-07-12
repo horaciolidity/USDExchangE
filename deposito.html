@@ -284,10 +284,11 @@ function enviarDatos() {
 }
 
 function mostrarMensaje(mensaje) {
-    var mensajeFlotante = document.getElementById("mensaje-copiado");
-    mensajeFlotante.textContent = mensaje;
-    mensajeFlotante.style.display = "inline";
+    var mensajeExito = document.getElementById("mensaje-exito");
+    mensajeExito.textContent = mensaje;
+    mensajeExito.style.display = "block";
 }
+
 
 function mostrarError(mensaje) {
     var mensajeFlotante = document.getElementById("mensaje-copiado");
