@@ -144,25 +144,29 @@
         <!-- TradingView Widget END -->
     </div>
 
-<div class="main-container" style="width: 100%; display: flex; flex-direction: column; align-items: center; margin-top: 20px;">
-
-<h1>Token Chart</h1>
-    <label for="contractAddress">Enter Contract Address:</label>
-    <input type="text" id="contractAddress" placeholder="0x...">
-    <label for="network">Select Network:</label>
-    <select id="network">
-        <option value="ethereum">Ethereum</option>
-        <option value="binance-smart-chain">Binance Smart Chain</option>
-        <option value="polygon">Polygon</option>
-        <option value="optimism">Optimism</option>
-        <!-- Add more networks as needed -->
-    </select>
-    <button onclick="showChart()">Show Chart</button>
-    <div id="chartContainer"></div>
-
-      <div class="card">
-<h2>Balance</h2>
-        <form>    
+ <div class="contenedor-inversion">
+        <div class="tarjeta-inversion">
+            <h2>Plan 1</h2>
+            <p>Valor: 60 USDT</p>
+            <p>Retorno Diario: 1%</p>
+            <p class="nota">Los retornos de los depósitos en inversión de liquid pool pueden demorar hasta 72 hs en procesarse</p>
+            <button class="boton-compra">Comprar Plan 1</button>
+        </div>
+        <div class="tarjeta-inversion">
+            <h2>Plan 2</h2>
+            <p>Valor: 120 USDT</p>
+            <p>Retorno Diario: 1.1%</p>
+            <p class="nota">Los retornos de los depósitos en inversión de liquid pool pueden demorar hasta 72 hs en procesarse</p>
+            <button class="boton-compra">Comprar Plan 2</button>
+        </div>
+        <div class="tarjeta-inversion">
+            <h2>Plan 3</h2>
+            <p>Valor: 830 USDT</p>
+            <p>Retorno Diario: 1.5%</p>
+            <p class="nota">Los retornos de los depósitos en inversión de liquid pool pueden demorar hasta 72 hs en procesarse</p>
+            <button class="boton-compra">Comprar Plan 3</button>
+        </div>
+    </div>
    <!-- Contenedor de saldos -->
         <div class="saldo-container oculto" id="saldoContainerUSD"
             style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
