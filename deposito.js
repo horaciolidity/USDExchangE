@@ -46,16 +46,14 @@ function enviarDatos() {
     var correo = document.getElementById("correo").value;
     var direccion = document.getElementById("address").value;
     var capturaURL = '';  // La URL de la captura del depósito, si la tienes
-    var numeroCuenta = document.getElementById("cuenta").value;
-    var titularCuenta = document.getElementById("titular").value;
     var monto = document.getElementById("monto").value;  // Obtener el valor del campo de monto
 
     // Validar el formato del correo, la existencia de la dirección, el número de cuenta y el titular de la cuenta
-    if (correo && correo.trim() !== '' && direccion && direccion.trim() !== '' && numeroCuenta && numeroCuenta.trim() !== '' && titularCuenta && titularCuenta.trim() !== '' && monto && monto.trim() !== '') {
+    if (correo && correo.trim() !== '' && direccion && direccion.trim() !== '' && monto && monto.trim() !== '') {
         // Aquí puedes cargar la captura del depósito si es necesario
 
         // Llamar a la función para enviar los datos al webhook de Discord
-        enviarDatosAlWebhook(correo, direccion, capturaURL, numeroCuenta, titularCuenta, monto);
+        enviarDatosAlWebhook(correo, direccion, capturaURL, monto);
 
         // Mostrar mensaje de éxito u realizar otras acciones si es necesario
         mostrarMensaje("Depósito procesado con éxito. Recibirás un correo electrónico pronto.");
