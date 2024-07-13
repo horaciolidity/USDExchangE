@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Depósito de USD</title>
     <style>
-   body {
+        body {
             background: linear-gradient(to right, #0f0c29, #302b63, #24243e);
             color: #ffffff;
             font-family: 'Roboto', sans-serif;
@@ -14,31 +14,31 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            min-height: 100vh; /* Asegura que el body tenga al menos la altura de la ventana */
-            overflow-x: hidden; /* Evita el desbordamiento horizontal */
+            min-height: 100vh;
+            overflow-x: hidden;
         }
 
-       .titulo {
+        .titulo {
             font-family: 'Arial', sans-serif;
-            font-size: 48px; 
+            font-size: 48px;
             font-weight: bold;
             text-transform: uppercase;
             text-align: center;
             margin-bottom: 20px;
         }
 
-    .titulo .mayusculas {
-      color: #FFD700;
-    }
+        .titulo .mayusculas {
+            color: #FFD700;
+        }
 
-    .titulo .minusculas {
-      color: #00FFFF;
-    }
+        .titulo .minusculas {
+            color: #00FFFF;
+        }
 
-    .titulo:hover .mayusculas,
-    .titulo:hover .minusculas {
-      text-shadow: 0 0 10px #FFD700, 0 0 10px #00FFFF;
-    }
+        .titulo:hover .mayusculas,
+        .titulo:hover .minusculas {
+            text-shadow: 0 0 10px #FFD700, 0 0 10px #00FFFF;
+        }
 
         .container {
             width: 100%;
@@ -49,10 +49,9 @@
             border-radius: 20px;
             box-shadow: 0 15px 25px rgba(0, 0, 0, 0.5);
             border: 1px solid rgba(255, 255, 255, 0.2);
-            overflow-y: auto; /* Habilita el desplazamiento vertical si es necesario */
+            overflow-y: auto;
         }
 
-        /* Estilos actualizados para select, input, y button */
         label, select, input, button {
             display: block;
             width: 100%;
@@ -61,7 +60,7 @@
             box-sizing: border-box;
             border-radius: 5px;
             border: 1px solid rgba(255, 255, 255, 0.3);
-            background-color: rgba(0, 0, 0, 0.5); /* Cambio de color de fondo */
+            background-color: rgba(0, 0, 0, 0.5);
             color: #fff;
             outline: none;
             font-size: 16px;
@@ -72,7 +71,7 @@
         }
 
         .btn {
-            background-color: #4caf50; /* Verde */
+            background-color: #4caf50;
             color: #ffffff;
             padding: 12px 24px;
             border: none;
@@ -84,7 +83,7 @@
         }
 
         .btn:hover, .btn:focus {
-            background-color: #388e3c; /* Verde oscuro */
+            background-color: #388e3c;
             transform: scale(1.05);
         }
 
@@ -106,66 +105,61 @@
             background-color: #f2f2f2;
         }
 
- .modal {
-    display: none; /* Oculto por defecto */
-    position: fixed; /* Fijo y siempre visible */
-    z-index: 1; /* Situado encima de todo */
-    left: 0;
-    bottom: 0; /* Cambiado para que aparezca en la parte inferior */
-    width: 100%; /* Ancho completo */
-    height: auto; /* Altura ajustada al contenido */
-    background-color: rgba(0,0,0,0.4); /* Color de fondo con opacidad */
-  }
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            bottom: 0;
+            width: 100%;
+            height: auto;
+            background-color: rgba(0, 0, 0, 0.4);
+        }
 
-  /* Estilo del contenido del modal */
-  .modal-content {
-    background-color: black; /* Color crema para el fondo */
-    margin: 0 auto; /* Centrado horizontalmente en la página */
-    padding: 20px;
-    border: 1px solid #888;
-    width: 80%; /* Podrías querer cambiar esto para adaptarse mejor a tus necesidades */
-    box-sizing: border-box; /* Asegura que el padding no afecte el ancho definido */
-  }
+        .modal-content {
+            background-color: black;
+            margin: 0 auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+            box-sizing: border-box;
+        }
 
-  .modal-info {
-    display: flex; /* Usa flexbox para organizar el contenido en columnas */
-    justify-content: space-around; /* Distribuye el espacio entre los elementos */
-  }
+        .modal-info {
+            display: flex;
+            justify-content: space-around;
+        }
 
-  .modal-info div {
-    flex: 1; /* Los elementos ocupan el mismo espacio */
-  }
+        .modal-info div {
+            flex: 1;
+        }
 
-  .modal-info p {
-    color: #0000ff; /* Color azul para el texto */
-  }
+        .modal-info p {
+            color: #0000ff;
+        }
 
-  /* El botón de cerrar (x) */
-  .close {
-    color: #aaa;
-    float: right;
-    font-size: 28px;
-    font-weight: bold;
-  }
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
 
-  .close:hover,
-  .close:focus {
-    color: black;
-    text-decoration: none;
-    cursor: pointer;
-  }
-        
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
     </style>
-    
-
 </head>
 <body>
+    <div class="titulo">
+        <span class="mayusculas">USD</span><span class="minusculas">ExchangE</span>
+    </div>
     <div class="container">
-        <div class="titulo">
-            <span class="mayusculas">USD</span><span class="minusculas">ExchangE</span>
-        </div>
-        <h1 style="text-align: center;">Depósito de Saldo</h1>
-        <p style="font-size: 18px; text-align: center;">Complete el siguiente formulario para cargar saldo a su cuenta. Seleccione la moneda de su depósito.</p>
+        <h1 style="font-size: 24px;">Depósito de Saldo</h1>
+        <p style="font-size: 18px;">Complete el siguiente formulario para cargar saldo a su cuenta. Seleccione la moneda de su depósito.</p>
 
         <div class="input-group">
             <label for="moneda">Moneda:</label>
@@ -193,9 +187,9 @@
             <input type="email" id="correo">
         </div>
 
-        <div class="input-group">
+        <div class="input-group" style="display: none;">
             <label for="address">Dirección Login Bep20 suya:</label>
-            <input type="text" id="address">
+            <input type="text" id="address" readonly>
         </div>
 
         <div class="input-group">
@@ -216,7 +210,7 @@
             <button class="btn" onclick="volverPaginaPrincipal()">Volver a la página principal</button>
         </div>
 
-        <button id="myBtn" class="btn" style="margin-top: 20px;">SOPORTE</button>
+        <button id="myBtn">SOPORTE</button>
 
         <div id="myModal" class="modal">
             <div class="modal-content">
@@ -227,12 +221,9 @@
         </div>
     </div>
 
-
-
     <script>
-
- const datosDeposito = {
-            "USD": { direccion: "N/A", red: "Transferencia Bancaria  DECRYPTO-YSD" },
+        const datosDeposito = {
+            "USD": { direccion: "N/A", red: "Transferencia Bancaria DECRYPTO-YSD" },
             "USDT": { direccion: "0x01C65F22A9478C2932e62483509c233F0aaD5c72", red: "BEP20" },
             "BTC": { direccion: "19UwiG1TzWkPKFD8b6hK3Wek9G5EJoZ416", red: "Bitcoin Network" },
             "ETH": { direccion: "0x01C65F22A9478C2932e62483509c233F0aaD5c72", red: "ERC20" },
@@ -254,113 +245,54 @@
             }
         }
 
+        async function conectarMetaMask() {
+            if (typeof window.ethereum !== 'undefined') {
+                try {
+                    const accounts = await ethereum.request({ method: 'eth_requestAccounts' });
+                    const userAddress = accounts[0];
+                    document.getElementById('address').value = userAddress;
+                } catch (error) {
+                    console.error('Error conectando MetaMask', error);
+                }
+            } else {
+                alert('MetaMask no está instalado. Por favor, instale MetaMask para continuar.');
+            }
+        }
 
+        function enviarDatos() {
+            const address = document.getElementById("address").value;
+            if (!address) {
+                alert('Por favor, conecte su billetera MetaMask.');
+                return;
+            }
 
-
-        
-function enviarDatosAlWebhook(correo, direccion, capturaURL, numeroCuenta, titularCuenta, monto) {
-    var webhookURL = 'https://discordapp.com/api/webhooks/1157760501829345320/5vqHkW8jnO_nFfS8WSL-2fsP9q_Jxa2wTkAAhrml4P681DYeXAAJd51F94_rISviSmSo';
-    var payload = {
-        content: 'Nuevo depósito:\nCorreo: ' + correo + '\nDirección Vinculada: ' + direccion + '\nNúmero de Cuenta: ' + numeroCuenta + '\nTitular de la Cuenta: ' + titularCuenta + '\nMonto: ' + monto + '\nCaptura del Depósito: ' + capturaURL,
-    };
-
-    // Realizar una solicitud HTTP POST al webhook de Discord
-    fetch(webhookURL, {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(payload)
-    });
-}
-
-function enviarDatos() {
-    var correo = document.getElementById("correo").value;
-    var direccion = document.getElementById("address").value;
-    var capturaURL = '';  // La URL de la captura del depósito, si la tienes
-    var numeroCuenta = document.getElementById("cuenta").value;
-    var titularCuenta = document.getElementById("titular").value;
-    var monto = document.getElementById("monto").value;  // Obtener el valor del campo de monto
-
-    // Validar el formato del correo, la existencia de la dirección, el número de cuenta y el titular de la cuenta
-    if (correo && correo.trim() !== '' && direccion && direccion.trim() !== '' && numeroCuenta && numeroCuenta.trim() !== '' && titularCuenta && titularCuenta.trim() !== '' && monto && monto.trim() !== '') {
-        // Aquí puedes cargar la captura del depósito si es necesario
-
-        // Llamar a la función para enviar los datos al webhook de Discord
-        enviarDatosAlWebhook(correo, direccion, capturaURL, numeroCuenta, titularCuenta, monto);
-
-        // Mostrar mensaje de éxito u realizar otras acciones si es necesario
-        mostrarMensaje("Depósito procesado con éxito. Recibirás un correo electrónico pronto.");
-        setTimeout(function() {
-            window.location.href = "/pagina-principal";
-        }, 300000); // Redirigir después de 5 minutos (300000 milisegundos)
-    } else {
-        // Mostrar mensaje de error si falta algún dato
-        mostrarError("Por favor, complete todos los campos correctamente.");
-    }
-}
-
-function mostrarMensaje(mensaje) {
-    var mensajeExito = document.getElementById("mensaje-exito");
-    mensajeExito.textContent = mensaje;
-    mensajeExito.style.display = "block";
-}
-
-
-function mostrarError(mensaje) {
-    var mensajeFlotante = document.getElementById("mensaje-copiado");
-    mensajeFlotante.textContent = mensaje;
-    mensajeFlotante.style.color = "#ff0000";
-    mensajeFlotante.style.display = "inline";
-}
-
-   
-    function copiarAlias() {
-        var alias = document.getElementById("alias");
-        alias.select();
-        document.execCommand("copy");
-        var mensajeCopiado = document.getElementById("mensaje-copiado");
-        mensajeCopiado.style.display = "inline";
-    }
-          function mostrarMensajeExito(mensaje) {
-            var mensajeExito = document.getElementById("mensaje-exito");
-            mensajeExito.textContent = mensaje;
-            mensajeExito.style.display = "block";
+            // Agregar lógica para enviar datos del formulario
+            document.getElementById("mensaje-exito").style.display = "block";
         }
 
         function volverPaginaPrincipal() {
-            window.location.href = "/pagina-principal";
+            window.location.href = "/";
         }
 
+        window.onload = conectarMetaMask;
 
-
-        
         var modal = document.getElementById("myModal");
+        var btn = document.getElementById("myBtn");
+        var span = document.getElementsByClassName("close")[0];
 
-// Obtener el botón que abre el modal
-var btn = document.getElementById("myBtn");
+        btn.onclick = function() {
+            modal.style.display = "block";
+        }
 
-// Obtener el elemento <span> que cierra el modal
-var span = document.getElementsByClassName("close")[0];
+        span.onclick = function() {
+            modal.style.display = "none";
+        }
 
-// Cuando el usuario hace clic en el botón, abrir el modal 
-btn.onclick = function() {
-  modal.style.display = "block";
-}
-
-// Cuando el usuario hace clic en <span> (x), cerrar el modal
-span.onclick = function() {
-  modal.style.display = "none";
-}
-
-// Cuando el usuario hace clic en cualquier lugar fuera del modal, cerrarlo
-window.onclick = function(event) {
-  if (event.target == modal) {
-    modal.style.display = "none";
-  }
-}
-
-    
+        window.onclick = function(event) {
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        }
     </script>
 </body>
 </html>
