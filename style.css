@@ -295,3 +295,49 @@ span {
         }
 
 
+.contenedor-inversion {
+    display: flex;
+    gap: 20px;
+}
+
+.tarjeta-inversion {
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    padding: 20px;
+    text-align: center;
+    width: 200px;
+    position: relative;
+}
+
+.tarjeta-inversion h2 {
+    margin-top: 0;
+}
+
+.tarjeta-inversion p {
+    margin: 10px 0;
+}
+
+.tarjeta-inversion .nota {
+    color: red;
+    font-size: 0.8em;
+    position: absolute;
+    bottom: 10px;
+    left: 10px;
+    right: 10px;
+}
+
+.boton-compra {
+    background-color: #007bff;
+    border: none;
+    border-radius: 5px;
+    color: white;
+    cursor: pointer;
+    padding: 10px 20px;
+    text-decoration: none;
+    margin-top: 20px;
+}
+
+.boton-compra:hover {
+    background-color: #0056b3;
+}
