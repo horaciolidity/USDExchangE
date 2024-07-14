@@ -245,24 +245,25 @@
 
 
 <body style="background-color: #333; font-family: Arial, sans-serif; color: #ddd;">
-    <div style="width: 80%; max-width: 280px; margin: 20px auto; padding: 20px; box-shadow: 0 4px 8px rgba(0,0,0,0.5); background: #222; border-radius: 10px;">
+    <div style="width: 80%; max-width: 300px; margin: 20px auto; padding: 20px; box-shadow: 0 4px 8px rgba(0,0,0,0.5); background: #222; border-radius: 10px;">
         <div style="display: flex; justify-content: space-between; margin-bottom: 20px;">
-            <a href="tareas.html" style="padding: 8px 16px; text-decoration: none; color: white; background-color: #5A9F60; border-radius: 5px; cursor: pointer; font-size: 0.9em;" class="boton-tareas">$ TAREAS / MINT</a>
-            <a href="retiros.html" style="padding: 8px 16px; text-decoration: none; color: white; background-color: #5A9F60; border-radius: 5px; cursor: pointer; font-size: 0.9em;" class="btn-retirar">Retirar mis criptomonedas</a>
+            <a href="tareas.html" style="padding: 10px 16px; text-decoration: none; color: white; background-color: #5A9F60; border-radius: 5px; cursor: pointer; font-size: 1em;" class="boton-tareas">$ TAREAS / MINT</a>
+            <a href="retiros.html" style="padding: 10px 16px; text-decoration: none; color: white; background-color: #5A9F60; border-radius: 5px; cursor: pointer; font-size: 1em;" class="btn-retirar">Retirar mis criptomonedas</a>
         </div>
         <div style="margin-bottom: 20px; display: flex;">
-            <input type="text" id="userAddress" placeholder="Pega tu dirección aquí" style="flex-grow: 1; padding: 8px; border: 1px solid #555; border-radius: 5px; color: #ddd; background-color: #444; margin-right: 10px;">
-            <button onclick="generarLink()" style="background-color: #4CAF50; color: white; padding: 8px 16px; border: none; border-radius: 5px; cursor: pointer; font-size: 0.9em;">Generar Link</button>
+            <input type="text" id="userAddress" placeholder="Pega tu dirección aquí" style="flex-grow: 1; padding: 10px; border: 1px solid #555; border-radius: 5px; color: #ddd; background-color: #444; margin-right: 10px;">
+            <button onclick="generarLink()" style="background-color: #4CAF50; color: white; padding: 10px 16px; border: none; border-radius: 5px; cursor: pointer; font-size: 1em;">Generar Link</button>
         </div>
-        <div style="margin-bottom: 10px;">
-            <p>Link de Referido: <span id="referLink" style="color: #9cf;"></span></p>
+        <div style="margin-bottom: 20px;">
+            <p style="margin-bottom: 5px;">Link de Referido: <span id="referLink" style="color: #9cf;"></span></p>
             <input type="text" id="fullReferLink" style="display:none;">
         </div>
-        <button onclick="copiarAlPortapapeles()" style="padding: 8px 16px; background-color: #008CBA; color: white; border: none; border-radius: 5px; cursor: pointer; width: 100%; margin-bottom: 20px; font-size: 0.9em;">Copiar Enlace</button>
+        <button onclick="copiarAlPortapapeles()" style="padding: 10px 16px; background-color: #008CBA; color: white; border: none; border-radius: 5px; cursor: pointer; width: 100%; font-size: 1em;">Copiar Enlace</button>
         <div style="padding: 20px; background-color: #1A1A1A; border-radius: 5px;">
-            <button id="supportBtn" style="padding: 8px 16px; background-color: #007bff; color: white; border: none; border-radius: 5px; cursor: pointer; width: 100%; font-size: 0.9em;">Soporte Telegram</button>
+            <button id="supportBtn" style="padding: 10px 16px; background-color: #007bff; color: white; border: none; border-radius: 5px; cursor: pointer; width: 100%; font-size: 1em;">Soporte Telegram</button>
         </div>
     </div>
+
      <div class="contenedor-inversion">
 
         <div class="tarjeta-inversion">
